@@ -332,8 +332,6 @@ Public Class frmEmployeeStatus
                         e_mail = New MailMessage()
                         e_mail.From = New MailAddress("ems@fccl.com.pk")
                         e_mail.To.Add(ContactEmail)
-                        'e_mail.To.Add("arslan.ahmed@fccl.com.pk")
-
                         e_mail.Subject = "Employee Status Updated"
                         e_mail.IsBodyHtml = False
                         e_mail.Body = "Status of following Employee has been changed" + vbNewLine + vbNewLine '( " & sEmpNo & " - " & txtEmployeeName.Text & " )
@@ -420,7 +418,6 @@ Public Class frmEmployeeStatus
                     Catch error_t As Exception
                         MsgBox(error_t.ToString)
                     End Try
-
 
                 End If
 
