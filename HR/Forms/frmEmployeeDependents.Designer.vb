@@ -56,6 +56,7 @@ Partial Class frmEmployeeDependents
         Me.btnDelete = New System.Windows.Forms.ToolStripButton()
         Me.stbDetail = New System.Windows.Forms.StatusStrip()
         Me.slStatus = New System.Windows.Forms.ToolStripStatusLabel()
+        Me.ToolStripDropDownButton1 = New System.Windows.Forms.ToolStripDropDownButton()
         CType(Me.grdAudit, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.tbAudit.SuspendLayout()
         Me.tbDependent.SuspendLayout()
@@ -333,7 +334,7 @@ Partial Class frmEmployeeDependents
         Me.tlbToolbar.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.btnNew, Me.btnSave, Me.btnSearch, Me.btnDelete})
         Me.tlbToolbar.Location = New System.Drawing.Point(0, 0)
         Me.tlbToolbar.Name = "tlbToolbar"
-        Me.tlbToolbar.Size = New System.Drawing.Size(666, 25)
+        Me.tlbToolbar.Size = New System.Drawing.Size(672, 25)
         Me.tlbToolbar.TabIndex = 5
         Me.tlbToolbar.Text = "tlbTop"
         '
@@ -376,10 +377,10 @@ Partial Class frmEmployeeDependents
         '
         'stbDetail
         '
-        Me.stbDetail.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.slStatus})
-        Me.stbDetail.Location = New System.Drawing.Point(0, 323)
+        Me.stbDetail.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.slStatus, Me.ToolStripDropDownButton1})
+        Me.stbDetail.Location = New System.Drawing.Point(0, 315)
         Me.stbDetail.Name = "stbDetail"
-        Me.stbDetail.Size = New System.Drawing.Size(666, 22)
+        Me.stbDetail.Size = New System.Drawing.Size(672, 22)
         Me.stbDetail.TabIndex = 6
         Me.stbDetail.Text = "Hello"
         '
@@ -388,11 +389,20 @@ Partial Class frmEmployeeDependents
         Me.slStatus.Name = "slStatus"
         Me.slStatus.Size = New System.Drawing.Size(0, 17)
         '
+        'ToolStripDropDownButton1
+        '
+        Me.ToolStripDropDownButton1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
+        Me.ToolStripDropDownButton1.Image = CType(resources.GetObject("ToolStripDropDownButton1.Image"), System.Drawing.Image)
+        Me.ToolStripDropDownButton1.ImageTransparentColor = System.Drawing.Color.Magenta
+        Me.ToolStripDropDownButton1.Name = "ToolStripDropDownButton1"
+        Me.ToolStripDropDownButton1.Size = New System.Drawing.Size(29, 20)
+        Me.ToolStripDropDownButton1.Text = "ToolStripDropDownButton1"
+        '
         'frmEmployeeDependents
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(666, 345)
+        Me.ClientSize = New System.Drawing.Size(672, 337)
         Me.Controls.Add(Me.tbDependent)
         Me.Controls.Add(Me.tlbToolbar)
         Me.Controls.Add(Me.stbDetail)
@@ -446,4 +456,5 @@ Partial Class frmEmployeeDependents
     Friend WithEvents cbRelation As ComboBox
     Friend WithEvents chkInsurance As CheckBox
     Friend WithEvents cbGender As ComboBox
+    Friend WithEvents ToolStripDropDownButton1 As ToolStripDropDownButton
 End Class

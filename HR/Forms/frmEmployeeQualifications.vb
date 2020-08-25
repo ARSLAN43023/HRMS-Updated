@@ -82,7 +82,7 @@
         End If
         rsEmployeeName.Close()
         FillGrid()
-        'FillAudit()
+        FillAudit()
 
         Me.Refresh()
         bDisplaying = False
@@ -90,7 +90,7 @@
 
     Private Sub FillGrid()
         Dim connODBC As New Odbc.OdbcConnection
-        connODBC.ConnectionString = "Dsn=ERP;uid=sa;pwd=123456"
+        connODBC.ConnectionString =  "Dsn=ERP;uid=sa"
         connODBC.Open()
         Dim ds As DataSet = New DataSet
         Dim adapter As New Odbc.OdbcDataAdapter
@@ -137,13 +137,13 @@
 
         'Try
         bProcessing = True
-            conn.BeginTrans()
+        conn.BeginTrans()
 
-            If (nQualificationId = Nothing) Or (nQualificationId = 0) Then
-                sSql = "Select MAX(Id) As Id From HR_EmployeeQualifications Where EmployeeId = " & nEmployeeId
-                GetRecordSet(rsMisc, sSql)
-                nNewQualificationtId = CInt(rsMisc("Id").Value)
-                nNewQualificationtId += 1
+        If (nQualificationId = Nothing) Or (nQualificationId = 0) Then
+            sSql = "Select MAX(Id) As Id From HR_EmployeeQualifications Where EmployeeId = " & nEmployeeId
+            GetRecordSet(rsMisc, sSql)
+            nNewQualificationtId = CInt(rsMisc("Id").Value)
+            nNewQualificationtId += 1
 
             sSql = "Insert INTO HR_EmployeeQualifications (Id, EmployeeId, DegreeDiplomaId, OtherDiploma, Majors, GradeObtained, " &
                         "InstitutionId, OtherInstitute, SessionYearFrom, SessionYearTo, IsAcademic, CountryId, CityId, ExtraActivities, " &
@@ -153,7 +153,7 @@
                         ", " & IIf(radAcademic.Checked, 0, 1) & ", " & cbCountry.SelectedValue & ", " & cbCity.SelectedValue &
                         ", '" & txtExtraCurricular.Text & "', '" & txtDistinctions.Text & "')"
             conn.Execute(sSql)
-            Else
+        Else
             sSql = "Update HR_EmployeeQualifications Set DegreeDiplomaId = " & IIf(cbDegreeDiploma.SelectedIndex < 0, 0, cbDegreeDiploma.SelectedValue) & ", OtherDiploma = '" & txtOtherDegree.Text &
                    "', Majors = '" & txtMajors.Text & "', GradeObtained = '" & txtGradeGPA.Text & "', InstitutionId = " & IIf(cbInstitution.SelectedIndex < 0, 0, cbInstitution.SelectedValue) &
                    ", OtherInstitute = '" & txtOtherInstitution.Text & "', SessionYearFrom = " & txtStartYear.Text &
@@ -169,11 +169,11 @@
         ' conn.Execute(sSql)
 
         conn.CommitTrans()
-            'Catch ex As Exception
-            '    MessageBox.Show("Error saving record.")
-            'End Try
+        'Catch ex As Exception
+        '    MessageBox.Show("Error saving record.")
+        'End Try
 
-            If nEmployeeId <> Nothing Then
+        If nEmployeeId <> Nothing Then
             sSql = "Select * From EM_Employee Where Id = " & nEmployeeId
             If rsMain.State = 1 Then rsMain.Close()
             rsMain.Open(sSql, conn, ADODB.CursorTypeEnum.adOpenKeyset, ADODB.LockTypeEnum.adLockOptimistic)
@@ -213,7 +213,7 @@
 
     Private Sub FillAudit()
         Dim connODBC As New Odbc.OdbcConnection
-        connODBC.ConnectionString = "Dsn=ERP;uid=sa;pwd=123456"
+        connODBC.ConnectionString =  "Dsn=ERP;uid=sa"
         connODBC.Open()
 
         Dim ds As DataSet = New DataSet
@@ -352,5 +352,8 @@
         End If
     End Sub
 
+    Private Sub tlbToolbar_ItemClicked(sender As Object, e As ToolStripItemClickedEventArgs) Handles tlbToolbar.ItemClicked
+
+    End Sub
 End Class
 

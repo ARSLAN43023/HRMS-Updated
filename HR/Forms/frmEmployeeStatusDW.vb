@@ -7,12 +7,14 @@
     Dim nStatus As Integer
     Dim sAction As String
     Dim nDocumentNo As Integer
+    Dim rsMisc As ADODB.Recordset
 
     Private Sub frmEmployeeStatus_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         Me.MdiParent = frmMdiMain
         rsMain = New ADODB.Recordset
         rsMain.CursorLocation = ADODB.CursorLocationEnum.adUseClient
         Clear()
+        UserRights(rsMisc)
     End Sub
 
     Private Sub Clear()
@@ -33,6 +35,55 @@
 
         FillAudit()
     End Sub
+
+
+    Public Sub UserRights(ByRef rsMisc As ADODB.Recordset)
+
+        Dim sSql As String
+        Dim Button As String
+        Dim TabControlRights As String
+
+        Try
+
+            If (conn.State <> ConnectionState.Open) Then conn.Open(sConnectionString)
+
+            'sSql = "Select a.nActionId, a.vcName,a.vcDocType, b.vcUserId from ComActionCodes a, ComAccessRights b " &
+            '   "Where a.nActionId = b.nActionId And a.vcDocType = b.vcDocId And " &
+            '   "b.vcUserId ='" & Trim(frmUserLogin.txtUserID.Text) & "'  And a.vcDocType = 'emsEmployee'"
+            'GetRecordSet(rsMisc, sSql)
+            sSql = "Select vcName, nGroupId, vcUserId,nActionId From((Select comActionCodes.vcName, ComAccessRights.nGroupId, ComAccessRights.vcUserId,comActionCodes.nActionId From ComAccessRights, comActionCodes, ComUserGroups " &
+                    " Where comActionCodes.vcDocType = ComAccessRights.vcDocId " &
+                    "And comActionCodes.nActionId = ComAccessRights.nActionId " &
+                    " And ComAccessRights.vcDocId ='emsEmployee' " &
+                    "And ComUserGroups.nGroupId = ComAccessRights.nGroupId " &
+                    "And ComUserGroups.vcUserId ='" & Trim(frmUserLogin.txtUserID.Text) & "') " &
+                    " Union (Select comActionCodes.vcName, ComAccessRights.nGroupId, ComAccessRights.vcUserId,comActionCodes.nActionId " &
+                    " From ComAccessRights, comActionCodes " &
+                    " Where comActionCodes.vcDocType = ComAccessRights.vcDocId " &
+                    " And comActionCodes.nActionId = ComAccessRights.nActionId And " &
+                    "ComAccessRights.nGroupId = 0  " &
+                    " And ComAccessRights.vcDocId ='emsEmployee' " &
+                    " And ComAccessRights.vcUserId ='" & Trim(frmUserLogin.txtUserID.Text) & "')) g Order by nActionId  "
+            GetRecordSet(rsMisc, sSql)
+
+            While Not rsMisc.EOF
+                Button = "btn_" & rsMisc("vcName").Value
+                TabControlRights = "tb" & rsMisc("vcName").Value
+                If Button = "btn_Create" Then
+                    btn_Prepare.Enabled = True
+                ElseIf Button = "btn_Prepare" Then
+                    btn_Modify.Enabled = True
+                ElseIf Button = "btn_Delete" Then
+                    btn_Delete.Enabled = True
+                End If
+                rsMisc.MoveNext()
+            End While
+
+        Catch ex As Exception
+            MsgBox("Error" & ex.Message)
+        End Try
+    End Sub
+
 
     Private Sub Display()
         Clear()
@@ -186,7 +237,7 @@
 
     Private Sub FillAudit()
         Dim connODBC As New Odbc.OdbcConnection
-        connODBC.ConnectionString = "Dsn=ERP;uid=sa;pwd=123456"
+        connODBC.ConnectionString =  "Dsn=ERP;uid=sa"
         connODBC.Open()
         Dim ds As DataSet = New DataSet
         Dim adapter As New Odbc.OdbcDataAdapter
@@ -263,7 +314,7 @@
     End Function
 
 
-    Private Sub btnSave_Click(sender As Object, e As EventArgs) Handles btnSave.Click
+    Private Sub btnSave_Click(sender As Object, e As EventArgs) Handles btn_Modify.Click
         'If IsAnyFieldChanged() Then Exit Sub
 
         slStatus.Text = "Saving"
@@ -273,11 +324,11 @@
         slStatus.Text = ""
     End Sub
 
-    Private Sub btnNew_Click(sender As Object, e As EventArgs) Handles btnNew.Click
+    Private Sub btnNew_Click(sender As Object, e As EventArgs) Handles btn_Prepare.Click
         Clear()
     End Sub
 
-    Private Sub btnApprove_Click(sender As Object, e As EventArgs) Handles btnApprove.Click
+    Private Sub btnApprove_Click(sender As Object, e As EventArgs) Handles btn_Approve.Click
         Save(4)
     End Sub
 
@@ -317,4 +368,8 @@
                             (Trim(txtEmployeeName.Text) <> Trim(txtEmployeeName.Tag)) Or (Trim(txtRemarks.Text) <> Trim(txtRemarks.Tag)) Or
                             (cbStatus.SelectedValue <> cbStatus.Tag) Or (dtpDate.Value <> dtpDate.Tag)
     End Function
+
+    Private Sub tlbToolbar_ItemClicked(sender As Object, e As ToolStripItemClickedEventArgs) Handles tlbToolbar.ItemClicked
+
+    End Sub
 End Class

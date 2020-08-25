@@ -66,7 +66,7 @@
 
     Private Sub FillGrid()
         Dim connODBC As New Odbc.OdbcConnection
-        connODBC.ConnectionString = "Dsn=ERP;uid=sa;pwd=123456"
+        connODBC.ConnectionString = "Dsn=ERP;uid=sa"
         connODBC.Open()
         Dim ds As DataSet = New DataSet
         Dim adapter As New Odbc.OdbcDataAdapter
@@ -194,9 +194,9 @@
 
         If cbRelation.SelectedIndex = 0 Then
             nRelation = 2
-        ElseIf cbRelation.SelectedIndex = 1
+        ElseIf cbRelation.SelectedIndex = 1 Then
             nRelation = 1
-        ElseIf cbRelation.SelectedIndex = 2
+        ElseIf cbRelation.SelectedIndex = 2 Then
             nRelation = 7
         End If
 
@@ -284,7 +284,7 @@
 
     Private Sub FillAudit()
         Dim connODBC As New Odbc.OdbcConnection
-        connODBC.ConnectionString = "Dsn=ERP;uid=sa;pwd=123456"
+        connODBC.ConnectionString = "Dsn=ERP;uid=sa"
         connODBC.Open()
 
         Dim ds As DataSet = New DataSet

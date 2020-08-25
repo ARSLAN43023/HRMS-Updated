@@ -24,11 +24,11 @@ Partial Class frmEmployeeStatusDW
     Private Sub InitializeComponent()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmEmployeeStatusDW))
         Me.tlbToolbar = New System.Windows.Forms.ToolStrip()
-        Me.btnNew = New System.Windows.Forms.ToolStripButton()
-        Me.btnSave = New System.Windows.Forms.ToolStripButton()
+        Me.btn_Prepare = New System.Windows.Forms.ToolStripButton()
+        Me.btn_Modify = New System.Windows.Forms.ToolStripButton()
         Me.btnSearch = New System.Windows.Forms.ToolStripButton()
-        Me.btnDelete = New System.Windows.Forms.ToolStripButton()
-        Me.btnApprove = New System.Windows.Forms.ToolStripButton()
+        Me.btn_Delete = New System.Windows.Forms.ToolStripButton()
+        Me.btn_Approve = New System.Windows.Forms.ToolStripButton()
         Me.tbDependent = New System.Windows.Forms.TabControl()
         Me.tbPersonal = New System.Windows.Forms.TabPage()
         Me.cmdSearchEmployee = New System.Windows.Forms.Button()
@@ -55,31 +55,33 @@ Partial Class frmEmployeeStatusDW
         '
         'tlbToolbar
         '
-        Me.tlbToolbar.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.btnNew, Me.btnSave, Me.btnSearch, Me.btnDelete, Me.btnApprove})
+        Me.tlbToolbar.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.btn_Prepare, Me.btn_Modify, Me.btnSearch, Me.btn_Delete, Me.btn_Approve})
         Me.tlbToolbar.Location = New System.Drawing.Point(0, 0)
         Me.tlbToolbar.Name = "tlbToolbar"
         Me.tlbToolbar.Size = New System.Drawing.Size(666, 25)
         Me.tlbToolbar.TabIndex = 7
         Me.tlbToolbar.Text = "tlbTop"
         '
-        'btnNew
+        'btn_Prepare
         '
-        Me.btnNew.BackColor = System.Drawing.SystemColors.Control
-        Me.btnNew.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
-        Me.btnNew.Image = Global.HR.My.Resources.Resources._NEW
-        Me.btnNew.ImageTransparentColor = System.Drawing.SystemColors.ButtonFace
-        Me.btnNew.Name = "btnNew"
-        Me.btnNew.Size = New System.Drawing.Size(23, 22)
-        Me.btnNew.Text = "New"
+        Me.btn_Prepare.BackColor = System.Drawing.SystemColors.Control
+        Me.btn_Prepare.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
+        Me.btn_Prepare.Enabled = False
+        Me.btn_Prepare.Image = Global.HR.My.Resources.Resources._NEW
+        Me.btn_Prepare.ImageTransparentColor = System.Drawing.SystemColors.ButtonFace
+        Me.btn_Prepare.Name = "btn_Prepare"
+        Me.btn_Prepare.Size = New System.Drawing.Size(23, 22)
+        Me.btn_Prepare.Text = "New"
         '
-        'btnSave
+        'btn_Modify
         '
-        Me.btnSave.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
-        Me.btnSave.Image = Global.HR.My.Resources.Resources.SAVE
-        Me.btnSave.ImageTransparentColor = System.Drawing.SystemColors.ButtonFace
-        Me.btnSave.Name = "btnSave"
-        Me.btnSave.Size = New System.Drawing.Size(23, 22)
-        Me.btnSave.Text = "Save"
+        Me.btn_Modify.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
+        Me.btn_Modify.Enabled = False
+        Me.btn_Modify.Image = Global.HR.My.Resources.Resources.SAVE
+        Me.btn_Modify.ImageTransparentColor = System.Drawing.SystemColors.ButtonFace
+        Me.btn_Modify.Name = "btn_Modify"
+        Me.btn_Modify.Size = New System.Drawing.Size(23, 22)
+        Me.btn_Modify.Text = "Save"
         '
         'btnSearch
         '
@@ -90,25 +92,27 @@ Partial Class frmEmployeeStatusDW
         Me.btnSearch.Size = New System.Drawing.Size(23, 22)
         Me.btnSearch.Text = "Search"
         '
-        'btnDelete
+        'btn_Delete
         '
-        Me.btnDelete.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
-        Me.btnDelete.Image = Global.HR.My.Resources.Resources.DELETE
-        Me.btnDelete.ImageTransparentColor = System.Drawing.SystemColors.ButtonFace
-        Me.btnDelete.Name = "btnDelete"
-        Me.btnDelete.Size = New System.Drawing.Size(23, 22)
-        Me.btnDelete.Text = "Delete"
-        Me.btnDelete.Visible = False
+        Me.btn_Delete.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
+        Me.btn_Delete.Enabled = False
+        Me.btn_Delete.Image = Global.HR.My.Resources.Resources.DELETE
+        Me.btn_Delete.ImageTransparentColor = System.Drawing.SystemColors.ButtonFace
+        Me.btn_Delete.Name = "btn_Delete"
+        Me.btn_Delete.Size = New System.Drawing.Size(23, 22)
+        Me.btn_Delete.Text = "Delete"
+        Me.btn_Delete.Visible = False
         '
-        'btnApprove
+        'btn_Approve
         '
-        Me.btnApprove.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
-        Me.btnApprove.Image = Global.HR.My.Resources.Resources.Approve2
-        Me.btnApprove.ImageTransparentColor = System.Drawing.SystemColors.ButtonFace
-        Me.btnApprove.Name = "btnApprove"
-        Me.btnApprove.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.btnApprove.Size = New System.Drawing.Size(23, 22)
-        Me.btnApprove.Text = "Approve"
+        Me.btn_Approve.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
+        Me.btn_Approve.Enabled = False
+        Me.btn_Approve.Image = Global.HR.My.Resources.Resources.Approve2
+        Me.btn_Approve.ImageTransparentColor = System.Drawing.SystemColors.ButtonFace
+        Me.btn_Approve.Name = "btn_Approve"
+        Me.btn_Approve.RightToLeft = System.Windows.Forms.RightToLeft.No
+        Me.btn_Approve.Size = New System.Drawing.Size(23, 22)
+        Me.btn_Approve.Text = "Approve"
         '
         'tbDependent
         '
@@ -298,11 +302,11 @@ Partial Class frmEmployeeStatusDW
     End Sub
 
     Friend WithEvents tlbToolbar As ToolStrip
-    Friend WithEvents btnNew As ToolStripButton
-    Friend WithEvents btnSave As ToolStripButton
+    Friend WithEvents btn_Prepare As ToolStripButton
+    Friend WithEvents btn_Modify As ToolStripButton
     Friend WithEvents btnSearch As ToolStripButton
-    Friend WithEvents btnDelete As ToolStripButton
-    Friend WithEvents btnApprove As ToolStripButton
+    Friend WithEvents btn_Delete As ToolStripButton
+    Friend WithEvents btn_Approve As ToolStripButton
     Friend WithEvents tbDependent As TabControl
     Friend WithEvents tbPersonal As TabPage
     Friend WithEvents cmdSearchEmployee As Button

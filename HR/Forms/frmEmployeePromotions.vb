@@ -8,8 +8,11 @@ Public Class frmEmployeePromotions
     Dim sAction As String
     Public bProcessing As Boolean
     Dim bDisplaying As Boolean
+    Public sCalledForm As String
+
 
     Private Sub frmEmployeePromotions_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+
         Me.MdiParent = frmMdiMain
         rsMain = New ADODB.Recordset
         rsMain.CursorLocation = ADODB.CursorLocationEnum.adUseClient
@@ -99,7 +102,7 @@ Public Class frmEmployeePromotions
     Private Sub FillGrid()
         Try
             Dim connODBC As New Odbc.OdbcConnection
-            connODBC.ConnectionString = "Dsn=ERP;uid=sa;pwd=123456"
+            connODBC.ConnectionString = "Dsn=ERP;uid=sa"
             connODBC.Open()
             Dim ds As DataSet = New DataSet
             Dim adapter As New Odbc.OdbcDataAdapter
@@ -218,7 +221,7 @@ Public Class frmEmployeePromotions
 
     Private Sub FillAudit()
         Dim connODBC As New Odbc.OdbcConnection
-        connODBC.ConnectionString = "Dsn=ERP;uid=sa;pwd=123456"
+        connODBC.ConnectionString = "Dsn=ERP;uid=sa"
         connODBC.Open()
         Dim ds As DataSet = New DataSet
         Dim adapter As New Odbc.OdbcDataAdapter

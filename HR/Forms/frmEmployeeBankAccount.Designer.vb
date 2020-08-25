@@ -207,7 +207,7 @@ Partial Class frmEmployeeBankAccount
         'Label1
         '
         Me.Label1.AutoSize = True
-        Me.Label1.Location = New System.Drawing.Point(4, 13)
+        Me.Label1.Location = New System.Drawing.Point(6, 15)
         Me.Label1.Name = "Label1"
         Me.Label1.Size = New System.Drawing.Size(111, 16)
         Me.Label1.TabIndex = 0
@@ -235,11 +235,11 @@ Partial Class frmEmployeeBankAccount
         Me.grdAudit.PreviewInfo.Size = New System.Drawing.Size(0, 0)
         Me.grdAudit.PreviewInfo.ZoomFactor = 75.0R
         Me.grdAudit.PrintInfo.PageSettings = CType(resources.GetObject("grdAudit.PrintInfo.PageSettings"), System.Drawing.Printing.PageSettings)
-        Me.grdAudit.PropBag = resources.GetString("grdAudit.PropBag")
         Me.grdAudit.RowHeight = 15
         Me.grdAudit.Size = New System.Drawing.Size(642, 119)
         Me.grdAudit.TabIndex = 37
         Me.grdAudit.TabStop = False
+        Me.grdAudit.PropBag = resources.GetString("grdAudit.PropBag")
         '
         'stbDetail
         '

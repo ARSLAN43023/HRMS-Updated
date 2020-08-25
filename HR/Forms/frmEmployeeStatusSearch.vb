@@ -26,7 +26,7 @@
         Dim sCriteria As String = ""
 
         If Trim(txtEmployeeNo.Text) <> "" Then
-            sCriteria = sCriteria & " And b.EmployeeNo = '" & Trim(txtEmployeeNo.Text) & "'"
+            sCriteria = sCriteria & " And b.ID = '" & Trim(txtEmployeeNo.Text) & "'"
         End If
 
         If Trim(txtEmployeeName.Text) <> "" Then
@@ -63,7 +63,7 @@
 
     Private Sub SearchRecords()
         Dim connODBC As New Odbc.OdbcConnection
-        connODBC.ConnectionString = "Dsn=ERP;uid=sa;pwd=123456"
+        connODBC.ConnectionString = "Dsn=ERP;uid=sa"
         connODBC.Open()
 
         Dim sSql As String = GetQuery()

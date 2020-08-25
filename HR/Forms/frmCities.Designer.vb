@@ -24,86 +24,38 @@ Partial Class frmCities
     Private Sub InitializeComponent()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmCities))
         Me.tlbToolbar = New System.Windows.Forms.ToolStrip()
-        Me.btnNew = New System.Windows.Forms.ToolStripButton()
-        Me.btnSave = New System.Windows.Forms.ToolStripButton()
-        Me.btnSearch = New System.Windows.Forms.ToolStripButton()
-        Me.btnDelete = New System.Windows.Forms.ToolStripButton()
         Me.tbJobInformation = New System.Windows.Forms.TabControl()
         Me.tbQualifications = New System.Windows.Forms.TabPage()
         Me.Label2 = New System.Windows.Forms.Label()
         Me.cbCountry = New System.Windows.Forms.ComboBox()
-        Me.grdCities = New C1.Win.C1TrueDBGrid.C1TrueDBGrid()
         Me.txtCity = New System.Windows.Forms.TextBox()
         Me.Label1 = New System.Windows.Forms.Label()
-        Me.tbAudit = New System.Windows.Forms.TabPage()
-        Me.grdAudit = New System.Windows.Forms.DataGridView()
-        Me.vcAction = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.vcUserId = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.dtmActionAction = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.vcActionRemarks = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.stbDetail = New System.Windows.Forms.StatusStrip()
         Me.slStatus = New System.Windows.Forms.ToolStripStatusLabel()
+        Me.grdCities = New C1.Win.C1TrueDBGrid.C1TrueDBGrid()
+        Me.btn_Prepare = New System.Windows.Forms.ToolStripButton()
+        Me.btn_Modify = New System.Windows.Forms.ToolStripButton()
+        Me.btnSearch = New System.Windows.Forms.ToolStripButton()
+        Me.btn_Delete = New System.Windows.Forms.ToolStripButton()
         Me.tlbToolbar.SuspendLayout()
         Me.tbJobInformation.SuspendLayout()
         Me.tbQualifications.SuspendLayout()
-        CType(Me.grdCities, System.ComponentModel.ISupportInitialize).BeginInit()
-        Me.tbAudit.SuspendLayout()
-        CType(Me.grdAudit, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.stbDetail.SuspendLayout()
+        CType(Me.grdCities, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'tlbToolbar
         '
-        Me.tlbToolbar.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.btnNew, Me.btnSave, Me.btnSearch, Me.btnDelete})
+        Me.tlbToolbar.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.btn_Prepare, Me.btn_Modify, Me.btnSearch, Me.btn_Delete})
         Me.tlbToolbar.Location = New System.Drawing.Point(0, 0)
         Me.tlbToolbar.Name = "tlbToolbar"
         Me.tlbToolbar.Size = New System.Drawing.Size(515, 25)
         Me.tlbToolbar.TabIndex = 7
         Me.tlbToolbar.Text = "tlbTop"
         '
-        'btnNew
-        '
-        Me.btnNew.BackColor = System.Drawing.SystemColors.Control
-        Me.btnNew.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
-        Me.btnNew.Image = Global.HR.My.Resources.Resources._NEW
-        Me.btnNew.ImageTransparentColor = System.Drawing.SystemColors.ButtonFace
-        Me.btnNew.Name = "btnNew"
-        Me.btnNew.Size = New System.Drawing.Size(23, 22)
-        Me.btnNew.Text = "New"
-        '
-        'btnSave
-        '
-        Me.btnSave.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
-        Me.btnSave.Image = Global.HR.My.Resources.Resources.SAVE
-        Me.btnSave.ImageTransparentColor = System.Drawing.SystemColors.ButtonFace
-        Me.btnSave.Name = "btnSave"
-        Me.btnSave.Size = New System.Drawing.Size(23, 22)
-        Me.btnSave.Text = "Save"
-        '
-        'btnSearch
-        '
-        Me.btnSearch.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
-        Me.btnSearch.Image = Global.HR.My.Resources.Resources.SEARCH
-        Me.btnSearch.ImageTransparentColor = System.Drawing.SystemColors.ButtonFace
-        Me.btnSearch.Name = "btnSearch"
-        Me.btnSearch.Size = New System.Drawing.Size(23, 22)
-        Me.btnSearch.Text = "Search"
-        Me.btnSearch.Visible = False
-        '
-        'btnDelete
-        '
-        Me.btnDelete.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
-        Me.btnDelete.Image = Global.HR.My.Resources.Resources.DELETE
-        Me.btnDelete.ImageTransparentColor = System.Drawing.SystemColors.ButtonFace
-        Me.btnDelete.Name = "btnDelete"
-        Me.btnDelete.Size = New System.Drawing.Size(23, 22)
-        Me.btnDelete.Text = "Delete"
-        Me.btnDelete.Visible = False
-        '
         'tbJobInformation
         '
         Me.tbJobInformation.Controls.Add(Me.tbQualifications)
-        Me.tbJobInformation.Controls.Add(Me.tbAudit)
         Me.tbJobInformation.Font = New System.Drawing.Font("Verdana", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.tbJobInformation.Location = New System.Drawing.Point(4, 26)
         Me.tbJobInformation.Name = "tbJobInformation"
@@ -144,24 +96,6 @@ Partial Class frmCities
         Me.cbCountry.Size = New System.Drawing.Size(175, 24)
         Me.cbCountry.TabIndex = 1
         '
-        'grdCities
-        '
-        Me.grdCities.AllowUpdate = False
-        Me.grdCities.CaptionHeight = 20
-        Me.grdCities.Font = New System.Drawing.Font("Verdana", 9.5!)
-        Me.grdCities.Images.Add(CType(resources.GetObject("grdCities.Images"), System.Drawing.Image))
-        Me.grdCities.Location = New System.Drawing.Point(6, 38)
-        Me.grdCities.Name = "grdCities"
-        Me.grdCities.PreviewInfo.Location = New System.Drawing.Point(0, 0)
-        Me.grdCities.PreviewInfo.Size = New System.Drawing.Size(0, 0)
-        Me.grdCities.PreviewInfo.ZoomFactor = 75.0R
-        Me.grdCities.PrintInfo.PageSettings = CType(resources.GetObject("grdCities.PrintInfo.PageSettings"), System.Drawing.Printing.PageSettings)
-        Me.grdCities.PropBag = resources.GetString("grdCities.PropBag")
-        Me.grdCities.RowHeight = 15
-        Me.grdCities.Size = New System.Drawing.Size(494, 226)
-        Me.grdCities.TabIndex = 16
-        Me.grdCities.TabStop = False
-        '
         'txtCity
         '
         Me.txtCity.Location = New System.Drawing.Point(325, 8)
@@ -178,58 +112,6 @@ Partial Class frmCities
         Me.Label1.TabIndex = 0
         Me.Label1.Text = "Country"
         '
-        'tbAudit
-        '
-        Me.tbAudit.BackColor = System.Drawing.SystemColors.ButtonFace
-        Me.tbAudit.Controls.Add(Me.grdAudit)
-        Me.tbAudit.Location = New System.Drawing.Point(4, 25)
-        Me.tbAudit.Name = "tbAudit"
-        Me.tbAudit.Size = New System.Drawing.Size(504, 270)
-        Me.tbAudit.TabIndex = 9
-        Me.tbAudit.Text = "Audit"
-        '
-        'grdAudit
-        '
-        Me.grdAudit.AllowUserToAddRows = False
-        Me.grdAudit.AllowUserToDeleteRows = False
-        Me.grdAudit.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.grdAudit.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.vcAction, Me.vcUserId, Me.dtmActionAction, Me.vcActionRemarks})
-        Me.grdAudit.Location = New System.Drawing.Point(7, 9)
-        Me.grdAudit.Name = "grdAudit"
-        Me.grdAudit.ReadOnly = True
-        Me.grdAudit.Size = New System.Drawing.Size(494, 253)
-        Me.grdAudit.TabIndex = 0
-        '
-        'vcAction
-        '
-        Me.vcAction.DataPropertyName = "vcAction"
-        Me.vcAction.HeaderText = "Action"
-        Me.vcAction.Name = "vcAction"
-        Me.vcAction.ReadOnly = True
-        '
-        'vcUserId
-        '
-        Me.vcUserId.DataPropertyName = "vcUserId"
-        Me.vcUserId.HeaderText = "User"
-        Me.vcUserId.Name = "vcUserId"
-        Me.vcUserId.ReadOnly = True
-        '
-        'dtmActionAction
-        '
-        Me.dtmActionAction.DataPropertyName = "dtmActionDate"
-        Me.dtmActionAction.HeaderText = "Date & Time"
-        Me.dtmActionAction.Name = "dtmActionAction"
-        Me.dtmActionAction.ReadOnly = True
-        Me.dtmActionAction.Width = 150
-        '
-        'vcActionRemarks
-        '
-        Me.vcActionRemarks.DataPropertyName = "vcActionRemarks"
-        Me.vcActionRemarks.HeaderText = "Remarks"
-        Me.vcActionRemarks.Name = "vcActionRemarks"
-        Me.vcActionRemarks.ReadOnly = True
-        Me.vcActionRemarks.Width = 200
-        '
         'stbDetail
         '
         Me.stbDetail.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.slStatus})
@@ -243,6 +125,65 @@ Partial Class frmCities
         '
         Me.slStatus.Name = "slStatus"
         Me.slStatus.Size = New System.Drawing.Size(0, 17)
+        '
+        'grdCities
+        '
+        Me.grdCities.AllowUpdate = False
+        Me.grdCities.CaptionHeight = 20
+        Me.grdCities.Font = New System.Drawing.Font("Verdana", 9.5!)
+        Me.grdCities.Images.Add(CType(resources.GetObject("grdCities.Images"), System.Drawing.Image))
+        Me.grdCities.Location = New System.Drawing.Point(6, 38)
+        Me.grdCities.Name = "grdCities"
+        Me.grdCities.PreviewInfo.Location = New System.Drawing.Point(0, 0)
+        Me.grdCities.PreviewInfo.Size = New System.Drawing.Size(0, 0)
+        Me.grdCities.PreviewInfo.ZoomFactor = 75.0R
+        Me.grdCities.PrintInfo.PageSettings = CType(resources.GetObject("grdCities.PrintInfo.PageSettings"), System.Drawing.Printing.PageSettings)
+        Me.grdCities.RowHeight = 15
+        Me.grdCities.Size = New System.Drawing.Size(494, 226)
+        Me.grdCities.TabIndex = 16
+        Me.grdCities.TabStop = False
+        Me.grdCities.PropBag = resources.GetString("grdCities.PropBag")
+        '
+        'btn_Prepare
+        '
+        Me.btn_Prepare.BackColor = System.Drawing.SystemColors.Control
+        Me.btn_Prepare.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
+        Me.btn_Prepare.Enabled = False
+        Me.btn_Prepare.Image = Global.HR.My.Resources.Resources._NEW
+        Me.btn_Prepare.ImageTransparentColor = System.Drawing.SystemColors.ButtonFace
+        Me.btn_Prepare.Name = "btn_Prepare"
+        Me.btn_Prepare.Size = New System.Drawing.Size(23, 22)
+        Me.btn_Prepare.Text = "New"
+        '
+        'btn_Modify
+        '
+        Me.btn_Modify.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
+        Me.btn_Modify.Enabled = False
+        Me.btn_Modify.Image = Global.HR.My.Resources.Resources.SAVE
+        Me.btn_Modify.ImageTransparentColor = System.Drawing.SystemColors.ButtonFace
+        Me.btn_Modify.Name = "btn_Modify"
+        Me.btn_Modify.Size = New System.Drawing.Size(23, 22)
+        Me.btn_Modify.Text = "Save"
+        '
+        'btnSearch
+        '
+        Me.btnSearch.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
+        Me.btnSearch.Image = Global.HR.My.Resources.Resources.SEARCH
+        Me.btnSearch.ImageTransparentColor = System.Drawing.SystemColors.ButtonFace
+        Me.btnSearch.Name = "btnSearch"
+        Me.btnSearch.Size = New System.Drawing.Size(23, 22)
+        Me.btnSearch.Text = "Search"
+        Me.btnSearch.Visible = False
+        '
+        'btn_Delete
+        '
+        Me.btn_Delete.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
+        Me.btn_Delete.Image = Global.HR.My.Resources.Resources.DELETE
+        Me.btn_Delete.ImageTransparentColor = System.Drawing.SystemColors.ButtonFace
+        Me.btn_Delete.Name = "btn_Delete"
+        Me.btn_Delete.Size = New System.Drawing.Size(23, 22)
+        Me.btn_Delete.Text = "Delete"
+        Me.btn_Delete.Visible = False
         '
         'frmCities
         '
@@ -259,31 +200,23 @@ Partial Class frmCities
         Me.tbJobInformation.ResumeLayout(False)
         Me.tbQualifications.ResumeLayout(False)
         Me.tbQualifications.PerformLayout()
-        CType(Me.grdCities, System.ComponentModel.ISupportInitialize).EndInit()
-        Me.tbAudit.ResumeLayout(False)
-        CType(Me.grdAudit, System.ComponentModel.ISupportInitialize).EndInit()
         Me.stbDetail.ResumeLayout(False)
         Me.stbDetail.PerformLayout()
+        CType(Me.grdCities, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
     End Sub
 
     Friend WithEvents tlbToolbar As ToolStrip
-    Friend WithEvents btnNew As ToolStripButton
-    Friend WithEvents btnSave As ToolStripButton
+    Friend WithEvents btn_Prepare As ToolStripButton
+    Friend WithEvents btn_Modify As ToolStripButton
     Friend WithEvents btnSearch As ToolStripButton
-    Friend WithEvents btnDelete As ToolStripButton
+    Friend WithEvents btn_Delete As ToolStripButton
     Friend WithEvents tbJobInformation As TabControl
     Friend WithEvents tbQualifications As TabPage
     Friend WithEvents txtCity As TextBox
     Friend WithEvents Label1 As Label
-    Friend WithEvents tbAudit As TabPage
-    Friend WithEvents grdAudit As DataGridView
-    Friend WithEvents vcAction As DataGridViewTextBoxColumn
-    Friend WithEvents vcUserId As DataGridViewTextBoxColumn
-    Friend WithEvents dtmActionAction As DataGridViewTextBoxColumn
-    Friend WithEvents vcActionRemarks As DataGridViewTextBoxColumn
     Friend WithEvents stbDetail As StatusStrip
     Friend WithEvents slStatus As ToolStripStatusLabel
     Friend WithEvents Label2 As Label

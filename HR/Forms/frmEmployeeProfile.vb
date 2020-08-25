@@ -1,6 +1,18 @@
 ﻿Imports System.Data.Odbc
 Imports System.IO
+Imports System.Text.RegularExpressions
 Imports C1.Win.C1TrueDBGrid
+Imports System
+Imports System.Net.Mail
+Imports System.Net
+Imports System.Data.SqlClient
+Imports System.Data.Sql
+
+
+Imports System.Net.Security
+
+Imports System.Security.Cryptography.X509Certificates
+Imports System.Data.OleDb
 
 Public Class frmEmployeeProfile
     Public rsMain As ADODB.Recordset
@@ -12,25 +24,176 @@ Public Class frmEmployeeProfile
     Dim nJobId As Integer
     Dim nQualificationId As Integer
     Dim bNewImage As Boolean
+    Dim rsMisc As New ADODB.Recordset
+    Public sUserId As String
+    Dim nEmployeeId As Integer = Nothing
+    Dim nBankAccountId As Integer = Nothing
+    Dim PreviousTab As New TabPage
+    Dim CurrentTab As New TabPage
+    Dim sBranch As String
+    Dim sDesignation As String
+    Dim sDepartment As String
+    Dim bEmail As Boolean
+    Dim fromsBranch As String
+    Dim fromsDepartment As String
+    Dim fromsDesignation As String
+    Dim nIncrementId As Integer
+    Public ConnectionExcelString As String = "Dsn=ERP;uid=sa"
+
+
+    Private Shared Function customCertValidation(ByVal sender As Object,
+                                                ByVal cert As X509Certificate,
+                                                ByVal chain As X509Chain,
+                                                ByVal errors As SslPolicyErrors) As Boolean
+
+        Return True
+
+    End Function
+    Public Sub New()
+
+        ' This call is required by the designer.
+        InitializeComponent()
+
+        ' Add any initialization after the InitializeComponent() call.
+
+    End Sub
 
     Private Sub frmEmployeeProfile_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 
-
         Me.MdiParent = frmMdiMain
         Me.BringToFront()
+        Me.Visible = True
+        Me.Refresh()
+
+        For Each ctrl In Me.Controls
+            ctrl.refresh()
+        Next
+        'Me.EM_Employee_AuditTableAdapter.Fill(Me.DsHR.EM_Employee_Audit)
+        rsMain = New ADODB.Recordset
+        rsMain.CursorLocation = ADODB.CursorLocationEnum.adUseClient
+        Me.Location = New Point(0, 0)
+
+        TabControl1.TabPages(0).Enabled = False
+        TabControl1.TabPages(1).Enabled = False
+        TabControl1.TabPages(2).Enabled = False
+        TabControl1.TabPages(3).Enabled = False
+        TabControl1.TabPages(4).Enabled = False
+        TabControl1.TabPages(5).Enabled = False
+        TabControl1.TabPages(6).Enabled = False
+        TabControl1.TabPages(7).Enabled = False
+        'TabControl1.TabPages(8).Enabled = False
+        TabControl1.TabPages.Remove(tbAudit)
+        TabControl1.TabPages(0).AutoScroll = True
+
+
         ''TODO: This line of code loads data into the 'DsHR.EM_Employee_Audit' table. You can move, or remove it, as needed.
         'Me.EM_Employee_AuditTableAdapter.Fill(Me.DsHR.EM_Employee_Audit)
         'TODO: This line of code loads data into the 'DsFCCL.EM_Employee_Audit' table. You can move, or remove it, as needed.
-        Me.EM_Employee_AuditTableAdapter.Fill(Me.DsHR.EM_Employee_Audit)
-        rsMain = New ADODB.Recordset
-        rsMain.CursorLocation = ADODB.CursorLocationEnum.adUseClient
 
-
-
+        UserRights(rsMisc)
         PopulateControls()
         Clear()
 
+
     End Sub
+
+    Public Sub UserRights(ByRef rsMisc As ADODB.Recordset)
+
+        Dim sSql As String
+        Dim Button As String
+        Dim TabControlRights As String
+
+        Try
+
+            If (conn.State <> ConnectionState.Open) Then conn.Open(sConnectionString)
+
+            'sSql = "Select vcUserId from comAccessRights"
+            'rsMain.Open(sSql, conn, ADODB.CursorLocationEnum.adUseClient, ADODB.LockTypeEnum.adLockOptimistic)
+            'g_sUserId = Convert.ToString(rsMain("vcUserId").Value)
+
+            'sSql = "Select a.nActionId, a.vcName,a.vcDocType, b.vcUserId from ComActionCodes a, ComAccessRights b " &
+            '   "Where a.nActionId = b.nActionId And a.vcDocType = b.vcDocId And " &
+            '   "b.vcUserId ='" & Trim(frmUserLogin.txtUserID.Text) & "'  And a.vcDocType = 'emsEmployee'"
+            'GetRecordSet(rsMisc, sSql)
+
+
+            'sSql = "Select comActionCodes.vcName From ComAccessRights, comDocTypes, comActionCodes,ComUserGroups " &
+            '        "Where comDocTypes.vcDocType = comActionCodes.vcDocType And comActionCodes.vcDocType = ComAccessRights.vcDocId And " &
+            '        "comActionCodes.nActionId = ComAccessRights.nActionId And ComAccessRights.vcDocId = 'emsEmployee' " &
+            '        " And ComAccessRights.nGroupId = 0  And ComAccessRights.vcUserId ='" & Trim(frmUserLogin.txtUserID.Text) & "'"
+            'GetRecordSet(rsMisc, sSql)
+
+
+            sSql = "Select vcName, nGroupId, vcUserId,nActionId From((Select comActionCodes.vcName, ComAccessRights.nGroupId, ComAccessRights.vcUserId,comActionCodes.nActionId From ComAccessRights, comActionCodes, ComUserGroups " &
+                        " Where comActionCodes.vcDocType = ComAccessRights.vcDocId " &
+                        "And comActionCodes.nActionId = ComAccessRights.nActionId " &
+                        " And ComAccessRights.vcDocId ='emsEmployee' " &
+                        "And ComUserGroups.nGroupId = ComAccessRights.nGroupId " &
+                        "And ComUserGroups.vcUserId ='" & Trim(frmUserLogin.txtUserID.Text) & "') " &
+                        " Union (Select comActionCodes.vcName, ComAccessRights.nGroupId, ComAccessRights.vcUserId,comActionCodes.nActionId " &
+                        " From ComAccessRights, comActionCodes " &
+                        " Where comActionCodes.vcDocType = ComAccessRights.vcDocId " &
+                        " And comActionCodes.nActionId = ComAccessRights.nActionId And " &
+                        "ComAccessRights.nGroupId = 0  " &
+                        " And ComAccessRights.vcDocId ='emsEmployee' " &
+                        " And ComAccessRights.vcUserId ='" & Trim(frmUserLogin.txtUserID.Text) & "')) g Order by nActionId  "
+            GetRecordSet(rsMisc, sSql)
+
+            While Not rsMisc.EOF
+
+                Button = "btn_" & rsMisc("vcName").Value
+                ' Button = "cmd_" & rsMisc("vcName").Value
+                TabControlRights = "tb" & rsMisc("vcName").Value
+                If Button = "btn_Prepare" Then
+                    btn_Prepare.Enabled = True
+                    cmd_CreateExperience.Enabled = True
+                ElseIf Button = "btn_Modify" Then
+                    btn_Modify.Enabled = True
+                    cmd_PrepareExperience.Enabled = True
+                    cmd_PrepareQualifications.Enabled = True
+                    cmd_PrepareExperience.Enabled = True
+                    cmd_SaveBankAccount.Enabled = True
+                    cmd_SaveDependent.Enabled = True
+                ElseIf Button = "btn_Delete" Then
+                    btn_Delete.Enabled = True
+                ElseIf Button = "btn_Delete Experience" Then
+                    btn_DeleteExperience.Enabled = True
+                ElseIf Button = "btn_Delete Qualification" Then
+                    btn_DeleteQualification.Enabled = True
+                ElseIf Button = "btn_Delete Dependent" Then
+                    btn_DeleteDependent.Enabled = True
+                ElseIf Button = "btn_Verify" Then
+                    btn_Verify.Enabled = True
+                ElseIf Button = "btn_Approve" Then
+                    btn_Approve.Enabled = True
+                ElseIf Button = "btn_Increment" Then
+                    btn_Increment.Enabled = True
+                ElseIf TabControlRights = "tbPersonal" Then
+                    TabControl1.TabPages(0).Enabled = True
+                ElseIf TabControlRights = "tbFCCL" Then
+                    TabControl1.TabPages(1).Enabled = True
+                ElseIf TabControlRights = "tbExperience" Then
+                    TabControl1.TabPages(2).Enabled = True
+                ElseIf TabControlRights = "tbQualifications" Then
+                    TabControl1.TabPages(3).Enabled = True
+                ElseIf TabControlRights = "tbContacts" Then
+                    TabControl1.TabPages(4).Enabled = True
+                ElseIf TabControlRights = "tbDependents" Then
+                    TabControl1.TabPages(5).Enabled = True
+                ElseIf TabControlRights = "tbBank Account" Then
+                    TabControl1.TabPages(6).Enabled = True
+                ElseIf TabControlRights = "tbMisc" Then
+                    TabControl1.TabPages(7).Enabled = True
+                End If
+
+                rsMisc.MoveNext()
+            End While
+            TabControl1.TabPages.Add(tbAudit)
+        Catch ex As Exception
+            MsgBox("Error" & ex.Message)
+        End Try
+    End Sub
+
 
 
     Private Sub PopulateControls()
@@ -67,6 +230,11 @@ Public Class frmEmployeeProfile
         PopulateControl(cbQualificationCountry, "Select Id, Description From HR_PRMParameters Where Type = 1 Order by Description", "Id", "Description")
         PopulateControl(cbQualificationDegree, "Select Id, Description From HR_PRMParameters Where Type = 8 Order by Description", "Id", "Description")
         PopulateControl(cbQualificationInstitution, "Select Id, Description From HR_PRMParameters Where Type = 9 Order by Description", "Id", "Description")
+
+        'BankAccount Tab
+
+        PopulateControl(cbBank, "Select Id, Description From HR_PRMBank Order by Description", "Id", "Description")
+        PopulateControl(cbSection, "Select nSectionId, vcSectionName From EM_Section Order by vcSectionName", "nSectionId", "vcSectionName")
     End Sub
 
     Private Sub cbQualificationCountry_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cbQualificationCountry.SelectedIndexChanged
@@ -83,11 +251,13 @@ Public Class frmEmployeeProfile
 
     Private Sub Clear()
         'Personal Tab
+        PopulateControl(cbSection, "Select nSectionId, vcSectionName From EM_Section Order by vcSectionName", "nSectionId", "vcSectionName")
         txtEmpID.Text = ""
         txtEmpID.Tag = ""
         txtEmployeeNo.Text = ""
         txtEmployeeNo.Tag = ""
         txtEmployeeNo.Enabled = True
+        txtOldEmpNo.Text = ""
         txtFirstName.Text = ""
         txtFirstName.Tag = ""
         txtMiddleName.Text = ""
@@ -126,6 +296,8 @@ Public Class frmEmployeeProfile
         cbBusinessUnit.Tag = cbBusinessUnit.SelectedIndex
         cbBranch.SelectedIndex = -1
         cbBranch.Tag = cbBranch.SelectedIndex
+        cbSection.SelectedIndex = -1
+        cbSection.Tag = cbSection.SelectedIndex
         cbDepartment.SelectedIndex = -1
         cbDepartment.Tag = cbDepartment.SelectedIndex
         cbDesignation.SelectedIndex = -1
@@ -179,6 +351,10 @@ Public Class frmEmployeeProfile
         txtTradeAppointment.Tag = ""
         cbCorps.SelectedIndex = -1
         cbCorps.Tag = cbCorps.SelectedIndex
+        chkConfYes.Checked = False
+        chkConfNo.Checked = False
+        ChkLFAYes.Checked = False
+        chkLFANo.Checked = False
 
         'Contacts Tab
         txtPresentAddress.Text = ""
@@ -220,6 +396,20 @@ Public Class frmEmployeeProfile
         dtpPassportExpiryDate.Value = CDate(Date.Now.ToString("dd MMM yyyy"))
         dtpPassportExpiryDate.Tag = dtpPassportExpiryDate.Value
 
+
+        'BankAccount Tab
+
+        nEmployeeId = Nothing
+        nBankAccountId = Nothing
+        txtEmployeeName.Text = ""
+        txtEmployeeName.Tag = ""
+        cbBank.SelectedIndex = -1
+        cbBank.Tag = cbBank.SelectedIndex
+        txtAccountNo.Text = ""
+        txtAccountNo.Tag = ""
+        txtBranch.Text = ""
+        txtBranch.Tag = ""
+
         grdAudit.DataSource = Nothing
 
         ClearDependents()
@@ -230,6 +420,10 @@ Public Class frmEmployeeProfile
     End Sub
 
     Private Sub Display()
+
+        Dim rsBankAccount As New ADODB.Recordset
+        Dim sSql As String
+
         Clear()
         Try
             If rsMain.RecordCount = 0 Then Exit Sub
@@ -243,6 +437,10 @@ Public Class frmEmployeeProfile
             txtEmployeeNo.Text = Convert.ToString(rsMain("EmployeeNo").Value)
             txtEmployeeNo.Tag = txtEmployeeNo.Text
             txtEmployeeNo.Enabled = False
+            txtOldEmpNo.Text = Convert.ToString(rsMain("OldEmployeeNo").Value)
+            If txtOldEmpNo.Text <> "" Then
+                txtOldEmpNo.Enabled = False
+            End If
             txtFirstName.Text = Convert.ToString(rsMain("FirstName").Value)
             txtFirstName.Tag = txtFirstName.Text
             txtMiddleName.Text = Convert.ToString(rsMain("MiddleName").Value)
@@ -316,10 +514,19 @@ Public Class frmEmployeeProfile
             cbBusinessUnit.Tag = cbBusinessUnit.SelectedValue
             cbBranch.SelectedValue = CInt(rsMain("BranchId").Value)
             cbBranch.Tag = cbBranch.SelectedValue
+            fromsBranch = cbBranch.Text
             cbDepartment.SelectedValue = CInt(rsMain("DepartmentId").Value)
+            fromsDepartment = cbDepartment.Text
             cbDepartment.Tag = cbDepartment.SelectedValue
+
             cbDesignation.SelectedValue = CInt(rsMain("DesignationId").Value)
             cbDesignation.Tag = cbDesignation.SelectedValue
+            fromsDesignation = cbDesignation.Text
+
+            PopulateControl(cbSection, "Select nSectionId, vcSectionName From EM_Section where nDepartmentId='" + cbDepartment.SelectedValue.ToString() + "' Order by vcSectionName", "nSectionId", "vcSectionName")
+
+            cbSection.SelectedValue = CInt(rsMain("nSectionId").Value)
+            cbSection.Tag = cbSection.SelectedValue
 
             If Not IsDBNull(rsMain("JoinedAsId").Value) Then
                 cbJoinedAs.SelectedValue = CInt(rsMain("JoinedAsId").Value)
@@ -350,8 +557,8 @@ Public Class frmEmployeeProfile
             Else
                 dtpContractStartDate.Checked = False
             End If
-            If Not IsDBNull(rsMain("ContractEndDate").Value) Then
-                dtpContractEndDate.Value = CDate(rsMain("ContractEndDate").Value)
+            If Not IsDBNull(rsMain("dtmRenewalDate").Value) Then
+                dtpContractEndDate.Value = CDate(rsMain("dtmRenewalDate").Value)
                 dtpContractEndDate.Tag = dtpContractEndDate.Value
                 dtpContractEndDate.Checked = True
             Else
@@ -396,8 +603,8 @@ Public Class frmEmployeeProfile
                 chkIsHOD.Checked = CInt(rsMain("IsHeadOfDepartment").Value)
                 chkIsHOD.Tag = chkIsHOD.Checked
             End If
-            txtHOD.Text = Convert.ToString(rsMain("HeadOfDepartmentId").Value)
-            txtHOD.Tag = txtHOD.Text
+            'txtHOD.Text = Convert.ToString(rsMain("HeadOfDepartmentId").Value)
+            'txtHOD.Tag = txtHOD.Text
             txtJobDescription.Text = Convert.ToString(rsMain("JobDescription").Value)
             txtJobDescription.Tag = txtJobDescription.Text
             If Not IsDBNull(rsMain("IsForcePersonal").Value) Then
@@ -423,6 +630,51 @@ Public Class frmEmployeeProfile
                 cbCorps.SelectedValue = CInt(rsMain("FPCorpsId").Value)
                 cbCorps.Tag = cbCorps.SelectedValue
             End If
+
+            If Not IsDBNull(rsMain("nConfirmationId").Value) Then
+                If (rsMain("nConfirmationId").Value = 1) Then
+                    chkConfYes.Checked = CInt(rsMain("nIncrementId").Value)
+                    chkConfYes.Tag = chkConfYes.Checked
+                    chkConfYes.Checked = True
+                Else
+                    chkConfNo.Checked = CInt(rsMain("nIncrementId").Value)
+                    chkConfNo.Tag = chkConfNo.Checked
+                    chkConfNo.Checked = True
+                End If
+            End If
+
+            If Not IsDBNull(rsMain("nLFA").Value) Then
+                If (rsMain("nLFA").Value = 1) Then
+                    ChkLFAYes.Checked = CInt(rsMain("nLFA").Value)
+                    ChkLFAYes.Tag = ChkLFAYes.Checked
+                    ChkLFAYes.Checked = True
+                Else
+                    chkLFANo.Checked = CInt(rsMain("nLFA").Value)
+                    chkLFANo.Tag = chkLFANo.Checked
+                    chkLFANo.Checked = True
+                End If
+            End If
+
+
+            sSql = "Select nIncrementId from EM_Employee  Where Id = " & Trim(txtEmpID.Text)
+            GetRecordSet(rsMisc, sSql)
+
+            If Not IsDBNull(rsMisc("nIncrementId").Value) Then
+                nIncrementId = CInt(rsMisc("nIncrementId").Value)
+            End If
+
+            If nIncrementId = 1 Then
+                btn_Increment.Text = "Disable Increment"
+                lblIncrement.Visible = True
+                lblIncrement.Text = "Increment is Enabled"
+                lblIncrement.ForeColor = Color.Green
+            ElseIf nIncrementId = 0 Then
+                btn_Increment.Text = "Enable Increment"
+                lblIncrement.Visible = True
+                lblIncrement.Text = "Increment is Disabled"
+                lblIncrement.ForeColor = Color.Red
+            End If
+
 
             'Contacts Tab
             txtPresentAddress.Text = Convert.ToString(rsMain("ContactPresentAddress").Value)
@@ -494,6 +746,30 @@ Public Class frmEmployeeProfile
                 dtpPassportExpiryDate.Checked = False
             End If
 
+
+            'Bank Account Tab
+
+            nEmployeeId = CInt(rsMain("Id").Value)
+            txtEmployeeName.Text = Convert.ToString(rsMain("FullName").Value)
+            txtEmployeeName.Tag = txtEmployeeName.Text
+
+            sSql = "Select * From HR_EmployeeBankAccount Where EmployeeId = " & nEmployeeId
+            rsBankAccount.Open(sSql, conn, ADODB.CursorTypeEnum.adOpenKeyset, ADODB.LockTypeEnum.adLockOptimistic)
+            If rsBankAccount.RecordCount > 0 Then
+                nBankAccountId = CInt(rsBankAccount("Id").Value)
+                txtAccountNo.Text = Convert.ToString(rsBankAccount("BankAccountNo").Value)
+                txtAccountNo.Tag = txtAccountNo.Text
+                txtAccountTitle.Text = Convert.ToString(rsBankAccount("AccountTitle").Value)
+                txtAccountTitle.Tag = txtAccountTitle.Text
+                cbBank.SelectedValue = CInt(rsBankAccount("BankId").Value)
+                cbBank.Tag = cbBank.SelectedValue
+                If Not IsDBNull(rsBankAccount("BankBranch").Value) Then
+                    txtBranch.Text = Convert.ToString(rsBankAccount("BankBranch").Value)
+                    txtBranch.Tag = txtBranch.Text
+                End If
+            End If
+
+
             FillAudit()
             FillDependents()
             FillExperiences()
@@ -506,6 +782,9 @@ Public Class frmEmployeeProfile
             ElseIf nStatus = 3 Then
                 slStatus.Text = "Approved"
             End If
+
+            ' grdAudit.VScrollBar.Visible = True
+            '  grdAudit.Enabled = True
 
             Me.Refresh()
 
@@ -584,6 +863,11 @@ Public Class frmEmployeeProfile
 
             'Personal Tab
             rsMain!EmployeeNo = txtEmployeeNo.Text
+            rsMain!OldEmployeeNo = txtOldEmpNo.Text
+            If IsDBNull(rsMain("nIncrementId").Value) Then
+                nIncrementId = 1
+                rsMain!nIncrementId = nIncrementId
+            End If
             rsMain!FirstName = txtFirstName.Text
             rsMain!MiddleName = txtMiddleName.Text
             rsMain!LastName = txtLastName.Text
@@ -633,6 +917,7 @@ Public Class frmEmployeeProfile
             rsMain!BusinessUnitId = CInt(cbBusinessUnit.SelectedValue)
             rsMain!BranchId = CInt(cbBranch.SelectedValue)
             rsMain!DepartmentId = CInt(cbDepartment.SelectedValue)
+            rsMain!nSectionId = CInt(cbSection.SelectedValue)
             rsMain!DesignationId = CInt(cbDesignation.SelectedValue)
 
             If cbJoinedAs.SelectedIndex <> -1 Then
@@ -695,9 +980,9 @@ Public Class frmEmployeeProfile
             rsMain!isTechnical = CInt(chkIsTechnical.CheckState)
             rsMain!isHeadOfDepartment = CInt(chkIsHOD.CheckState)
 
-            If chkIsHOD.Checked = False Then
-                rsMain!HeadOfDepartmentId = txtHOD.Text
-            End If
+            'If chkIsHOD.Checked = False Then
+            '    rsMain!HeadOfDepartmentId = txtHOD.Text
+            'End If
 
             rsMain!JobDescription = txtJobDescription.Text
 
@@ -723,6 +1008,18 @@ Public Class frmEmployeeProfile
                 rsMain!FPJobDescription = ""
                 rsMain!FPCorpsId = 0
                 rsMain!FPRetirementDate = DBNull.Value
+            End If
+
+            If chkConfYes.Checked = True Then
+                rsMain!nConfirmationId = 1
+            ElseIf chkConfNo.Checked = True Then
+                rsMain!nConfirmationId = 0
+            End If
+
+            If ChkLFAYes.Checked = True Then
+                rsMain!nLFA = 1
+            ElseIf chkLFANo.Checked = True Then
+                rsMain!nLFA = 0
             End If
 
             'Contacts Tab
@@ -764,7 +1061,7 @@ Public Class frmEmployeeProfile
             rsMain.Update()
 
             sSql = "Insert Into EM_Employee_Audit (vcDocumentId, dtmActionDate, vcAction, vcUserId, vcActionRemarks, vcIP, vcWorkStation) Values ('" &
-           txtEmpID.Text & "', Convert(Datetime,'" & DateTime.Now.ToString("dd MMM yyyy HH:mm:ss") & "'), '" & sAction & "', '" & sUserId & "', '', '', '')" '" & g_sUserId & "', '" & sActionRemarks & "', '" & frmMdiMain.GetIPAddress & "', '" & frmMdiMain.GetComputerName & "')"
+            txtEmpID.Text & "', Convert(Datetime,'" & DateTime.Now.ToString("dd MMM yyyy HH:mm:ss") & "'), '" & sAction & "', '" & mdFunctions.sUserId & "', '', '', '')" '" & g_sUserId & "', '" & sActionRemarks & "', '" & frmMdiMain.GetIPAddress & "', '" & frmMdiMain.GetComputerName & "')"
             conn.Execute(sSql)
 
             'conn.CommitTrans()
@@ -772,6 +1069,8 @@ Public Class frmEmployeeProfile
             If nStatus = 1 Then
                 MsgBox("Employee saved successfully.", vbInformation)
             End If
+
+
 
         Catch ex As Exception
             MsgBox("Error saving record:" + Convert.ToString(ex), vbCritical)
@@ -782,7 +1081,7 @@ Public Class frmEmployeeProfile
         'rsMain.Close()
         'rsMain.Open(sSql, conn, ADODB.CursorTypeEnum.adOpenKeyset, ADODB.LockTypeEnum.adLockOptimistic)
         'End If
-
+        GenerateMails()
         Display()
         'conn.Close()
 
@@ -792,6 +1091,8 @@ Public Class frmEmployeeProfile
     Private Function ValidateFields(ByVal a_nActionID As Integer, r_sAction As String) As Boolean
         Dim rsMisc As New ADODB.Recordset
         Dim sSql As String
+        Dim ValidateCNIC As New Regex("\d{5}-\d{7}-\d{1}")
+
 
         ValidateFields = False
 
@@ -821,6 +1122,19 @@ Public Class frmEmployeeProfile
             End If
         End If
 
+        If txtOldEmpNo.Text = "" Then
+            If Trim(txtOldEmpNo.Text) <> "" Then
+                sSql = "Select OldEmployeeNo From EM_Employee Where EmployeeNo = '" & txtEmployeeNo.Text & "'"
+                GetRecordSet(rsMisc, sSql)
+
+                If rsMisc.RecordCount > 0 Then
+                    MsgBox("Old Employee No aleady exists.", vbCritical)
+                    txtOldEmpNo.Focus()
+                    Exit Function
+                End If
+            End If
+        End If
+
         If txtEmployeeNo.Text = "" Then
             MsgBox("Please enter employee no.", vbCritical)
             txtEmployeeNo.Focus()
@@ -833,11 +1147,11 @@ Public Class frmEmployeeProfile
             Exit Function
         End If
 
-        If txtLastName.Text = "" Then
-            MsgBox("Please enter last name.", vbCritical)
-            txtLastName.Focus()
-            Exit Function
-        End If
+        'If txtLastName.Text = "" Then
+        '    MsgBox("Please enter last name.", vbCritical)
+        '    txtLastName.Focus()
+        '    Exit Function
+        'End If
 
         If txtFatherName.Text = "" Then
             MsgBox("Please enter father name.", vbCritical)
@@ -851,10 +1165,171 @@ Public Class frmEmployeeProfile
             Exit Function
         End If
 
+        If dtpDOB.Checked = False Then
+            MsgBox("Please Select Date of Birth", vbCritical)
+            dtpDOB.Focus()
+            Exit Function
+        End If
+
+        If cbReligion.SelectedIndex < 0 Then
+            MsgBox("Please Select Religion.", vbCritical)
+            cbReligion.Focus()
+            Exit Function
+        End If
+
+        If txtCNICNew.Text = "" Then
+            MsgBox("Please Enter Employee CNIC.", vbCritical)
+            txtCNICNew.Focus()
+            Exit Function
+        Else
+            sSql = "Select NewNICNo From EM_Employee Where NewNICNo = '" & txtCNICNew.Text & "' "
+            GetRecordSet(rsMisc, sSql)
+
+            If txtCNICNew.Tag <> txtCNICNew.Text Then
+                If rsMisc.RecordCount <= 0 Then
+
+                    If ValidateCNIC.IsMatch(txtCNICNew.Text) Then
+                        txtCNICNew.Focus()
+                    Else
+                        MsgBox("Please Enter a valid 13 Digits CNIC Number Format XXXXX-XXXXXXX-X")
+                        txtCNICNew.Focus()
+                        Exit Function
+                    End If
+                Else
+                    MsgBox("CNIC Already Exists")
+                    txtCNICNew.Focus()
+                    Exit Function
+                End If
+            End If
+        End If
+
+        If cbNationality.SelectedIndex < 0 Then
+            MsgBox("Please Select Nationaltiy.", vbCritical)
+            cbNationality.Focus()
+            Exit Function
+        End If
+
         If cbMaritalStatus.SelectedItem = Nothing Then
             MsgBox("Please select marital status.", vbCritical)
             cbMaritalStatus.Focus()
             Exit Function
+        End If
+
+        If cbBranch.SelectedIndex < 0 Then
+            MsgBox("Please Select Branch.", vbCritical)
+            cbBranch.Focus()
+            Exit Function
+        End If
+
+        If cbDepartment.SelectedIndex < 0 Then
+            MsgBox("Please Select Department.", vbCritical)
+            cbDepartment.Focus()
+            Exit Function
+        End If
+
+        If cbDesignation.SelectedIndex < 0 Then
+            MsgBox("Please Select Designation.", vbCritical)
+            cbDesignation.Focus()
+            Exit Function
+        End If
+
+        If dtpJoiningDate.Checked = False Then
+            MsgBox("Please Enter Joining Date", vbCritical)
+            dtpJoiningDate.Focus()
+            Exit Function
+        End If
+
+        If dtpContractStartDate.Checked = False Then
+            MsgBox("Please Enter Contract Start Date", vbCritical)
+            dtpContractStartDate.Focus()
+            Exit Function
+        End If
+
+        'If dtpContractEndDate.Checked = False Then
+        '    MsgBox("Please Enter Contract End Date", vbCritical)
+        '    dtpContractEndDate.Focus()
+        '    Exit Function
+        'End If
+
+        If cbContractType.SelectedIndex < 0 Then
+            MsgBox("Please Select Contract Type.", vbCritical)
+            cbContractType.Focus()
+            Exit Function
+        End If
+
+        If cbEmployeeType.SelectedIndex < 0 Then
+            MsgBox("Please Select Employee Type.", vbCritical)
+            cbEmployeeType.Focus()
+            Exit Function
+        End If
+
+        If cbGrade.SelectedIndex < 0 Then
+            MsgBox("Please Select Employee Grade.", vbCritical)
+            cbGrade.Focus()
+            Exit Function
+        End If
+
+        If txtPresentAddress.Text = "" Then
+            MsgBox("Please enter Present Address.", vbCritical)
+            txtPresentAddress.Focus()
+            Exit Function
+        End If
+
+        If cbPresentCountry.SelectedIndex < 0 Then
+            MsgBox("Please Select Present Country.", vbCritical)
+            cbPresentCountry.Focus()
+            Exit Function
+        End If
+
+        If cbPresentCity.SelectedIndex < 0 Then
+            MsgBox("Please Select Present City.", vbCritical)
+            cbPresentCity.Focus()
+            Exit Function
+        End If
+
+        If txtPresentMobile.Text = "" Then
+            MsgBox("Please enter Present Mobile No.", vbCritical)
+            txtPresentMobile.Focus()
+            Exit Function
+        End If
+
+        If txtPermanentAddress.Text = "" Then
+            MsgBox("Please enter Present Address.", vbCritical)
+            txtPermanentAddress.Focus()
+            Exit Function
+        End If
+
+        If cbPermanentCountry.SelectedIndex < 0 Then
+            MsgBox("Please Select Permanent Country.", vbCritical)
+            cbPermanentCountry.Focus()
+            Exit Function
+        End If
+
+        If cbPermanentCity.SelectedIndex < 0 Then
+            MsgBox("Please Select Permanant City.", vbCritical)
+            cbPermanentCity.Focus()
+            Exit Function
+        End If
+
+        If cbBranch.Tag <> cbBranch.SelectedValue Then
+            If txtOfficialEmail.Text <> "" Then
+                bEmail = True
+                sBranch = cbBranch.Text
+            End If
+        End If
+
+        If cbDepartment.Tag <> cbDepartment.SelectedValue Then
+            If txtOfficialEmail.Text <> "" Then
+                bEmail = True
+                sDepartment = cbDepartment.Text
+            End If
+        End If
+
+        If cbDesignation.Tag <> cbDesignation.SelectedValue Then
+            If txtOfficialEmail.Text <> "" Then
+                bEmail = True
+                sDesignation = cbDesignation.Text
+            End If
         End If
 
         If Trim(txtEmpID.Tag) = "" Then
@@ -865,13 +1340,81 @@ Public Class frmEmployeeProfile
             sAction = "Modified"
             nStatus = 1
             slStatus.Text = "Pending"
-        ElseIf a_nActionID = 3 Then
+        ElseIf a_nActionID = 4 Then
             sAction = "Approved"
             nStatus = 3
             slStatus.Text = "Approved"
         End If
 
         ValidateFields = True
+    End Function
+
+
+    Private Function GenerateMails() As Boolean
+        If bEmail <> True Then Exit Function
+
+        Try
+            Dim Smtp_Server As New SmtpClient
+            Dim e_mail As New MailMessage()
+            Smtp_Server.UseDefaultCredentials = False
+            Smtp_Server.Credentials = New Net.NetworkCredential("ems", "Ems753")
+            Smtp_Server.Port = 25
+            Smtp_Server.EnableSsl = True
+            Smtp_Server.Host = "192.168.2.3"
+
+            e_mail = New MailMessage()
+            e_mail.From = New MailAddress("ems@fccl.com.pk")
+            e_mail.To.Add("raza@fccl.com.pk")
+            e_mail.Subject = "HR Profiles Update"
+            e_mail.IsBodyHtml = False
+            e_mail.Body = "HR Profiles of Employee ( " & txtEmployeeNo.Text & " - " & txtEmployeeName.Text & " ) has been updated With following details." + vbNewLine + vbNewLine
+            If sBranch <> "" Then
+                e_mail.Body = e_mail.Body & "From Branch :" & fromsBranch + vbNewLine
+                e_mail.Body = e_mail.Body & "To Branch : * " & cbBranch.Text + vbNewLine
+
+            End If
+            If sDepartment <> "" Then
+                e_mail.Body = e_mail.Body & "From Department :" & fromsDepartment + vbNewLine
+                e_mail.Body = e_mail.Body & "To Department : * " & cbDepartment.Text + vbNewLine
+
+            End If
+            If sDesignation <> "" Then
+                e_mail.Body = e_mail.Body & "From Designation :" & fromsDesignation + vbNewLine
+                e_mail.Body = e_mail.Body & "To Designation : * " & cbDesignation.Text + vbNewLine
+            End If
+
+            If sBranch = "" Then
+                e_mail.Body = e_mail.Body & "Branch :" & cbBranch.Text + vbNewLine
+            End If
+            If sDepartment = "" Then
+                e_mail.Body = e_mail.Body & "Department :" & cbDepartment.Text + vbNewLine
+            End If
+            If sDesignation = "" Then
+                e_mail.Body = e_mail.Body & "Designation :" & cbDesignation.Text + vbNewLine
+            End If
+
+            If txtOfficialEmail.Text <> "" Then
+                e_mail.Body = e_mail.Body & "Email : " & txtOfficialEmail.Text + vbNewLine
+
+            End If
+
+            e_mail.Body = e_mail.Body + vbNewLine + vbNewLine
+            e_mail.Body = e_mail.Body & "Regards" + vbNewLine
+            e_mail.Body = e_mail.Body & "HR Department" + vbNewLine
+            e_mail.Body = e_mail.Body & "Fauji Cement Company Limited." + vbNewLine
+
+            ServicePointManager.ServerCertificateValidationCallback =
+            New System.Net.Security.RemoteCertificateValidationCallback(AddressOf customCertValidation)
+            Smtp_Server.EnableSsl = True
+            Smtp_Server.Send(e_mail)
+            '  MsgBox("Mail Sent")
+            bEmail = False
+        Catch error_t As Exception
+            MsgBox(error_t.ToString)
+        End Try
+
+        Return bEmail
+
     End Function
 
     Private Sub Delete()
@@ -884,7 +1427,7 @@ Public Class frmEmployeeProfile
             Exit Sub
         End If
 
-        If MsgBox("Do you want to Delete the Record?", vbYesNo) = vbNo Then Exit Sub
+        If MsgBox("Do you want To Delete the Record?", vbYesNo) = vbNo Then Exit Sub
 
         If (conn.State <> ConnectionState.Open) Then conn.Open(sConnectionString)
 
@@ -907,11 +1450,12 @@ Public Class frmEmployeeProfile
         '                    (cbMaritalStatus.SelectedValue <> cbMaritalStatus.Tag) Or (dtpStatusSince.Value <> dtpStatusSince.Tag)
     End Function
 
-    Private Sub btnNew_Click(sender As Object, e As EventArgs) Handles btnNew.Click
+    Private Sub btnNew_Click(sender As Object, e As EventArgs) Handles btn_Prepare.Click
         Call Clear()
+        frmAppraisals_Discipline.Clear()
     End Sub
 
-    Private Sub btnSave_Click(sender As Object, e As EventArgs) Handles btnSave.Click
+    Private Sub btnSave_Click(sender As Object, e As EventArgs) Handles btn_Modify.Click
         'If (txtEmployeeNo.Text = "") Or IsAnyFieldChanged() Then Exit Sub
 
         slStatus.Text = "Saving"
@@ -921,7 +1465,7 @@ Public Class frmEmployeeProfile
         slStatus.Text = ""
     End Sub
 
-    Private Sub btnDelete_Click(sender As Object, e As EventArgs) Handles btnDelete.Click
+    Private Sub btnDelete_Click(sender As Object, e As EventArgs) Handles btn_Delete.Click
         slStatus.Text = "Deleting"
         Call Delete()
         slStatus.Text = ""
@@ -934,11 +1478,11 @@ Public Class frmEmployeeProfile
     End Sub
 
 
-    Private Sub btnApprove_Click(sender As Object, e As EventArgs) Handles btnApprove.Click
+    Private Sub btnApprove_Click(sender As Object, e As EventArgs) Handles btn_Approve.Click
         Save(4)
     End Sub
 
-    Private Sub btnVerify_Click(sender As Object, e As EventArgs) Handles btnVerify.Click
+    Private Sub btnVerify_Click(sender As Object, e As EventArgs) Handles btn_Verify.Click
         Save(5)
     End Sub
 
@@ -994,11 +1538,11 @@ Public Class frmEmployeeProfile
 
     Private Sub FillAudit()
         Dim connODBC As New Odbc.OdbcConnection
-        connODBC.ConnectionString = "Dsn=ERP;uid=sa;pwd=123456"
+        connODBC.ConnectionString = "Dsn=ERP;uid=sa"
         connODBC.Open()
         Dim ds As DataSet = New DataSet
         Dim adapter As New Odbc.OdbcDataAdapter
-        Dim sSql As String = "SELECT vcAction, dtmActionDate, vcUserId, vcActionRemarks From EM_Employee_Audit Where vcDocumentId = '" + txtEmpID.Text + "' Order by dtmActionDate"
+        Dim sSql As String = "SELECT vcAction, dtmActionDate, vcUserId, vcActionRemarks From EM_Employee_Audit Where vcDocumentId = '" + txtEmpID.Text + "' And vcAction!='Uniform Size'  Order by dtmActionDate"
 
         adapter.SelectCommand = New Odbc.OdbcCommand(sSql, connODBC)
         Try
@@ -1015,11 +1559,11 @@ Public Class frmEmployeeProfile
 
     Private Sub FillDependents()
         Dim connODBC As New Odbc.OdbcConnection
-        connODBC.ConnectionString = "Dsn=ERP;uid=sa;pwd=123456"
+        connODBC.ConnectionString = "Dsn=ERP;uid=sa"
         connODBC.Open()
         Dim ds As DataSet = New DataSet
         Dim adapter As New Odbc.OdbcDataAdapter
-        Dim sSql As String = "SELECT Id, Name, Relation, DATEDIFF(hour,DateOfBirth,GETDATE())/8766 AS Age, NICNo, InsuranceEntitlement, MaritalStatus From HR_EmployeeDependents Where EmployeeId = " & txtEmpID.Text
+        Dim sSql As String = "Select Id, Name, Relation, DATEDIFF(hour,DateOfBirth,GETDATE())/8766 As Age, NICNo, InsuranceEntitlement, MaritalStatus From HR_EmployeeDependents Where EmployeeId = " & txtEmpID.Text
 
         adapter.SelectCommand = New Odbc.OdbcCommand(sSql, connODBC)
         Try
@@ -1027,7 +1571,7 @@ Public Class frmEmployeeProfile
             grdDependents.DataSource = Nothing
             grdDependents.SetDataBinding(ds.Tables(0), "", True)
         Catch ex As Exception
-            MessageBox.Show("Error loading audit entries.")
+            MessageBox.Show("Error loading Dependents.")
         End Try
         connODBC.Close()
         grdDependents.Refresh()
@@ -1072,7 +1616,7 @@ Public Class frmEmployeeProfile
 
     ' ======================= DEPENDENTS ======================================
 
-    Private Sub cmdSaveDependent_Click(sender As Object, e As EventArgs) Handles cmdSaveDependent.Click
+    Private Sub cmdSaveDependent_Click(sender As Object, e As EventArgs) Handles cmd_SaveDependent.Click
         Dim sSql As String
         Dim rsMisc As New ADODB.Recordset
         Dim nNewDependentId As Integer
@@ -1138,9 +1682,9 @@ Public Class frmEmployeeProfile
 
         If cbDependentRelation.SelectedIndex = 0 Then
             nRelation = 2
-        ElseIf cbDependentRelation.SelectedIndex = 1
+        ElseIf cbDependentRelation.SelectedIndex = 1 Then
             nRelation = 1
-        ElseIf cbDependentRelation.SelectedIndex = 2
+        ElseIf cbDependentRelation.SelectedIndex = 2 Then
             nRelation = 7
         End If
 
@@ -1192,7 +1736,7 @@ Public Class frmEmployeeProfile
                 sActionRemarks = "Modified a dependent."
             End If
             sSql = "Insert Into EM_Employee_Audit (vcDocumentId, dtmActionDate, vcAction, vcUserId, vcActionRemarks, vcIP, vcWorkStation) Values ('" &
-            txtEmpID.Text & "', Convert(Datetime,'" & DateTime.Now.ToString("dd MMM yyyy HH:mm:ss") & "'), '" & sAction & "', '" & sUserId & "', '" & sActionRemarks & "', '', '')" '" & g_sUserId & "', '" & sActionRemarks & "', '" & frmMdiMain.GetIPAddress & "', '" & frmMdiMain.GetComputerName & "')"
+            txtEmpID.Text & "', Convert(Datetime,'" & DateTime.Now.ToString("dd MMM yyyy HH:mm:ss") & "'), '" & sAction & "', '" & mdFunctions.sUserId & "', '" & sActionRemarks & "', '', '')" '" & g_sUserId & "', '" & sActionRemarks & "', '" & frmMdiMain.GetIPAddress & "', '" & frmMdiMain.GetComputerName & "')"
             conn.Execute(sSql)
 
         Catch ex As Exception
@@ -1308,7 +1852,7 @@ Public Class frmEmployeeProfile
 
     End Sub
 
-    Private Sub cmdDeleteDependent_Click(sender As Object, e As EventArgs) Handles cmdDeleteDependent.Click
+    Private Sub cmdDeleteDependent_Click(sender As Object, e As EventArgs) Handles btn_DeleteDependent.Click
         Dim sSql As String
 
         If (nDependentId = Nothing) Or (nDependentId = 0) Then Exit Sub
@@ -1321,7 +1865,7 @@ Public Class frmEmployeeProfile
         conn.Execute(sSql)
 
         sSql = "Insert Into EM_Employee_Audit (vcDocumentId, dtmActionDate, vcAction, vcUserId, vcActionRemarks, vcIP, vcWorkStation) Values ('" &
-            txtEmpID.Text & "', Convert(Datetime,'" & DateTime.Now.ToString("dd MMM yyyy HH:mm:ss") & "'), 'Deleted Dependent', '" & sUserId & "', 'Deleted a dependent.', '', '')" '" & g_sUserId & "', '" & sActionRemarks & "', '" & frmMdiMain.GetIPAddress & "', '" & frmMdiMain.GetComputerName & "')"
+            txtEmpID.Text & "', Convert(Datetime,'" & DateTime.Now.ToString("dd MMM yyyy HH:mm:ss") & "'), 'Deleted Dependent', '" & mdFunctions.sUserId & "', 'Deleted a dependent.', '', '')" '" & g_sUserId & "', '" & sActionRemarks & "', '" & frmMdiMain.GetIPAddress & "', '" & frmMdiMain.GetComputerName & "')"
         conn.Execute(sSql)
 
         'conn.Close()
@@ -1334,7 +1878,7 @@ Public Class frmEmployeeProfile
     ' ====================================== EXPERIENCE ============================================
     Private Sub FillExperiences()
         Dim connODBC As New Odbc.OdbcConnection
-        connODBC.ConnectionString = "Dsn=ERP;uid=sa;pwd=123456"
+        connODBC.ConnectionString = "Dsn=ERP;uid=sa"
         connODBC.Open()
 
         Dim ds As DataSet = New DataSet
@@ -1406,7 +1950,7 @@ Public Class frmEmployeeProfile
         txtExperienceReasonForLeaving.Tag = txtExperienceReasonForLeaving.Text
     End Sub
 
-    Private Sub cmdSaveExperience_Click(sender As Object, e As EventArgs) Handles cmdSaveExperience.Click
+    Private Sub cmdSaveExperience_Click(sender As Object, e As EventArgs) Handles cmd_PrepareExperience.Click
         Dim sSql As String
         Dim rsMisc As New ADODB.Recordset
         Dim nNewJobId As Integer
@@ -1422,6 +1966,12 @@ Public Class frmEmployeeProfile
         If txtExperienceEmployer.Text = "" Then
             MsgBox("Please enter employer name.", vbCritical)
             txtExperienceEmployer.Focus()
+            Exit Sub
+        End If
+
+        If txtExperienceDesignation.Text = "" Then
+            MsgBox("Please enter employer experience designation.", vbCritical)
+            txtExperienceDesignation.Focus()
             Exit Sub
         End If
 
@@ -1491,7 +2041,7 @@ Public Class frmEmployeeProfile
                 sActionRemarks = "Modified a job experience."
             End If
             sSql = "Insert Into EM_Employee_Audit (vcDocumentId, dtmActionDate, vcAction, vcUserId, vcActionRemarks, vcIP, vcWorkStation) Values ('" &
-            txtEmpID.Text & "', Convert(Datetime,'" & DateTime.Now.ToString("dd MMM yyyy HH:mm:ss") & "'), '" & sAction & "', '" & sUserId & "', '" & sActionRemarks & "', '', '')" '" & g_sUserId & "', '" & sActionRemarks & "', '" & frmMdiMain.GetIPAddress & "', '" & frmMdiMain.GetComputerName & "')"
+            txtEmpID.Text & "', Convert(Datetime,'" & DateTime.Now.ToString("dd MMM yyyy HH:mm:ss") & "'), '" & sAction & "', '" & mdFunctions.sUserId & "', '" & sActionRemarks & "', '', '')" '" & g_sUserId & "', '" & sActionRemarks & "', '" & frmMdiMain.GetIPAddress & "', '" & frmMdiMain.GetComputerName & "')"
             conn.Execute(sSql)
 
         Catch ex As Exception
@@ -1535,7 +2085,7 @@ Public Class frmEmployeeProfile
 
     End Sub
 
-    Private Sub cmdDeleteExperience_Click(sender As Object, e As EventArgs) Handles cmdDeleteExperience.Click
+    Private Sub cmdDeleteExperience_Click(sender As Object, e As EventArgs) Handles btn_DeleteExperience.Click
         Dim sSql As String
 
         If (nJobId = Nothing) Or (nJobId = 0) Then Exit Sub
@@ -1548,7 +2098,7 @@ Public Class frmEmployeeProfile
         conn.Execute(sSql)
 
         sSql = "Insert Into EM_Employee_Audit (vcDocumentId, dtmActionDate, vcAction, vcUserId, vcActionRemarks, vcIP, vcWorkStation) Values ('" &
-            txtEmpID.Text & "', Convert(Datetime,'" & DateTime.Now.ToString("dd MMM yyyy HH:mm:ss") & "'), 'Deleted Job Experience', '" & sUserId & "', 'Deleted a job experience.', '', '')" '" & g_sUserId & "', '" & sActionRemarks & "', '" & frmMdiMain.GetIPAddress & "', '" & frmMdiMain.GetComputerName & "')"
+            txtEmpID.Text & "', Convert(Datetime,'" & DateTime.Now.ToString("dd MMM yyyy HH:mm:ss") & "'), 'Deleted Job Experience', '" & mdFunctions.sUserId & "', 'Deleted a job experience.', '', '')" '" & g_sUserId & "', '" & sActionRemarks & "', '" & frmMdiMain.GetIPAddress & "', '" & frmMdiMain.GetComputerName & "')"
         conn.Execute(sSql)
 
         'conn.Close()
@@ -1562,7 +2112,7 @@ Public Class frmEmployeeProfile
     ' ======================================= QUALIFICATIONS ===================================
     Private Sub FillQualifications()
         Dim connODBC As New Odbc.OdbcConnection
-        connODBC.ConnectionString = "Dsn=ERP;uid=sa;pwd=123456"
+        connODBC.ConnectionString = "Dsn=ERP;uid=sa"
         connODBC.Open()
         Dim ds As DataSet = New DataSet
         Dim adapter As New Odbc.OdbcDataAdapter
@@ -1656,14 +2206,38 @@ Public Class frmEmployeeProfile
         FillAudit()
     End Sub
 
-    Private Sub cmdSaveQualification_Click(sender As Object, e As EventArgs) Handles cmdSaveQualification.Click
+    Private Sub cmdSaveQualification_Click(sender As Object, e As EventArgs) Handles cmd_PrepareQualifications.Click
         Dim sSql As String
         Dim rsMisc As New ADODB.Recordset
         Dim nNewQualificationtId As Integer
         Dim sAction As String, sActionRemarks As String
 
+        If cbQualificationDegree.SelectedIndex = -1 Then
+            MsgBox("Please select Qualification Degree", vbCritical)
+            cbQualificationDegree.Focus()
+            Exit Sub
+        End If
+
+        If txtQualificationStartYear.Text = "" Then
+            MsgBox("Please enter Qualification Start Year.", vbCritical)
+            txtQualificationStartYear.Focus()
+            Exit Sub
+        End If
+
+        If txtQualificationEndYear.Text = "" Then
+            MsgBox("Please enter Qualification End Year.", vbCritical)
+            txtQualificationEndYear.Focus()
+            Exit Sub
+        End If
+
+        If cbQualificationInstitution.SelectedIndex = -1 Then
+            MsgBox("Please select Qualification Institution", vbCritical)
+            cbQualificationInstitution.Focus()
+            Exit Sub
+        End If
+
         If cbQualificationCountry.SelectedIndex = -1 Then
-            MsgBox("Please select country.", vbCritical)
+            MsgBox("Please select Qualification country.", vbCritical)
             cbQualificationCountry.Focus()
             Exit Sub
         End If
@@ -1712,7 +2286,7 @@ Public Class frmEmployeeProfile
             End If
 
             sSql = "Insert Into EM_Employee_Audit (vcDocumentId, dtmActionDate, vcAction, vcUserId, vcActionRemarks, vcIP, vcWorkStation) Values ('" &
-           Trim(txtEmpID.Text) & "', Convert(Datetime,'" & DateTime.Now.ToString("dd MMM yyyy HH:mm:ss") & "'), '" & sAction & "', '" & sUserId & "', '" & sActionRemarks & "', '', '')" '" & g_sUserId & "', '" & sActionRemarks & "', '" & frmMdiMain.GetIPAddress & "', '" & frmMdiMain.GetComputerName & "')"
+           Trim(txtEmpID.Text) & "', Convert(Datetime,'" & DateTime.Now.ToString("dd MMM yyyy HH:mm:ss") & "'), '" & sAction & "', '" & mdFunctions.sUserId & "', '" & sActionRemarks & "', '', '')" '" & g_sUserId & "', '" & sActionRemarks & "', '" & frmMdiMain.GetIPAddress & "', '" & frmMdiMain.GetComputerName & "')"
             conn.Execute(sSql)
 
         Catch ex As Exception
@@ -1758,7 +2332,7 @@ Public Class frmEmployeeProfile
 
     End Sub
 
-    Private Sub cmdDeleteQualification_Click(sender As Object, e As EventArgs) Handles cmdDeleteQualification.Click
+    Private Sub cmdDeleteQualification_Click(sender As Object, e As EventArgs) Handles btn_DeleteQualification.Click
         Dim sSql As String
 
         If Trim(txtEmpID.Text) = "" Then Exit Sub
@@ -1772,7 +2346,7 @@ Public Class frmEmployeeProfile
         conn.Execute(sSql)
 
         sSql = "Insert Into EM_Employee_Audit (vcDocumentId, dtmActionDate, vcAction, vcUserId, vcActionRemarks, vcIP, vcWorkStation) Values ('" &
-            txtEmpID.Text & "', Convert(Datetime,'" & DateTime.Now.ToString("dd MMM yyyy HH:mm:ss") & "'), 'Deleted Qualification', '" & sUserId & "', 'Deleted a qualification.', '', '')" '" & g_sUserId & "', '" & sActionRemarks & "', '" & frmMdiMain.GetIPAddress & "', '" & frmMdiMain.GetComputerName & "')"
+            txtEmpID.Text & "', Convert(Datetime,'" & DateTime.Now.ToString("dd MMM yyyy HH:mm:ss") & "'), 'Deleted Qualification', '" & mdFunctions.sUserId & "', 'Deleted a qualification.', '', '')" '" & g_sUserId & "', '" & sActionRemarks & "', '" & frmMdiMain.GetIPAddress & "', '" & frmMdiMain.GetComputerName & "')"
         conn.Execute(sSql)
 
         ClearQualifications()
@@ -1789,9 +2363,10 @@ Public Class frmEmployeeProfile
         Else
             bNewImage = False
         End If
+
     End Sub
 
-    Private Sub cmdClearExperience_Click(sender As Object, e As EventArgs) Handles cmdClearExperience.Click
+    Private Sub cmdClearExperience_Click(sender As Object, e As EventArgs) Handles cmd_CreateExperience.Click
         ClearExperiences()
         FillExperiences()
     End Sub
@@ -1800,9 +2375,6 @@ Public Class frmEmployeeProfile
 
     End Sub
 
-    Private Sub TabControl1_SelectedIndexChanged(sender As Object, e As EventArgs) Handles TabControl1.SelectedIndexChanged
-
-    End Sub
 
     Private Sub ToolStripSeparator1_Click(sender As Object, e As EventArgs) Handles ToolStripSeparator1.Click
 
@@ -1836,7 +2408,7 @@ Public Class frmEmployeeProfile
 
     End Sub
 
-    Private Sub Label100_Click(sender As Object, e As EventArgs) Handles Label100.Click
+    Private Sub Label100_Click(sender As Object, e As EventArgs)
 
     End Sub
 
@@ -2632,7 +3204,7 @@ Public Class frmEmployeeProfile
 
     End Sub
 
-    Private Sub cbMisc_Click(sender As Object, e As EventArgs) Handles cbMisc.Click
+    Private Sub cbMisc_Click(sender As Object, e As EventArgs) Handles tbMisc.Click
 
     End Sub
 
@@ -2696,7 +3268,7 @@ Public Class frmEmployeeProfile
 
     End Sub
 
-    Private Sub grdAudit_Click(sender As Object, e As EventArgs) Handles grdAudit.Click
+    Private Sub grdAudit_Click(sender As Object, e As EventArgs)
 
     End Sub
 
@@ -2711,4 +3283,385 @@ Public Class frmEmployeeProfile
     Private Sub EMEmployeeAuditBindingSource_CurrentChanged(sender As Object, e As EventArgs) Handles EMEmployeeAuditBindingSource.CurrentChanged
 
     End Sub
+
+    Private Sub frmEmployeeProfile_Activated(sender As Object, e As EventArgs) Handles MyBase.Activated
+
+    End Sub
+
+    Private Sub frmEmployeeProfile_FormClosed(sender As Object, e As FormClosedEventArgs) Handles MyBase.FormClosed
+
+        Dim f3 As frmAppraisals_Discipline = CType(Application.OpenForms("frmAppraisals_Discipline"), frmAppraisals_Discipline)
+        Dim Main As frmMdiMain = CType(Application.OpenForms("frmMdiMain"), frmMdiMain)
+
+        Main.cmdApp.Visible = False
+        Main.AppraisalsDisciiplineToolStripMenuItem.Visible = False
+        Main.cmdStatus.Location = New Point(161, 3)
+
+    End Sub
+
+    Private Sub cmdSave_Click(sender As Object, e As EventArgs, Optional a_nActionID As Integer = 0) Handles cmd_SaveBankAccount.Click
+        Dim sSql As String
+        Dim rsMisc As New ADODB.Recordset
+        Dim nNewBankAccountId As Integer
+
+        Try
+
+            If (conn.State <> ConnectionState.Open) Then conn.Open(sConnectionString)
+            'If Not ValidateFields(a_nActionID, sAction) Then Exit Sub
+
+            If txtAccountNo.Text = "" Then
+                MsgBox("Please Enter Account No", vbCritical)
+                txtAccountNo.Focus()
+                Exit Sub
+            Else
+                sSql = "Select BankAccountNo From HR_EmployeeBankAccount Where BankAccountNo = '" & txtAccountNo.Text & "' "
+                GetRecordSet(rsMisc, sSql)
+                If txtAccountNo.Tag <> txtAccountNo.Text Then
+                    If rsMisc.RecordCount <= 0 Then
+                    Else
+                        MessageBox.Show("Account No Already exists")
+                        Exit Sub
+                    End If
+                End If
+            End If
+
+            If txtAccountTitle.Text = "" Then
+                MsgBox("Please Enter Account Title", vbCritical)
+                txtAccountTitle.Focus()
+                Exit Sub
+            End If
+
+            If cbBank.SelectedIndex < 0 Then
+                MsgBox("Please Select Bank", vbCritical)
+                cbBank.Focus()
+                Exit Sub
+            End If
+
+            bProcessing = True
+
+            If (nBankAccountId = Nothing) Or (nBankAccountId = 0) Then
+                sSql = "Select MAX(Id) As Id From HR_EmployeeBankAccount"
+                GetRecordSet(rsMisc, sSql)
+                nNewBankAccountId = CInt(rsMisc("Id").Value)
+                nNewBankAccountId += 1
+                sSql = "Insert INTO HR_EmployeeBankAccount (Id, EmployeeId, BankAccountNo, AccountTitle, BankId, BankBranch)" &
+                                   "Values(" & nNewBankAccountId & ", " & nEmployeeId & ", '" & txtAccountNo.Text & "', '" & txtAccountTitle.Text &
+                                   "', " & IIf(cbBank.SelectedIndex < 0, 0, cbBank.SelectedValue) & ", '" & txtBranch.Text & "')"
+                conn.Execute(sSql)
+            Else
+                sSql = "Update HR_EmployeeBankAccount Set BankAccountNo = '" & txtAccountNo.Text & "', AccountTitle = '" & txtAccountTitle.Text &
+                                   "', BankId = " & IIf(cbBank.SelectedIndex < 0, 0, cbBank.SelectedValue) & ", BankBranch = '" & txtBranch.Text & "'Where EmployeeId=" & nEmployeeId
+                conn.Execute(sSql)
+            End If
+
+            ' sSql = "Insert Into EM_Employee_Audit (vcDocumentId, dtmActionDate, vcAction, vcUserId, vcActionRemarks, vcIP, vcWorkStation) Values ('" &
+            '  Convert.ToString(nEmployeeId) & "', Convert(Datetime,'" & DateTime.Now.ToString("dd MMM yyyy HH:mm:ss") & "'), '" & sAction & "', '" & sUserId & "', '" & sAction & "', '', '')" '" & g_sUserId & "', '" & sActionRemarks & "', '" & frmMdiMain.GetIPAddress & "', '" & frmMdiMain.GetComputerName & "')"
+            '  conn.Execute(sSql)
+
+            If nEmployeeId <> Nothing Then
+                sSql = "Select * From EM_Employee Where Id = " & nEmployeeId
+                If rsMain.State = 1 Then rsMain.Close()
+                rsMain.Open(sSql, conn, ADODB.CursorTypeEnum.adOpenKeyset, ADODB.LockTypeEnum.adLockOptimistic)
+            End If
+        Catch ex As Exception
+            MsgBox("Error Saving Bank Account " & ex.Message)
+
+        End Try
+
+        Display()
+
+        'conn.Close()
+
+        bProcessing = False
+        slStatus.Text = ""
+    End Sub
+
+    Private Sub frmEmployeeProfile_FormClosing(sender As Object, e As FormClosingEventArgs) Handles MyBase.FormClosing
+
+        frmAppraisals_Discipline.Close()
+
+
+    End Sub
+
+    Private Sub cmdApp_Click(sender As Object, e As EventArgs) Handles cmdApp.Click
+        Dim f3 As frmAppraisals_Discipline = CType(Application.OpenForms("frmAppraisals_Discipline"), frmAppraisals_Discipline)
+        Dim f2 As frmEmployeeProfile = CType(Application.OpenForms("frmEmployeeProfile"), frmEmployeeProfile)
+
+        f3.Focus()
+        f3.WindowState = FormWindowState.Normal
+    End Sub
+
+    Private Sub tbBankAccount_Click(sender As Object, e As EventArgs) Handles tbBankAccount.Click
+        tbBankAccount.Enabled = False
+
+    End Sub
+
+    Private Sub frmEmployeeProfile_KeyPress(sender As Object, e As KeyPressEventArgs) Handles MyBase.KeyPress
+
+    End Sub
+
+    Private Sub tbBankAccount_MouseClick(sender As Object, e As MouseEventArgs) Handles tbBankAccount.MouseClick
+        tbBankAccount.Enabled = False
+    End Sub
+
+
+    Private Sub TabControl1_Deselected(sender As Object, e As TabControlEventArgs) Handles TabControl1.Deselected
+        CurrentTab = e.TabPage
+    End Sub
+
+    Private Sub TabControl1_Selected(sender As Object, e As TabControlEventArgs) Handles TabControl1.Selected
+        PreviousTab = e.TabPage
+        'If (tbDependent.Name <> tbBank.Name) And (tbBank.Name = tbMisc.Name) Then
+        '    ' MessageBox.Show("Tab disabled.", "Selection Error", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+        '    TabControl1.SelectedTab = tbDependent
+        'End If
+        If TabControl1.TabPages(0).Enabled = False And PreviousTab.Name = tbPersonal.Name Then
+            MessageBox.Show("You Don't have rights to this information", "Privilages Error ", MessageBoxButtons.OK, MessageBoxIcon.Stop)
+            TabControl1.SelectedTab = CurrentTab
+        End If
+        If TabControl1.TabPages(1).Enabled = False And PreviousTab.Name = tbFCCL.Name Then
+            MessageBox.Show("You Don't have rights to this information", "Privilages Error ", MessageBoxButtons.OK, MessageBoxIcon.Stop)
+            TabControl1.SelectedTab = CurrentTab
+        End If
+        If TabControl1.TabPages(2).Enabled = False And PreviousTab.Name = tbExperience.Name Then
+            MessageBox.Show("You Don't have rights to this information", "Privilages Error ", MessageBoxButtons.OK, MessageBoxIcon.Stop)
+            TabControl1.SelectedTab = CurrentTab
+        End If
+        If TabControl1.TabPages(3).Enabled = False And PreviousTab.Name = tbQualifications.Name Then
+            MessageBox.Show("You Don't have rights to this information", "Privilages Error ", MessageBoxButtons.OK, MessageBoxIcon.Stop)
+            TabControl1.SelectedTab = CurrentTab
+        End If
+        If TabControl1.TabPages(4).Enabled = False And PreviousTab.Name = tbContacts.Name Then
+            MessageBox.Show("You Don't have rights to this information", "Privilages Error ", MessageBoxButtons.OK, MessageBoxIcon.Stop)
+            TabControl1.SelectedTab = CurrentTab
+        End If
+        If TabControl1.TabPages(5).Enabled = False And PreviousTab.Name = tbDependents.Name Then
+            MessageBox.Show("You Don't have rights to this information", "Privilages Error ", MessageBoxButtons.OK, MessageBoxIcon.Stop)
+            TabControl1.SelectedTab = CurrentTab
+        End If
+        If TabControl1.TabPages(6).Enabled = False And PreviousTab.Name = tbBankAccount.Name Then
+            MessageBox.Show("You Don't have rights to this information", "Privilages Error ", MessageBoxButtons.OK, MessageBoxIcon.Stop)
+            TabControl1.SelectedTab = CurrentTab
+        End If
+        If TabControl1.TabPages(7).Enabled = False And PreviousTab.Name = tbMisc.Name Then
+            MessageBox.Show("You Don't have rights to this information", "Privilages Error ", MessageBoxButtons.OK, MessageBoxIcon.Stop)
+            TabControl1.SelectedTab = CurrentTab
+        End If
+
+    End Sub
+
+    Private Sub txtSendMail_Click(sender As Object, e As EventArgs) Handles txtImport.Click
+
+        Dim rsExcel As New ADODB.Recordset
+        Dim sConnStr As String, sSheetName As String
+
+        If rsExcel.State = ADODB.ObjectStateEnum.adStateClosed Then
+            rsExcel.Close()
+        End If
+        sConnStr = "Provider=Microsoft.ACE.OLEDB.12.0;Data Source='" & TextBox1.Text & " ';Extended Properties=""Excel 12.0 Xml;HDR=Yes"""
+        'Dim sConnStr As New System.Data.OleDb.OleDbConnection("Provider=Microsoft.ACE.OLEDB.12.0;Data Source='" & TextBox1.Text & " ';Extended Properties=""Excel 12.0 Xml;HDR=Yes""")
+        'sConnStr.Open()
+        'Dim query_Excel As String = "Select [Id],[EmployeeNo],[FatherName] from [Sheet1$]"
+        'Dim cmd As OleDbCommand = New OleDbCommand(query_Excel, sConnStr)
+        'Dim sSql As String
+
+        'Dim rd As OleDbDataReader
+
+        'Dim conn1 As New SqlConnection
+        'Dim conn1database As String = "Server=192.168.2.5;Database=ERP_FCCL;User Id=sa;Password=123456"
+        ''"Server=my_server;Database=name_of_db;User Id=user_name;Password=my_password"
+        'conn1.ConnectionString = conn1database
+
+        'conn1.Open()
+
+        'sSql = "Delete From EM_EmployeeTest1"
+        'conn.Execute(sSql)
+
+        'Using bulkcopy As New SqlClient.SqlBulkCopy(conn1)
+        '    bulkcopy.DestinationTableName = "dbo.EM_EmployeeTest1"
+        '    bulkcopy.ColumnMappings.Add("Id", "Id")
+        '    bulkcopy.ColumnMappings.Add("EmployeeNo", "EmployeeNo")
+        '    bulkcopy.ColumnMappings.Add("FatherName", "FatherName")
+
+        '    Try
+        '        rd = cmd.ExecuteReader
+        '        bulkcopy.WriteToServer(rd)
+        '        rd.Close()
+
+        '        MessageBox.Show("Successfully imported data")
+        '        TextBox1.Text = ""
+        '    Catch ex As Exception
+        '        MessageBox.Show("Error importing data" + ex.Message)
+        '    End Try
+
+        'End Using
+
+
+    End Sub
+
+    'Public Sub ReadExcelFile()
+    '    On Error GoTo Err_Handler
+
+    '    Dim RsExcel As New ADODB.Recordset, rMisc As New ADODB.Recordset
+    '    Dim sConnStr As String, sSheetName As String, sTruckNo As String
+    '    Dim nRow As Integer, nPos As Integer
+    '    Dim sSql As String, sSql2 As String
+
+    '    If Trim(TextBox1.Text) = "" Then Exit Sub
+
+    '    sSheetName = Trim("All$")
+
+    '    ' RsExcel.CursorLocation = adUseClient
+
+    '    sConnStr = "Provider=Microsoft.Jet.OLEDB.4.0;Data Source=" & Trim(TextBox1.Text) & ";Extended Properties=Excel 3.0"
+
+    '    ' If RsExcel.State = ADODB.ObjectStateEnum.adStateClosed Then RsExcel.Close()
+    '    sSql = "Select * From [" & sSheetName & "]"
+    '    RsExcel.Open(sSql, conn, ADODB.CursorTypeEnum.adOpenKeyset, ADODB.LockTypeEnum.adLockOptimistic)
+    '    ' RsExcel.Open "Select * From [" & sSheetName & "]", sConnStr, adOpenKeyset, adLockOptimistic
+
+    '    If RsExcel.EOF Then
+    '        MessageBox.Show("No data found in the file.")
+    '        'Screen.MousePointer = vbNormal
+    '        Exit Sub
+    '    End If
+
+    '    RsExcel.MoveFirst()
+
+    '    If RsExcel.RecordCount = 0 Then Exit Sub
+
+    '    'Screen.MousePointer = vbHourglass
+
+    '    For nRow = 0 To RsExcel.RecordCount - 1
+    '        If Trim(RsExcel.Fields(0) & "") <> "" Then
+    '            nCount = nCount + 1
+    '            lblCount = nCount
+    '            nAmount = nAmount + RsExcel.Fields(1)
+    '        End If
+
+    '        RsExcel.MoveNext()
+
+    '    Next nRow
+
+    '    RsExcel.Close()
+
+    '    'Set RsExcel = Nothing
+
+    '    'Screen.MousePointer = vbDefault
+
+    '    Exit Sub
+
+    '    'Err_Handler:
+    '    '        conn.RollbackTrans()
+    '    '        Screen.MousePointer = vbDefault
+    '    '        MsgBox "Duplicate Invoice No: " & RsExcel.Fields(0) & vbLf & Err.Description, vbCritical, App.Title
+    '    '    RsExcel.Close()
+    '    '            Set RsExcel = Nothing
+    'End Sub
+    Private Sub btnBrowse_Click(sender As Object, e As EventArgs) Handles btnBrowse.Click
+        OpenFileDialog1.ShowDialog()
+        TextBox1.Text = OpenFileDialog1.FileName
+    End Sub
+
+    Private Sub btn_Increment_Click(sender As Object, e As EventArgs) Handles btn_Increment.Click
+        Dim sSql As String
+        Dim rsMisc As New ADODB.Recordset
+
+
+        If btn_Increment.Text = "Enable Increment" Then
+            If MsgBox("Do you want To Enable the increment ?", vbYesNo) = vbNo Then Exit Sub
+        Else
+            If MsgBox("Do you want To Disable the increment ?", vbYesNo) = vbNo Then Exit Sub
+        End If
+
+        If btn_Increment.Text = "Enable Increment" Then
+
+            nIncrementId = 1
+
+            sSql = "Update EM_Employee set nIncrementId='" & nIncrementId & "' Where Id = " & Trim(txtEmpID.Text)
+            conn.Execute(sSql)
+
+            sAction = "Enabled Increment"
+
+            sSql = "Insert Into EM_Employee_Audit (vcDocumentId, dtmActionDate, vcAction, vcUserId, vcActionRemarks, vcIP, vcWorkStation) Values ('" &
+            txtEmpID.Text & "', Convert(Datetime,'" & DateTime.Now.ToString("dd MMM yyyy HH:mm:ss") & "'), '" & sAction & "', '" & mdFunctions.sUserId & "', '', '', '')" '" & g_sUserId & "', '" & sActionRemarks & "', '" & frmMdiMain.GetIPAddress & "', '" & frmMdiMain.GetComputerName & "')"
+            conn.Execute(sSql)
+
+            MessageBox.Show("Increment Enabled Successfully")
+        Else
+            nIncrementId = 0
+
+            sSql = "Update EM_Employee set nIncrementId='" & nIncrementId & "' Where Id = " & Trim(txtEmpID.Text)
+            conn.Execute(sSql)
+
+            sAction = "Disabled Increment"
+
+            sSql = "Insert Into EM_Employee_Audit (vcDocumentId, dtmActionDate, vcAction, vcUserId, vcActionRemarks, vcIP, vcWorkStation) Values ('" &
+            txtEmpID.Text & "', Convert(Datetime,'" & DateTime.Now.ToString("dd MMM yyyy HH:mm:ss") & "'), '" & sAction & "', '" & mdFunctions.sUserId & "', '', '', '')" '" & g_sUserId & "', '" & sActionRemarks & "', '" & frmMdiMain.GetIPAddress & "', '" & frmMdiMain.GetComputerName & "')"
+            conn.Execute(sSql)
+
+            MessageBox.Show("Increment Disabled Successfully")
+        End If
+
+        Display()
+        grdAudit.Refresh()
+
+    End Sub
+
+    Private Sub chkConfNo_CheckedChanged(sender As Object, e As EventArgs) Handles chkConfNo.CheckedChanged
+
+    End Sub
+
+    Private Sub chkConfYes_CheckedChanged(sender As Object, e As EventArgs) Handles chkConfYes.CheckedChanged
+
+    End Sub
+
+    Private Sub chkConfYes_Click(sender As Object, e As EventArgs) Handles chkConfYes.Click
+        If chkConfYes.Checked = True Then
+            chkConfNo.Checked = False
+        End If
+    End Sub
+
+    Private Sub chkConfNo_Click(sender As Object, e As EventArgs) Handles chkConfNo.Click
+        If chkConfNo.Checked = True Then
+            chkConfYes.Checked = False
+        End If
+    End Sub
+
+    Private Sub chkLFAYes_CheckedChanged(sender As Object, e As EventArgs) Handles chkLFAYes.CheckedChanged
+
+    End Sub
+
+    Private Sub chkLFAYes_Click(sender As Object, e As EventArgs) Handles chkLFAYes.Click
+        If chkLFAYes.Checked = True Then
+            chkLFANo.Checked = False
+        End If
+    End Sub
+
+    Private Sub chkLFANo_CheckedChanged(sender As Object, e As EventArgs) Handles chkLFANo.CheckedChanged
+
+    End Sub
+
+    Private Sub chkLFANo_Click(sender As Object, e As EventArgs) Handles chkLFANo.Click
+        If chkLFANo.Checked = True Then
+            chkLFAYes.Checked = False
+        End If
+    End Sub
+
+    Private Sub grdAudit_Click_1(sender As Object, e As EventArgs)
+
+    End Sub
+
+    Private Sub chkConfNo_CheckedChanged_1(sender As Object, e As EventArgs) Handles chkConfNo.CheckedChanged
+
+    End Sub
+
+    Private Sub grdAudit_Click_2(sender As Object, e As EventArgs) Handles grdAudit.Click
+
+    End Sub
+
+    Private Sub BunifuFlatButton1_Click(sender As Object, e As EventArgs)
+
+    End Sub
+
 End Class

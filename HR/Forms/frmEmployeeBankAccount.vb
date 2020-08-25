@@ -91,38 +91,46 @@
         Dim rsMisc As New ADODB.Recordset
         Dim nNewBankAccountId As Integer
 
-        If (conn.State <> ConnectionState.Open) Then conn.Open(sConnectionString)
-        If Not ValidateFields(a_nActionID, sAction) Then Exit Sub
 
-        bProcessing = True
+        Try
 
-        If (nBankAccountId = Nothing) Or (nBankAccountId = 0) Then
-            sSql = "Select MAX(Id) As Id From HR_EmployeeBankAccount"
-            GetRecordSet(rsMisc, sSql)
-            nNewBankAccountId = CInt(rsMisc("Id").Value)
-            nNewBankAccountId += 1
+            If (conn.State <> ConnectionState.Open) Then conn.Open(sConnectionString)
+            If Not ValidateFields(a_nActionID, sAction) Then Exit Sub
 
-            sSql = "Insert INTO HR_EmployeeBankAccount (Id, EmployeeId, BankAccountNo, AccountTitle, BankId, BankBranch) " &
-                   "Values(" & nNewBankAccountId & ", " & nEmployeeId & ", '" & txtAccountNo.Text & "', '" & txtAccountTitle.Text &
-                   "', " & IIf(cbBank.SelectedIndex < 0, 0, cbBank.SelectedValue) & ", '" & txtBranch.Text & "')"
-            conn.Execute(sSql)
-        Else
-            sSql = "Update HR_EmployeeBankAccount Set BankAccountNo = '" & txtAccountNo.Text & "', AccountTitle = '" & txtAccountTitle.Text &
-                   "', BankId = " & IIf(cbBank.SelectedIndex < 0, 0, cbBank.SelectedValue) & ", BankBranch = '" & txtBranch.Text & "'"
-            conn.Execute(sSql)
-        End If
+            bProcessing = True
 
-        sSql = "Insert Into EM_Employee_Audit (vcDocumentId, dtmActionDate, vcAction, vcUserId, vcActionRemarks, vcIP, vcWorkStation) Values ('" &
-       Convert.ToString(nEmployeeId) & "', Convert(Datetime,'" & DateTime.Now.ToString("dd MMM yyyy HH:mm:ss") & "'), '" & sAction & "', '" & sUserId & "', '" & sAction & "', '', '')" '" & g_sUserId & "', '" & sActionRemarks & "', '" & frmMdiMain.GetIPAddress & "', '" & frmMdiMain.GetComputerName & "')"
-        conn.Execute(sSql)
+            If (nBankAccountId = Nothing) Or (nBankAccountId = 0) Then
+                sSql = "Select MAX(Id) As Id From HR_EmployeeBankAccount"
+                GetRecordSet(rsMisc, sSql)
+                nNewBankAccountId = CInt(rsMisc("Id").Value)
+                nNewBankAccountId += 1
 
-        If nEmployeeId <> Nothing Then
-            sSql = "Select * From EM_Employee Where Id = " & nEmployeeId
-            If rsMain.State = 1 Then rsMain.Close()
-            rsMain.Open(sSql, conn, ADODB.CursorTypeEnum.adOpenKeyset, ADODB.LockTypeEnum.adLockOptimistic)
-        End If
+                sSql = "Insert INTO HR_EmployeeBankAccount (Id, EmployeeId, BankAccountNo, AccountTitle, BankId, BankBranch)" &
+                       "Values(" & nNewBankAccountId & ", " & nEmployeeId & ", '" & txtAccountNo.Text & "', '" & txtAccountTitle.Text &
+                       "', " & IIf(cbBank.SelectedIndex < 0, 0, cbBank.SelectedValue) & ", '" & txtBranch.Text & "')"
+                conn.Execute(sSql)
+            Else
+                sSql = "Update HR_EmployeeBankAccount Set BankAccountNo = '" & txtAccountNo.Text & "', AccountTitle = '" & txtAccountTitle.Text &
+                       "', BankId = " & IIf(cbBank.SelectedIndex < 0, 0, cbBank.SelectedValue) & ", BankBranch = '" & txtBranch.Text & "'Where EmployeeId=" & nEmployeeId
+                conn.Execute(sSql)
+            End If
+
+            ' sSql = "Insert Into EM_Employee_Audit (vcDocumentId, dtmActionDate, vcAction, vcUserId, vcActionRemarks, vcIP, vcWorkStation) Values ('" &
+            '  Convert.ToString(nEmployeeId) & "', Convert(Datetime,'" & DateTime.Now.ToString("dd MMM yyyy HH:mm:ss") & "'), '" & sAction & "', '" & sUserId & "', '" & sAction & "', '', '')" '" & g_sUserId & "', '" & sActionRemarks & "', '" & frmMdiMain.GetIPAddress & "', '" & frmMdiMain.GetComputerName & "')"
+            '  conn.Execute(sSql)
+
+            If nEmployeeId <> Nothing Then
+                sSql = "Select * From EM_Employee Where Id = " & nEmployeeId
+                If rsMain.State = 1 Then rsMain.Close()
+                rsMain.Open(sSql, conn, ADODB.CursorTypeEnum.adOpenKeyset, ADODB.LockTypeEnum.adLockOptimistic)
+            End If
+        Catch ex As Exception
+            MsgBox("Error Saving Bank Account " & ex.Message)
+
+        End Try
 
         Display()
+
         conn.Close()
 
         bProcessing = False
@@ -157,7 +165,7 @@
 
     Private Sub FillAudit()
         Dim connODBC As New Odbc.OdbcConnection
-        connODBC.ConnectionString = "Dsn=ERP;uid=sa;pwd=123456"
+        connODBC.ConnectionString = "Dsn=ERP;uid=sa"
         connODBC.Open()
         Dim ds As DataSet = New DataSet
         Dim adapter As New Odbc.OdbcDataAdapter
@@ -233,4 +241,7 @@
         Delete()
     End Sub
 
+    Private Sub tlbToolbar_ItemClicked(sender As Object, e As ToolStripItemClickedEventArgs) Handles tlbToolbar.ItemClicked
+
+    End Sub
 End Class

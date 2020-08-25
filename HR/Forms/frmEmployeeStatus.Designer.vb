@@ -24,13 +24,15 @@ Partial Class frmEmployeeStatus
     Private Sub InitializeComponent()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmEmployeeStatus))
         Me.tlbToolbar = New System.Windows.Forms.ToolStrip()
-        Me.btnNew = New System.Windows.Forms.ToolStripButton()
-        Me.btnSave = New System.Windows.Forms.ToolStripButton()
+        Me.btn_Prepare = New System.Windows.Forms.ToolStripButton()
+        Me.btn_Modify = New System.Windows.Forms.ToolStripButton()
         Me.btnSearch = New System.Windows.Forms.ToolStripButton()
-        Me.btnDelete = New System.Windows.Forms.ToolStripButton()
-        Me.btnApprove = New System.Windows.Forms.ToolStripButton()
+        Me.btn_Delete = New System.Windows.Forms.ToolStripButton()
+        Me.btn_Approve = New System.Windows.Forms.ToolStripButton()
         Me.tbDependent = New System.Windows.Forms.TabControl()
         Me.tbPersonal = New System.Windows.Forms.TabPage()
+        Me.cmdSearchEmployee = New System.Windows.Forms.Button()
+        Me.txtDocumentNo = New System.Windows.Forms.TextBox()
         Me.Label13 = New System.Windows.Forms.Label()
         Me.txtRemarks = New System.Windows.Forms.TextBox()
         Me.Label2 = New System.Windows.Forms.Label()
@@ -43,8 +45,6 @@ Partial Class frmEmployeeStatus
         Me.grdAudit = New C1.Win.C1TrueDBGrid.C1TrueDBGrid()
         Me.stbDetail = New System.Windows.Forms.StatusStrip()
         Me.slStatus = New System.Windows.Forms.ToolStripStatusLabel()
-        Me.txtDocumentNo = New System.Windows.Forms.TextBox()
-        Me.cmdSearchEmployee = New System.Windows.Forms.Button()
         Me.tlbToolbar.SuspendLayout()
         Me.tbDependent.SuspendLayout()
         Me.tbPersonal.SuspendLayout()
@@ -55,31 +55,34 @@ Partial Class frmEmployeeStatus
         '
         'tlbToolbar
         '
-        Me.tlbToolbar.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.btnNew, Me.btnSave, Me.btnSearch, Me.btnDelete, Me.btnApprove})
+        Me.tlbToolbar.ImageScalingSize = New System.Drawing.Size(18, 18)
+        Me.tlbToolbar.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.btn_Prepare, Me.btn_Modify, Me.btnSearch, Me.btn_Delete, Me.btn_Approve})
         Me.tlbToolbar.Location = New System.Drawing.Point(0, 0)
         Me.tlbToolbar.Name = "tlbToolbar"
-        Me.tlbToolbar.Size = New System.Drawing.Size(666, 25)
+        Me.tlbToolbar.Size = New System.Drawing.Size(668, 25)
         Me.tlbToolbar.TabIndex = 6
         Me.tlbToolbar.Text = "tlbTop"
         '
-        'btnNew
+        'btn_Prepare
         '
-        Me.btnNew.BackColor = System.Drawing.SystemColors.Control
-        Me.btnNew.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
-        Me.btnNew.Image = Global.HR.My.Resources.Resources._NEW
-        Me.btnNew.ImageTransparentColor = System.Drawing.SystemColors.ButtonFace
-        Me.btnNew.Name = "btnNew"
-        Me.btnNew.Size = New System.Drawing.Size(23, 22)
-        Me.btnNew.Text = "New"
+        Me.btn_Prepare.BackColor = System.Drawing.SystemColors.Control
+        Me.btn_Prepare.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
+        Me.btn_Prepare.Enabled = False
+        Me.btn_Prepare.Image = Global.HR.My.Resources.Resources._NEW
+        Me.btn_Prepare.ImageTransparentColor = System.Drawing.SystemColors.ButtonFace
+        Me.btn_Prepare.Name = "btn_Prepare"
+        Me.btn_Prepare.Size = New System.Drawing.Size(23, 22)
+        Me.btn_Prepare.Text = "New"
         '
-        'btnSave
+        'btn_Modify
         '
-        Me.btnSave.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
-        Me.btnSave.Image = Global.HR.My.Resources.Resources.SAVE
-        Me.btnSave.ImageTransparentColor = System.Drawing.SystemColors.ButtonFace
-        Me.btnSave.Name = "btnSave"
-        Me.btnSave.Size = New System.Drawing.Size(23, 22)
-        Me.btnSave.Text = "Save"
+        Me.btn_Modify.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
+        Me.btn_Modify.Enabled = False
+        Me.btn_Modify.Image = Global.HR.My.Resources.Resources.SAVE
+        Me.btn_Modify.ImageTransparentColor = System.Drawing.SystemColors.ButtonFace
+        Me.btn_Modify.Name = "btn_Modify"
+        Me.btn_Modify.Size = New System.Drawing.Size(23, 22)
+        Me.btn_Modify.Text = "Save"
         '
         'btnSearch
         '
@@ -90,25 +93,26 @@ Partial Class frmEmployeeStatus
         Me.btnSearch.Size = New System.Drawing.Size(23, 22)
         Me.btnSearch.Text = "Search"
         '
-        'btnDelete
+        'btn_Delete
         '
-        Me.btnDelete.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
-        Me.btnDelete.Image = Global.HR.My.Resources.Resources.DELETE
-        Me.btnDelete.ImageTransparentColor = System.Drawing.SystemColors.ButtonFace
-        Me.btnDelete.Name = "btnDelete"
-        Me.btnDelete.Size = New System.Drawing.Size(23, 22)
-        Me.btnDelete.Text = "Delete"
-        Me.btnDelete.Visible = False
+        Me.btn_Delete.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
+        Me.btn_Delete.Enabled = False
+        Me.btn_Delete.Image = Global.HR.My.Resources.Resources.DELETE
+        Me.btn_Delete.ImageTransparentColor = System.Drawing.SystemColors.ButtonFace
+        Me.btn_Delete.Name = "btn_Delete"
+        Me.btn_Delete.Size = New System.Drawing.Size(23, 22)
+        Me.btn_Delete.Text = "Delete"
         '
-        'btnApprove
+        'btn_Approve
         '
-        Me.btnApprove.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
-        Me.btnApprove.Image = Global.HR.My.Resources.Resources.Approve2
-        Me.btnApprove.ImageTransparentColor = System.Drawing.SystemColors.ButtonFace
-        Me.btnApprove.Name = "btnApprove"
-        Me.btnApprove.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.btnApprove.Size = New System.Drawing.Size(23, 22)
-        Me.btnApprove.Text = "Approve"
+        Me.btn_Approve.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
+        Me.btn_Approve.Enabled = False
+        Me.btn_Approve.Image = Global.HR.My.Resources.Resources.Approve2
+        Me.btn_Approve.ImageTransparentColor = System.Drawing.SystemColors.ButtonFace
+        Me.btn_Approve.Name = "btn_Approve"
+        Me.btn_Approve.RightToLeft = System.Windows.Forms.RightToLeft.No
+        Me.btn_Approve.Size = New System.Drawing.Size(23, 22)
+        Me.btn_Approve.Text = "Approve"
         '
         'tbDependent
         '
@@ -134,19 +138,37 @@ Partial Class frmEmployeeStatus
         Me.tbPersonal.Controls.Add(Me.Label3)
         Me.tbPersonal.Controls.Add(Me.txtEmployeeName)
         Me.tbPersonal.Controls.Add(Me.Label1)
-        Me.tbPersonal.Location = New System.Drawing.Point(4, 25)
+        Me.tbPersonal.Location = New System.Drawing.Point(4, 26)
         Me.tbPersonal.Name = "tbPersonal"
         Me.tbPersonal.Padding = New System.Windows.Forms.Padding(3)
-        Me.tbPersonal.Size = New System.Drawing.Size(650, 97)
+        Me.tbPersonal.Size = New System.Drawing.Size(650, 96)
         Me.tbPersonal.TabIndex = 1
         Me.tbPersonal.Text = "Employee Status"
+        '
+        'cmdSearchEmployee
+        '
+        Me.cmdSearchEmployee.Location = New System.Drawing.Point(287, 8)
+        Me.cmdSearchEmployee.Name = "cmdSearchEmployee"
+        Me.cmdSearchEmployee.Size = New System.Drawing.Size(31, 23)
+        Me.cmdSearchEmployee.TabIndex = 49
+        Me.cmdSearchEmployee.Text = "..."
+        Me.cmdSearchEmployee.UseVisualStyleBackColor = True
+        '
+        'txtDocumentNo
+        '
+        Me.txtDocumentNo.Enabled = False
+        Me.txtDocumentNo.Location = New System.Drawing.Point(468, 7)
+        Me.txtDocumentNo.Name = "txtDocumentNo"
+        Me.txtDocumentNo.Size = New System.Drawing.Size(175, 25)
+        Me.txtDocumentNo.TabIndex = 48
+        Me.txtDocumentNo.Visible = False
         '
         'Label13
         '
         Me.Label13.AutoSize = True
         Me.Label13.Location = New System.Drawing.Point(4, 74)
         Me.Label13.Name = "Label13"
-        Me.Label13.Size = New System.Drawing.Size(62, 16)
+        Me.Label13.Size = New System.Drawing.Size(74, 18)
         Me.Label13.TabIndex = 47
         Me.Label13.Text = "Remarks"
         '
@@ -154,7 +176,7 @@ Partial Class frmEmployeeStatus
         '
         Me.txtRemarks.Location = New System.Drawing.Point(143, 69)
         Me.txtRemarks.Name = "txtRemarks"
-        Me.txtRemarks.Size = New System.Drawing.Size(502, 23)
+        Me.txtRemarks.Size = New System.Drawing.Size(502, 25)
         Me.txtRemarks.TabIndex = 3
         '
         'Label2
@@ -162,7 +184,7 @@ Partial Class frmEmployeeStatus
         Me.Label2.AutoSize = True
         Me.Label2.Location = New System.Drawing.Point(355, 43)
         Me.Label2.Name = "Label2"
-        Me.Label2.Size = New System.Drawing.Size(39, 16)
+        Me.Label2.Size = New System.Drawing.Size(43, 18)
         Me.Label2.TabIndex = 15
         Me.Label2.Text = "Date"
         '
@@ -173,7 +195,7 @@ Partial Class frmEmployeeStatus
         Me.dtpDate.Location = New System.Drawing.Point(468, 38)
         Me.dtpDate.Name = "dtpDate"
         Me.dtpDate.ShowCheckBox = True
-        Me.dtpDate.Size = New System.Drawing.Size(175, 23)
+        Me.dtpDate.Size = New System.Drawing.Size(175, 25)
         Me.dtpDate.TabIndex = 2
         Me.dtpDate.Value = New Date(2015, 11, 9, 11, 57, 14, 0)
         '
@@ -182,9 +204,9 @@ Partial Class frmEmployeeStatus
         Me.cbStatus.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cbStatus.FormattingEnabled = True
         Me.cbStatus.Items.AddRange(New Object() {"Active", "Retired", "Resigned", "Terminated", "Deceased", "Re-joined"})
-        Me.cbStatus.Location = New System.Drawing.Point(143, 39)
+        Me.cbStatus.Location = New System.Drawing.Point(143, 36)
         Me.cbStatus.Name = "cbStatus"
-        Me.cbStatus.Size = New System.Drawing.Size(175, 24)
+        Me.cbStatus.Size = New System.Drawing.Size(175, 25)
         Me.cbStatus.TabIndex = 1
         '
         'Label3
@@ -192,7 +214,7 @@ Partial Class frmEmployeeStatus
         Me.Label3.AutoSize = True
         Me.Label3.Location = New System.Drawing.Point(4, 44)
         Me.Label3.Name = "Label3"
-        Me.Label3.Size = New System.Drawing.Size(52, 16)
+        Me.Label3.Size = New System.Drawing.Size(56, 18)
         Me.Label3.TabIndex = 4
         Me.Label3.Text = "Status"
         '
@@ -201,7 +223,7 @@ Partial Class frmEmployeeStatus
         Me.txtEmployeeName.Enabled = False
         Me.txtEmployeeName.Location = New System.Drawing.Point(143, 9)
         Me.txtEmployeeName.Name = "txtEmployeeName"
-        Me.txtEmployeeName.Size = New System.Drawing.Size(175, 23)
+        Me.txtEmployeeName.Size = New System.Drawing.Size(175, 25)
         Me.txtEmployeeName.TabIndex = 1
         '
         'Label1
@@ -209,7 +231,7 @@ Partial Class frmEmployeeStatus
         Me.Label1.AutoSize = True
         Me.Label1.Location = New System.Drawing.Point(4, 14)
         Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(111, 16)
+        Me.Label1.Size = New System.Drawing.Size(130, 18)
         Me.Label1.TabIndex = 0
         Me.Label1.Text = "Employee Name"
         '
@@ -217,9 +239,9 @@ Partial Class frmEmployeeStatus
         '
         Me.tbAudit.BackColor = System.Drawing.SystemColors.ButtonFace
         Me.tbAudit.Controls.Add(Me.grdAudit)
-        Me.tbAudit.Location = New System.Drawing.Point(4, 25)
+        Me.tbAudit.Location = New System.Drawing.Point(4, 26)
         Me.tbAudit.Name = "tbAudit"
-        Me.tbAudit.Size = New System.Drawing.Size(650, 97)
+        Me.tbAudit.Size = New System.Drawing.Size(650, 96)
         Me.tbAudit.TabIndex = 9
         Me.tbAudit.Text = "Audit"
         '
@@ -243,10 +265,11 @@ Partial Class frmEmployeeStatus
         '
         'stbDetail
         '
+        Me.stbDetail.ImageScalingSize = New System.Drawing.Size(18, 18)
         Me.stbDetail.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.slStatus})
-        Me.stbDetail.Location = New System.Drawing.Point(0, 153)
+        Me.stbDetail.Location = New System.Drawing.Point(0, 162)
         Me.stbDetail.Name = "stbDetail"
-        Me.stbDetail.Size = New System.Drawing.Size(666, 22)
+        Me.stbDetail.Size = New System.Drawing.Size(668, 22)
         Me.stbDetail.TabIndex = 9
         Me.stbDetail.Text = "Hello"
         '
@@ -255,29 +278,11 @@ Partial Class frmEmployeeStatus
         Me.slStatus.Name = "slStatus"
         Me.slStatus.Size = New System.Drawing.Size(0, 17)
         '
-        'txtDocumentNo
-        '
-        Me.txtDocumentNo.Enabled = False
-        Me.txtDocumentNo.Location = New System.Drawing.Point(468, 9)
-        Me.txtDocumentNo.Name = "txtDocumentNo"
-        Me.txtDocumentNo.Size = New System.Drawing.Size(175, 23)
-        Me.txtDocumentNo.TabIndex = 48
-        Me.txtDocumentNo.Visible = False
-        '
-        'cmdSearchEmployee
-        '
-        Me.cmdSearchEmployee.Location = New System.Drawing.Point(287, 8)
-        Me.cmdSearchEmployee.Name = "cmdSearchEmployee"
-        Me.cmdSearchEmployee.Size = New System.Drawing.Size(31, 23)
-        Me.cmdSearchEmployee.TabIndex = 49
-        Me.cmdSearchEmployee.Text = "..."
-        Me.cmdSearchEmployee.UseVisualStyleBackColor = True
-        '
         'frmEmployeeStatus
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(666, 175)
+        Me.ClientSize = New System.Drawing.Size(668, 184)
         Me.Controls.Add(Me.stbDetail)
         Me.Controls.Add(Me.tbDependent)
         Me.Controls.Add(Me.tlbToolbar)
@@ -298,10 +303,10 @@ Partial Class frmEmployeeStatus
     End Sub
 
     Friend WithEvents tlbToolbar As ToolStrip
-    Friend WithEvents btnNew As ToolStripButton
-    Friend WithEvents btnSave As ToolStripButton
+    Friend WithEvents btn_Prepare As ToolStripButton
+    Friend WithEvents btn_Modify As ToolStripButton
     Friend WithEvents btnSearch As ToolStripButton
-    Friend WithEvents btnDelete As ToolStripButton
+    Friend WithEvents btn_Delete As ToolStripButton
     Friend WithEvents tbDependent As TabControl
     Friend WithEvents tbPersonal As TabPage
     Friend WithEvents cbStatus As ComboBox
@@ -311,12 +316,12 @@ Partial Class frmEmployeeStatus
     Friend WithEvents tbAudit As TabPage
     Friend WithEvents stbDetail As StatusStrip
     Friend WithEvents slStatus As ToolStripStatusLabel
-    Friend WithEvents grdAudit As C1.Win.C1TrueDBGrid.C1TrueDBGrid
     Friend WithEvents dtpDate As DateTimePicker
     Friend WithEvents Label2 As Label
     Friend WithEvents Label13 As Label
     Friend WithEvents txtRemarks As TextBox
-    Friend WithEvents btnApprove As ToolStripButton
+    Friend WithEvents btn_Approve As ToolStripButton
     Friend WithEvents txtDocumentNo As TextBox
     Friend WithEvents cmdSearchEmployee As Button
+    Private WithEvents grdAudit As C1.Win.C1TrueDBGrid.C1TrueDBGrid
 End Class

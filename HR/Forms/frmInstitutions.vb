@@ -1,26 +1,28 @@
-﻿Public Class frmCities
-    Dim nCityId As Integer = Nothing
+﻿Public Class frmInstitutions
+    Dim nInstitutionId As Integer = Nothing
     Dim rsMain As ADODB.Recordset
     Dim nStatus As Integer
     Dim sAction As String
     Public bProcessing As Boolean
     Dim bDisplaying As Boolean
     Dim rsMisc As ADODB.Recordset
-    Private Sub frmCities_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+
+    Private Sub frmInstitutions_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+
+    End Sub
+
+    Private Sub frmCountries_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         Me.MdiParent = frmMdiMain
         rsMain = New ADODB.Recordset
         rsMain.CursorLocation = ADODB.CursorLocationEnum.adUseClient
-        PopulateControl(cbCountry, "Select Id, Description From HR_PRMParameters Where Type = 1 Order by Description", "Id", "Description")
         Clear()
         UserRights(rsMisc)
     End Sub
 
     Private Sub Clear()
-        nCityId = Nothing
-        txtCity.Text = ""
-        txtCity.Tag = ""
-        cbCountry.SelectedIndex = -1
-        cbCountry.Tag = -1
+        nInstitutionId = Nothing
+        txtInstitution.Text = ""
+        txtInstitution.Tag = ""
 
         FillGrid()
     End Sub
@@ -78,34 +80,27 @@
         connODBC.Open()
         Dim ds As DataSet = New DataSet
         Dim adapter As New Odbc.OdbcDataAdapter
-        Dim sSql As String = "Select Id, Description, CountryId, " &
-            "(Select Description From HR_PRMParameters Where Type = 1 And Id = a.CountryId) Country " &
-            "From HR_PRMCity a Order By Description"
+        Dim sSql As String = "Select Id, Description From HR_PRMParameters Where Type = 9 Order By Description"
 
         adapter.SelectCommand = New Odbc.OdbcCommand(sSql, connODBC)
         Try
             adapter.Fill(ds)
-            grdCities.DataSource = Nothing
-            grdCities.SetDataBinding(ds.Tables(0), "", True)
+            grdInstitution.DataSource = Nothing
+            grdInstitution.SetDataBinding(ds.Tables(0), "", True)
         Catch ex As Exception
-            MessageBox.Show("Error loading cities.")
+            MessageBox.Show("Error loading Institutions .")
         End Try
         connODBC.Close()
-        grdCities.Refresh()
+        grdInstitution.Refresh()
     End Sub
 
     Private Sub Save(Optional a_nActionID As Integer = 0)
         Dim sSql As String
         Dim rsMisc As New ADODB.Recordset
-        Dim nNewCityId As Integer
+        Dim nNewInstitutionId As Integer
 
-        If (cbCountry.SelectedIndex = -1) Or (cbCountry.SelectedText = "-") Then
-            MsgBox("Please select country.", vbCritical)
-            Exit Sub
-        End If
-
-        If Trim(txtCity.Text) = "" Then
-            MsgBox("Please enter city.", vbCritical)
+        If Trim(txtInstitution.Text) = "" Then
+            MsgBox("Please Institution Name.", vbCritical)
             Exit Sub
         End If
 
@@ -114,31 +109,32 @@
             bProcessing = True
             conn.BeginTrans()
 
-            If (nCityId = Nothing) Or (nCityId = 0) Then
-                sSql = "Select MAX(Id) As Id From HR_PRMCity"
+            If (nInstitutionId = Nothing) Or (nInstitutionId = 0) Then
+                sSql = "Select MAX(Id) As Id From HR_PRMParameters"
                 GetRecordSet(rsMisc, sSql)
-                nNewCityId = CInt(rsMisc("Id").Value)
-                nNewCityId += 1
+                nNewInstitutionId = CInt(rsMisc("Id").Value)
+                nNewInstitutionId += 1
 
-                sSql = "Insert INTO HR_PRMCity (Id, Description, Status, CountryId) " &
-                       "Values(" & nNewCityId & ", '" & txtCity.Text & "', 1, " & cbCountry.SelectedValue & ")"
+                sSql = "Insert INTO HR_PRMParameters (Id, Description, Type, BusinessUnitId, Status) " &
+                       "Values(" & nNewInstitutionId & ", '" & txtInstitution.Text & "', 9, 1, 1)"
                 conn.Execute(sSql)
             Else
-                sSql = "Update HR_PRMCity Set Description = '" & txtCity.Text & "', CountryId = " & cbCountry.SelectedValue & " Where Id = " & nCityId
+                sSql = "Update HR_PRMParameters Set Description = '" & txtInstitution.Text & "' Where Id = " & nInstitutionId
+
                 conn.Execute(sSql)
             End If
 
             conn.CommitTrans()
 
-            If nCityId <> Nothing Then
-                sSql = "Select * From HR_PRMCity Where Id = " & nCityId
+            If nInstitutionId <> Nothing Then
+                sSql = "Select * From HR_PRMParameters Where Id = " & nInstitutionId
                 If rsMain.State = 1 Then rsMain.Close()
                 rsMain.Open(sSql, conn, ADODB.CursorTypeEnum.adOpenKeyset, ADODB.LockTypeEnum.adLockOptimistic)
             End If
 
             Clear()
             conn.Close()
-            MessageBox.Show("City successfully saved.")
+            MessageBox.Show("Institutions successfully saved.")
         Catch ex As Exception
             MessageBox.Show("Error saving record: " + ex.Message)
         End Try
@@ -157,27 +153,21 @@
         Clear()
     End Sub
 
-
-    Private Sub frmCountries_Leave(sender As Object, e As EventArgs) Handles Me.Leave
-        If (conn.State = ConnectionState.Open) Then conn.Close()
-    End Sub
-
-    Private Sub grdCities_DoubleClick(sender As Object, e As EventArgs) Handles grdCities.DoubleClick
+    Private Sub grdInstitution_DoubleClick(sender As Object, e As EventArgs) Handles grdInstitution.DoubleClick
         Dim rsMisc As New ADODB.Recordset
         Dim sSql As String
 
         If (conn.State <> ConnectionState.Open) Then conn.Open(sConnectionString)
 
-        'sSql = "Select * From HR_PRMParameters Where Id = " & Convert.ToString(grdCities.Columns(0).Value)
+        sSql = "Select * From HR_PRMParameters Where Id = " & Convert.ToString(grdInstitution.Columns(0).Value)
 
-        'rsMisc.Open(sSql, conn, ADODB.CursorTypeEnum.adOpenKeyset, ADODB.LockTypeEnum.adLockOptimistic)
+        rsMisc.Open(sSql, conn, ADODB.CursorTypeEnum.adOpenKeyset, ADODB.LockTypeEnum.adLockOptimistic)
 
-        nCityId = Convert.ToString(grdCities.Columns(0).Value)
-        txtCity.Text = Convert.ToString(grdCities.Columns(1).Value)
-        cbCountry.SelectedValue = CInt(grdCities.Columns(3).Value)
+        nInstitutionId = CInt(rsMisc("Id").Value)
+        txtInstitution.Text = Convert.ToString(rsMisc("Description").Value)
     End Sub
 
-    Private Sub grdAudit_CellContentClick(sender As Object, e As DataGridViewCellEventArgs)
-
+    Private Sub frmCountries_Leave(sender As Object, e As EventArgs) Handles Me.Leave
+        If (conn.State = ConnectionState.Open) Then conn.Close()
     End Sub
 End Class

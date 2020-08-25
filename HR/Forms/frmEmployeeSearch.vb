@@ -4,9 +4,19 @@
     Dim sQueryForTransfer As String
 
     Private Sub frmEmployeeSearch_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+
         Me.MdiParent = frmMdiMain
+        Me.Location = New Point(0, 0)
         PopulateControl(cbLocation, "Select Id, BranchName From HR_PRMBranch", "Id", "BranchName")
         ClearForm()
+
+        If sCalledForm = "Employee Profile DW" Then
+
+            chkHOD.Visible = False
+            chkTechnical.Visible = False
+
+        End If
+
     End Sub
 
     Private Sub cbLocation_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cbLocation.SelectedIndexChanged
@@ -69,7 +79,7 @@
            "From HR_Employee Where EmployeetypeId = 820 " & sCriteria
         Else
             sSql = "Select EmployeeNo, FullName, dbo.ufn_GetDesignation(DesignationId) vcDesignation, dbo.ufn_GetDepartmentName(DepartmentId) vcDepartment, isTechnical, Id " &
-           "From EM_Employee Where 1 = 1 " & sCriteria
+           "From EM_Employee Where 1 = 1 And BranchId In(Select nBranchId From EM_UserBranchRights Where vcUserId= '" & Trim(frmUserLogin.txtUserID.Text) & "') " & sCriteria
         End If
 
         sSql = sSql & " Order by EmployeeNo"
@@ -85,7 +95,7 @@
 
     Private Sub SearchRecords()
         Dim connODBC As New Odbc.OdbcConnection
-        connODBC.ConnectionString = "Dsn=ERP;uid=sa;pwd=123456"
+        connODBC.ConnectionString = "Dsn=ERP;uid=sa"
         connODBC.Open()
 
         Dim sSql As String = GetQuery()
@@ -105,12 +115,20 @@
         connODBC.Close()
     End Sub
 
+    Public Sub sendResultsToPromotionsForm()
+        ' frmAppraisals_Discipline.Show()
+        frmAppraisals_Discipline.SearchRecords(grdSearch.Columns(0).Value, sQueryForTransfer)
+        ' frmAppraisals_Discipline.Focus()
+
+    End Sub
+
     Private Sub SendResultsToMainForm()
         If grdSearch.RowCount = 0 Then Exit Sub
 
         'If Not IsFormLoaded("frmEmployeeProfile", 1, False) Then 
         If sCalledForm = "Employee Profile" Then
             frmEmployeeProfile.Show()
+            frmAppraisals_Discipline.Show()
             frmEmployeeProfile.SearchRecords(sQueryForTransfer, grdSearch.Columns(0).Value)
             frmEmployeeProfile.Focus()
         ElseIf sCalledForm = "Employee Profile DW" Then
@@ -154,6 +172,10 @@
             frmEmployeeStatus.Show()
             frmEmployeeStatus.GetEmployee(grdSearch.Columns(6).Value)
             frmEmployeeStatus.Focus()
+        ElseIf sCalledForm = "Appraisals_Discipline" Then
+            frmAppraisals_Discipline.Show()
+            frmAppraisals_Discipline.SearchRecords(grdSearch.Columns(0).Value, sQueryForTransfer)
+            frmAppraisals_Discipline.Focus()
         End If
 
     End Sub
@@ -167,10 +189,99 @@
     End Sub
 
     Private Sub btnDetail_Click(sender As Object, e As EventArgs) Handles btnDetail.Click
-        Call SendResultsToMainForm()
+
+        Try
+
+            If sCalledForm = "Employee Profile" Then
+                Dim f3 As frmAppraisals_Discipline = CType(Application.OpenForms("frmAppraisals_Discipline"), frmAppraisals_Discipline)
+                Dim Main As frmMdiMain = CType(Application.OpenForms("frmMdiMain"), frmMdiMain)
+                Dim empProfile As frmEmployeeProfile = CType(Application.OpenForms("frmEmployeeProfile"), frmEmployeeProfile)
+                '  Main.cmdApp.Visible = True
+                '  empProfile.cmdApp.Visible = True
+                Main.AppraisalsDisciiplineToolStripMenuItem.Visible = True
+                Main.cmdApp.Location = New Point(161, 3)
+                Main.cmdStatus.Location = New Point(311, 3)
+
+                f3.Show()
+                f3.WindowState = FormWindowState.Minimized
+                f3.Location = New Point(0, 0)
+                Me.Close()
+
+                Call SendResultsToMainForm()
+                Call sendResultsToPromotionsForm()
+
+                frmEmployeeProfile.Visible = True
+                frmEmployeeProfile.Refresh()
+                For Each ctrl In frmEmployeeProfile.Controls
+                    ctrl.refresh()
+                Next
+
+            ElseIf sCalledForm = "Employee Status" Then
+                Call SendResultsToMainForm()
+
+
+            ElseIf sCalledForm = "Employee Profile DW" Then
+
+                Call SendResultsToMainForm()
+
+            End If
+
+        Catch ex As Exception
+
+            MsgBox("Error" & ex.Message)
+        End Try
     End Sub
 
     Private Sub grdSearch_DoubleClick(sender As Object, e As EventArgs) Handles grdSearch.DoubleClick
-        Call SendResultsToMainForm()
+        Try
+
+            If sCalledForm = "Employee Profile" Then
+                Dim f3 As frmAppraisals_Discipline = CType(Application.OpenForms("frmAppraisals_Discipline"), frmAppraisals_Discipline)
+                Dim Main As frmMdiMain = CType(Application.OpenForms("frmMdiMain"), frmMdiMain)
+                Dim empProfile As frmEmployeeProfile = CType(Application.OpenForms("frmEmployeeProfile"), frmEmployeeProfile)
+                ' Main.cmdApp.Visible = True
+                ' empProfile.cmdApp.Visible = True
+                Main.AppraisalsDisciiplineToolStripMenuItem.Visible = True
+                Main.cmdApp.Location = New Point(161, 3)
+                Main.cmdStatus.Location = New Point(311, 3)
+                f3.Show()
+                f3.WindowState = FormWindowState.Minimized
+                f3.Location = New Point(0, 0)
+                Me.Close()
+                Call SendResultsToMainForm()
+                Call sendResultsToPromotionsForm()
+
+                frmEmployeeProfile.Visible = True
+                frmEmployeeProfile.Refresh()
+                For Each ctrl In frmEmployeeProfile.Controls
+                    ctrl.refresh()
+                Next
+
+            ElseIf sCalledForm = "Employee Status" Then
+                Call SendResultsToMainForm()
+
+
+            ElseIf sCalledForm = "Employee Profile DW" Then
+
+                Call SendResultsToMainForm()
+                Me.Close()
+
+            End If
+
+        Catch ex As Exception
+            MsgBox("Error" & ex.Message)
+        End Try
+    End Sub
+
+    Private Sub tlbToolbar_ItemClicked(sender As Object, e As ToolStripItemClickedEventArgs) Handles tlbToolbar.ItemClicked
+
+    End Sub
+
+    Private Sub chkHOD_CheckedChanged(sender As Object, e As EventArgs) Handles chkHOD.CheckedChanged
+
+    End Sub
+
+    Private Sub chkTechnical_CheckedChanged(sender As Object, e As EventArgs) Handles chkTechnical.CheckedChanged
+
     End Sub
 End Class

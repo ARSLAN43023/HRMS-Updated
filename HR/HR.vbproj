@@ -53,24 +53,49 @@
     <ApplicationIcon>people_w3Y_2.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Bunifu_UI_v1.52">
+      <HintPath>..\..\..\HOME\arslan\Desktop\Bunifu_UI_v1.52.dll</HintPath>
+    </Reference>
+    <Reference Include="C1.C1Report.2, Version=2.0.20143.9, Culture=neutral, PublicKeyToken=594a0605db190bb9" />
+    <Reference Include="C1.C1Report.4, Version=4.0.20143.9, Culture=neutral, PublicKeyToken=594a0605db190bb9, processorArchitecture=MSIL" />
+    <Reference Include="C1.Win.C1Command.2, Version=2.0.20143.9, Culture=neutral, PublicKeyToken=e808566f358766d8, processorArchitecture=MSIL" />
+    <Reference Include="C1.Win.C1Command.4, Version=4.0.20143.9, Culture=neutral, PublicKeyToken=e808566f358766d8, processorArchitecture=MSIL" />
     <Reference Include="C1.Win.C1FlexGrid.2, Version=2.0.20152.67, Culture=neutral, PublicKeyToken=79882d576c6336da" />
     <Reference Include="C1.Win.C1FlexGrid.4, Version=4.0.20143.9, Culture=neutral, PublicKeyToken=79882d576c6336da, processorArchitecture=MSIL" />
     <Reference Include="C1.Win.C1FlexGrid.Classic.2, Version=2.0.20152.67, Culture=neutral, PublicKeyToken=79882d576c6336da, processorArchitecture=MSIL" />
     <Reference Include="C1.Win.C1Input.4, Version=4.0.20143.9, Culture=neutral, PublicKeyToken=7e7ff60f0c214f9a, processorArchitecture=MSIL" />
     <Reference Include="C1.Win.C1List.4, Version=4.0.20143.9, Culture=neutral, PublicKeyToken=6b24f8f981dbd7bc, processorArchitecture=MSIL" />
+    <Reference Include="C1.Win.C1ReportDesigner.2, Version=2.0.20143.9, Culture=neutral, PublicKeyToken=fb528571dbff5bd2, processorArchitecture=MSIL" />
     <Reference Include="C1.Win.C1Schedule.4, Version=4.0.20143.9, Culture=neutral, PublicKeyToken=79882d576c6336da, processorArchitecture=MSIL" />
     <Reference Include="C1.Win.C1TrueDBGrid.4, Version=4.0.20143.9, Culture=neutral, PublicKeyToken=75ae3fb0e2b1e0da, processorArchitecture=MSIL" />
+    <Reference Include="Microsoft.Office.Interop.Excel, Version=12.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c">
+      <SpecificVersion>False</SpecificVersion>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+      <HintPath>..\..\..\..\..\..\mis.trainee\Microsoft.Office.Interop.Excel\Microsoft.Office.Interop.Excel.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Office.Interop.Word, Version=12.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c">
+      <SpecificVersion>False</SpecificVersion>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+      <HintPath>..\..\..\..\..\..\mis.trainee\Microsoft.Office.Interop.Word.dll</HintPath>
+    </Reference>
+    <Reference Include="PresentationCore" />
+    <Reference Include="ReachFramework" />
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Deployment" />
     <Reference Include="System.Design" />
+    <Reference Include="System.DirectoryServices" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Drawing.Design" />
+    <Reference Include="System.Management" />
     <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Windows.Forms.DataVisualization" />
     <Reference Include="System.Xml" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Net.Http" />
+    <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
     <Import Include="Microsoft.VisualBasic" />
@@ -91,6 +116,20 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>dsHR.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="dsHR.vb">
+      <DependentUpon>dsHR.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\dsFCCL.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>dsFCCL.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\frmAppraisals_Discipline.Designer.vb">
+      <DependentUpon>frmAppraisals_Discipline.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\frmAppraisals_Discipline.vb">
+      <SubType>Form</SubType>
     </Compile>
     <Compile Include="Forms\frmCities.Designer.vb">
       <DependentUpon>frmCities.vb</DependentUpon>
@@ -182,6 +221,18 @@
     <Compile Include="Forms\frmEmployeeStatusDW.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Forms\frmInstitutions.Designer.vb">
+      <DependentUpon>frmInstitutions.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\frmInstitutions.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\frmQualifications.Designer.vb">
+      <DependentUpon>frmQualifications.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\frmQualifications.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Forms\frmUserLogin.vb">
       <SubType>Form</SubType>
     </Compile>
@@ -219,11 +270,17 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Forms\frmAppraisals_Discipline.resx">
+      <DependentUpon>frmAppraisals_Discipline.vb</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\frmCities.resx">
       <DependentUpon>frmCities.vb</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\frmCountries.resx">
       <DependentUpon>frmCountries.vb</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\frmEmployeeAwards.resx">
       <DependentUpon>frmEmployeeAwards.vb</DependentUpon>
@@ -233,18 +290,22 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\frmEmployeeCourseSeminar.resx">
       <DependentUpon>frmEmployeeCourseSeminar.vb</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\frmEmployeeDependents.resx">
       <DependentUpon>frmEmployeeDependents.vb</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\frmEmployeeDiscipline.resx">
       <DependentUpon>frmEmployeeDiscipline.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\frmEmployeeProfessionalExperience.resx">
       <DependentUpon>frmEmployeeProfessionalExperience.vb</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\frmEmployeeProfile.resx">
       <DependentUpon>frmEmployeeProfile.vb</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\frmEmployeeProfileDW.resx">
       <DependentUpon>frmEmployeeProfileDW.vb</DependentUpon>
@@ -254,6 +315,7 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\frmEmployeeQualifications.resx">
       <DependentUpon>frmEmployeeQualifications.vb</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\frmEmployeeSearch.resx">
       <DependentUpon>frmEmployeeSearch.vb</DependentUpon>
@@ -263,6 +325,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\frmEmployeeStatusDW.resx">
       <DependentUpon>frmEmployeeStatusDW.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\frmInstitutions.resx">
+      <DependentUpon>frmInstitutions.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\frmQualifications.resx">
+      <DependentUpon>frmQualifications.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\frmUserLogin.resx">
       <DependentUpon>frmUserLogin.vb</DependentUpon>
@@ -292,6 +360,17 @@
     </None>
     <None Include="dsHR.xss">
       <DependentUpon>dsHR.xsd</DependentUpon>
+    </None>
+    <None Include="Forms\dsFCCL.xsc">
+      <DependentUpon>dsFCCL.xsd</DependentUpon>
+    </None>
+    <None Include="Forms\dsFCCL.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>dsFCCL.Designer.vb</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Forms\dsFCCL.xss">
+      <DependentUpon>dsFCCL.xsd</DependentUpon>
     </None>
     <None Include="My Project\app.manifest" />
     <None Include="My Project\Application.myapp">
@@ -338,6 +417,8 @@
     <None Include="images\NEXT.BMP" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="images\closebutton.png" />
+    <Content Include="images\HRP.png" />
     <Content Include="people_w3Y_2.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />

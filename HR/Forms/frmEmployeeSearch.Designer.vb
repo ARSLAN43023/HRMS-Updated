@@ -77,9 +77,9 @@ Partial Class frmEmployeeSearch
         'chkAllEmployees
         '
         Me.chkAllEmployees.AutoSize = True
-        Me.chkAllEmployees.Location = New System.Drawing.Point(289, 56)
+        Me.chkAllEmployees.Location = New System.Drawing.Point(281, 56)
         Me.chkAllEmployees.Name = "chkAllEmployees"
-        Me.chkAllEmployees.Size = New System.Drawing.Size(74, 20)
+        Me.chkAllEmployees.Size = New System.Drawing.Size(79, 21)
         Me.chkAllEmployees.TabIndex = 38
         Me.chkAllEmployees.Text = "All Emp"
         Me.chkAllEmployees.UseVisualStyleBackColor = True
@@ -90,17 +90,18 @@ Partial Class frmEmployeeSearch
         Me.chkNewEmployees.AutoSize = True
         Me.chkNewEmployees.Location = New System.Drawing.Point(366, 56)
         Me.chkNewEmployees.Name = "chkNewEmployees"
-        Me.chkNewEmployees.Size = New System.Drawing.Size(129, 20)
+        Me.chkNewEmployees.Size = New System.Drawing.Size(136, 21)
         Me.chkNewEmployees.TabIndex = 6
         Me.chkNewEmployees.Text = "New Employees"
         Me.chkNewEmployees.UseVisualStyleBackColor = True
+        Me.chkNewEmployees.Visible = False
         '
         'chkHOD
         '
         Me.chkHOD.AutoSize = True
         Me.chkHOD.Location = New System.Drawing.Point(105, 56)
         Me.chkHOD.Name = "chkHOD"
-        Me.chkHOD.Size = New System.Drawing.Size(160, 20)
+        Me.chkHOD.Size = New System.Drawing.Size(170, 21)
         Me.chkHOD.TabIndex = 5
         Me.chkHOD.Text = "Head of Department"
         Me.chkHOD.UseVisualStyleBackColor = True
@@ -110,7 +111,7 @@ Partial Class frmEmployeeSearch
         Me.chkTechnical.AutoSize = True
         Me.chkTechnical.Location = New System.Drawing.Point(9, 56)
         Me.chkTechnical.Name = "chkTechnical"
-        Me.chkTechnical.Size = New System.Drawing.Size(89, 20)
+        Me.chkTechnical.Size = New System.Drawing.Size(88, 21)
         Me.chkTechnical.TabIndex = 4
         Me.chkTechnical.Text = "Technical"
         Me.chkTechnical.UseVisualStyleBackColor = True
@@ -121,7 +122,7 @@ Partial Class frmEmployeeSearch
         Me.cbDepartment.FormattingEnabled = True
         Me.cbDepartment.Location = New System.Drawing.Point(626, 52)
         Me.cbDepartment.Name = "cbDepartment"
-        Me.cbDepartment.Size = New System.Drawing.Size(150, 24)
+        Me.cbDepartment.Size = New System.Drawing.Size(150, 25)
         Me.cbDepartment.TabIndex = 7
         '
         'Label17
@@ -129,7 +130,7 @@ Partial Class frmEmployeeSearch
         Me.Label17.AutoSize = True
         Me.Label17.Location = New System.Drawing.Point(534, 56)
         Me.Label17.Name = "Label17"
-        Me.Label17.Size = New System.Drawing.Size(85, 16)
+        Me.Label17.Size = New System.Drawing.Size(92, 17)
         Me.Label17.TabIndex = 37
         Me.Label17.Text = "Department"
         '
@@ -139,7 +140,7 @@ Partial Class frmEmployeeSearch
         Me.cbLocation.FormattingEnabled = True
         Me.cbLocation.Location = New System.Drawing.Point(626, 22)
         Me.cbLocation.Name = "cbLocation"
-        Me.cbLocation.Size = New System.Drawing.Size(150, 24)
+        Me.cbLocation.Size = New System.Drawing.Size(150, 25)
         Me.cbLocation.TabIndex = 3
         '
         'Label15
@@ -147,16 +148,16 @@ Partial Class frmEmployeeSearch
         Me.Label15.AutoSize = True
         Me.Label15.Location = New System.Drawing.Point(534, 26)
         Me.Label15.Name = "Label15"
-        Me.Label15.Size = New System.Drawing.Size(64, 16)
+        Me.Label15.Size = New System.Drawing.Size(67, 17)
         Me.Label15.TabIndex = 35
         Me.Label15.Text = "Location"
         '
         'Label14
         '
         Me.Label14.AutoSize = True
-        Me.Label14.Location = New System.Drawing.Point(250, 26)
+        Me.Label14.Location = New System.Drawing.Point(241, 26)
         Me.Label14.Name = "Label14"
-        Me.Label14.Size = New System.Drawing.Size(111, 16)
+        Me.Label14.Size = New System.Drawing.Size(119, 17)
         Me.Label14.TabIndex = 34
         Me.Label14.Text = "Employee Name"
         '
@@ -164,14 +165,14 @@ Partial Class frmEmployeeSearch
         '
         Me.txtEmployeeName.Location = New System.Drawing.Point(366, 22)
         Me.txtEmployeeName.Name = "txtEmployeeName"
-        Me.txtEmployeeName.Size = New System.Drawing.Size(150, 23)
+        Me.txtEmployeeName.Size = New System.Drawing.Size(150, 24)
         Me.txtEmployeeName.TabIndex = 2
         '
         'txtEmployeeNo
         '
         Me.txtEmployeeNo.Location = New System.Drawing.Point(105, 22)
         Me.txtEmployeeNo.Name = "txtEmployeeNo"
-        Me.txtEmployeeNo.Size = New System.Drawing.Size(75, 23)
+        Me.txtEmployeeNo.Size = New System.Drawing.Size(75, 24)
         Me.txtEmployeeNo.TabIndex = 1
         Me.txtEmployeeNo.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
         '
@@ -180,12 +181,13 @@ Partial Class frmEmployeeSearch
         Me.Label1.AutoSize = True
         Me.Label1.Location = New System.Drawing.Point(6, 26)
         Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(97, 16)
+        Me.Label1.Size = New System.Drawing.Size(104, 17)
         Me.Label1.TabIndex = 31
         Me.Label1.Text = "Employee No."
         '
         'tlbToolbar
         '
+        Me.tlbToolbar.ImageScalingSize = New System.Drawing.Size(18, 18)
         Me.tlbToolbar.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.btnClear, Me.btnSearch, Me.btnDetail})
         Me.tlbToolbar.Location = New System.Drawing.Point(0, 0)
         Me.tlbToolbar.Name = "tlbToolbar"
@@ -234,11 +236,11 @@ Partial Class frmEmployeeSearch
         Me.grdSearch.PreviewInfo.Size = New System.Drawing.Size(0, 0)
         Me.grdSearch.PreviewInfo.ZoomFactor = 75.0R
         Me.grdSearch.PrintInfo.PageSettings = CType(resources.GetObject("grdSearch.PrintInfo.PageSettings"), System.Drawing.Printing.PageSettings)
-        Me.grdSearch.PropBag = resources.GetString("grdSearch.PropBag")
         Me.grdSearch.RowHeight = 15
         Me.grdSearch.Size = New System.Drawing.Size(789, 288)
         Me.grdSearch.TabIndex = 0
         Me.grdSearch.TabStop = False
+        Me.grdSearch.PropBag = resources.GetString("grdSearch.PropBag")
         '
         'EMEmployeeBindingSource
         '
@@ -263,6 +265,7 @@ Partial Class frmEmployeeSearch
         Me.Controls.Add(Me.GroupBox1)
         Me.Controls.Add(Me.grdSearch)
         Me.Name = "frmEmployeeSearch"
+        Me.StartPosition = System.Windows.Forms.FormStartPosition.Manual
         Me.Text = "Search Employee"
         Me.GroupBox1.ResumeLayout(False)
         Me.GroupBox1.PerformLayout()
@@ -295,5 +298,5 @@ Partial Class frmEmployeeSearch
     Friend WithEvents EMEmployeeBindingSource As BindingSource
     Friend WithEvents EM_EmployeeTableAdapter As dsHRTableAdapters.EM_EmployeeTableAdapter
     Friend WithEvents chkAllEmployees As CheckBox
-    Private WithEvents grdSearch As C1.Win.C1TrueDBGrid.C1TrueDBGrid
+    Public WithEvents grdSearch As C1.Win.C1TrueDBGrid.C1TrueDBGrid
 End Class

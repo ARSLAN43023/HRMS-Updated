@@ -22,6 +22,7 @@ Partial Class frmUserLogin
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
+        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmUserLogin))
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
         Me.Label4 = New System.Windows.Forms.Label()
         Me.Label3 = New System.Windows.Forms.Label()
@@ -34,7 +35,9 @@ Partial Class frmUserLogin
         Me.cmdOK = New System.Windows.Forms.Button()
         Me.cmdCancel = New System.Windows.Forms.Button()
         Me.Button1 = New System.Windows.Forms.Button()
+        Me.PictureBox1 = New System.Windows.Forms.PictureBox()
         Me.GroupBox1.SuspendLayout()
+        CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'GroupBox1
@@ -48,7 +51,7 @@ Partial Class frmUserLogin
         Me.GroupBox1.Controls.Add(Me.cbCompany)
         Me.GroupBox1.Controls.Add(Me.cbLocation)
         Me.GroupBox1.Font = New System.Drawing.Font("Verdana", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.GroupBox1.Location = New System.Drawing.Point(12, 10)
+        Me.GroupBox1.Location = New System.Drawing.Point(158, 27)
         Me.GroupBox1.Name = "GroupBox1"
         Me.GroupBox1.Size = New System.Drawing.Size(354, 159)
         Me.GroupBox1.TabIndex = 0
@@ -127,7 +130,7 @@ Partial Class frmUserLogin
         Me.cbLocation.Enabled = False
         Me.cbLocation.Font = New System.Drawing.Font("Verdana", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.cbLocation.FormattingEnabled = True
-        Me.cbLocation.Location = New System.Drawing.Point(127, 119)
+        Me.cbLocation.Location = New System.Drawing.Point(127, 120)
         Me.cbLocation.Name = "cbLocation"
         Me.cbLocation.Size = New System.Drawing.Size(200, 24)
         Me.cbLocation.TabIndex = 4
@@ -135,7 +138,7 @@ Partial Class frmUserLogin
         'cmdOK
         '
         Me.cmdOK.Font = New System.Drawing.Font("Verdana", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.cmdOK.Location = New System.Drawing.Point(32, 184)
+        Me.cmdOK.Location = New System.Drawing.Point(178, 201)
         Me.cmdOK.Name = "cmdOK"
         Me.cmdOK.Size = New System.Drawing.Size(75, 30)
         Me.cmdOK.TabIndex = 1
@@ -145,7 +148,7 @@ Partial Class frmUserLogin
         'cmdCancel
         '
         Me.cmdCancel.Font = New System.Drawing.Font("Verdana", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.cmdCancel.Location = New System.Drawing.Point(113, 184)
+        Me.cmdCancel.Location = New System.Drawing.Point(259, 201)
         Me.cmdCancel.Name = "cmdCancel"
         Me.cmdCancel.Size = New System.Drawing.Size(75, 30)
         Me.cmdCancel.TabIndex = 2
@@ -155,7 +158,7 @@ Partial Class frmUserLogin
         'Button1
         '
         Me.Button1.Font = New System.Drawing.Font("Verdana", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Button1.Location = New System.Drawing.Point(194, 184)
+        Me.Button1.Location = New System.Drawing.Point(340, 201)
         Me.Button1.Name = "Button1"
         Me.Button1.Size = New System.Drawing.Size(146, 30)
         Me.Button1.TabIndex = 3
@@ -163,19 +166,34 @@ Partial Class frmUserLogin
         Me.Button1.UseVisualStyleBackColor = True
         Me.Button1.Visible = False
         '
+        'PictureBox1
+        '
+        Me.PictureBox1.Image = CType(resources.GetObject("PictureBox1.Image"), System.Drawing.Image)
+        Me.PictureBox1.Location = New System.Drawing.Point(12, 12)
+        Me.PictureBox1.Name = "PictureBox1"
+        Me.PictureBox1.Size = New System.Drawing.Size(140, 228)
+        Me.PictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom
+        Me.PictureBox1.TabIndex = 4
+        Me.PictureBox1.TabStop = False
+        '
         'frmUserLogin
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(380, 233)
+        Me.AutoValidate = System.Windows.Forms.AutoValidate.EnableAllowFocusChange
+        Me.ClientSize = New System.Drawing.Size(526, 252)
+        Me.Controls.Add(Me.PictureBox1)
         Me.Controls.Add(Me.Button1)
         Me.Controls.Add(Me.cmdCancel)
         Me.Controls.Add(Me.cmdOK)
         Me.Controls.Add(Me.GroupBox1)
+        Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.Name = "frmUserLogin"
+        Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "Login"
         Me.GroupBox1.ResumeLayout(False)
         Me.GroupBox1.PerformLayout()
+        CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
 
     End Sub
@@ -192,4 +210,5 @@ Partial Class frmUserLogin
     Friend WithEvents cmdOK As Button
     Friend WithEvents cmdCancel As Button
     Friend WithEvents Button1 As Button
+    Friend WithEvents PictureBox1 As PictureBox
 End Class

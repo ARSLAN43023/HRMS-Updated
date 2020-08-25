@@ -1,6 +1,7 @@
 ﻿Module mdFunctions
     Public conn As New ADODB.Connection
-    Public sConnectionString As String = "Dsn=ERP;uid=sa;pwd=123456;pwd=123456"
+    Public sConnectionString As String = "Dsn=ERP;uid=sa"
+
     Public sUserId As String
     Public sCompanyId As String
     Public sVersion = "1822"
@@ -16,6 +17,7 @@
         rsRecordset = rsQuery
         GetRecordSet = 0
     End Function
+
     Public Sub PopulateControl(ByVal ctrlControl As Control, ByVal a_sSql As String, ByVal a_nID As String, ByVal a_sDescription As String)
         Dim connetionString As String = Nothing
         Dim conn As Odbc.OdbcConnection
@@ -24,7 +26,7 @@
         Dim ds As New DataSet()
         Dim i As Integer = 0
         Dim sSql As String = a_sSql
-        connetionString = sConnectionString '"Dsn=ERP;uid=sa;pwd=123456"
+        connetionString = sConnectionString 'Dsn=ERP;uid=sa
         conn = New Odbc.OdbcConnection(connetionString)
         Try
             conn.Open()

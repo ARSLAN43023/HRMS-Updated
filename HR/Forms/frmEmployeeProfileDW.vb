@@ -12,19 +12,106 @@ Public Class frmEmployeeProfileDW
     Dim nJobId As Integer
     Dim nQualificationId As Integer
     Dim bNewImage As Boolean
+    Dim rsMisc As New ADODB.Recordset
+    Dim PreviousTab As New TabPage
+    Dim CurrentTab As New TabPage
+
+
 
     Private Sub frmEmployeeProfileDW_Load(sender As Object, e As EventArgs) Handles Me.Load
+
+
         Me.MdiParent = frmMdiMain
         Me.BringToFront()
+        Me.Location = New Point(0, 0)
+        Me.Visible = True
+        Me.Refresh()
+
+        For Each ctrl In Me.Controls
+            ctrl.refresh()
+        Next
+
+        'TabControl1.TabPages.Remove(tbPersonal)
+        'TabControl1.TabPages.Remove(tbFCCL)
+        '''TabControl1.TabPages.Remove(tbAudit)
+        '''TabControl1.TabPages(0).Enabled = False
+        '''TabControl1.TabPages(1).Enabled = False
         ''TODO: This line of code loads data into the 'DsHR.EM_Employee_Audit' table. You can move, or remove it, as needed.
         'Me.EM_Employee_AuditTableAdapter.Fill(Me.DsHR.EM_Employee_Audit)
         'TODO: This line of code loads data into the 'DsFCCL.EM_Employee_Audit' table. You can move, or remove it, as needed.
         Me.EM_Employee_AuditTableAdapter.Fill(Me.DsHR.EM_Employee_Audit)
         rsMain = New ADODB.Recordset
         rsMain.CursorLocation = ADODB.CursorLocationEnum.adUseClient
-
+        UserRights(rsMisc)
         PopulateControls()
         Clear()
+    End Sub
+
+
+
+
+    Public Sub UserRights(ByRef rsMisc As ADODB.Recordset)
+
+        Dim sSql As String
+        Dim Button As String
+        Dim TabControl12 As String
+
+
+        Try
+
+            If (conn.State <> ConnectionState.Open) Then conn.Open(sConnectionString)
+
+            'sSql = "Select vcUserId from comAccessRights"
+            'rsMain.Open(sSql, conn, ADODB.CursorLocationEnum.adUseClient, ADODB.LockTypeEnum.adLockOptimistic)
+            'g_sUserId = Convert.ToString(rsMain("vcUserId").Value)
+
+            'sSql = "Select a.nActionId, a.vcName,a.vcDocType, b.vcUserId from ComActionCodes a, ComAccessRights b " &
+            '   "Where a.nActionId = b.nActionId And a.vcDocType = b.vcDocId And " &
+            '   "b.vcUserId ='fraz.haider'  And a.vcDocType = 'emsEmployee'"
+            sSql = "Select vcName, nGroupId, vcUserId,nActionId From((Select comActionCodes.vcName, ComAccessRights.nGroupId, ComAccessRights.vcUserId,comActionCodes.nActionId From ComAccessRights, comActionCodes, ComUserGroups " &
+                    " Where comActionCodes.vcDocType = ComAccessRights.vcDocId " &
+                    "And comActionCodes.nActionId = ComAccessRights.nActionId " &
+                    " And ComAccessRights.vcDocId ='emsEmployee' " &
+                    "And ComUserGroups.nGroupId = ComAccessRights.nGroupId " &
+                    "And ComUserGroups.vcUserId ='" & Trim(frmUserLogin.txtUserID.Text) & "') " &
+                    " Union (Select comActionCodes.vcName, ComAccessRights.nGroupId, ComAccessRights.vcUserId,comActionCodes.nActionId " &
+                    " From ComAccessRights, comActionCodes " &
+                    " Where comActionCodes.vcDocType = ComAccessRights.vcDocId " &
+                    " And comActionCodes.nActionId = ComAccessRights.nActionId And " &
+                    "ComAccessRights.nGroupId = 0  " &
+                    " And ComAccessRights.vcDocId ='emsEmployee' " &
+                    " And ComAccessRights.vcUserId ='" & Trim(frmUserLogin.txtUserID.Text) & "')) g Order by nActionId  "
+            GetRecordSet(rsMisc, sSql)
+
+
+            While Not rsMisc.EOF
+                Button = "btn_" & rsMisc("vcName").Value
+                TabControl12 = "tb" & rsMisc("vcName").Value
+
+
+                If Button = "btn_Prepare" Then
+
+                    btn_Prepare.Enabled = True
+                    ' cmd_CreateExperience.Enabled = Tr
+                ElseIf Button = "btn_Modify" Then
+                    btn_Modify.Enabled = True
+                ElseIf Button = "btn_Delete" Then
+                    btn_Delete.Enabled = True
+                ElseIf Button = "btn_Verify" Then
+                    btn_Verify.Enabled = True
+                ElseIf Button = "btn_Approve" Then
+                    btn_Approve.Enabled = True
+                ElseIf TabControl12 = "tbPersonal" Then
+                    TabControl1.TabPages(0).Enabled = True
+                ElseIf TabControl12 = "tbFCCL" Then
+                    TabControl1.TabPages(1).Enabled = True
+                End If
+                rsMisc.MoveNext()
+            End While
+            TabControl1.TabPages.Add(tbAudit)
+        Catch ex As Exception
+            MsgBox("Error" & ex.Message)
+        End Try
     End Sub
 
 
@@ -195,14 +282,14 @@ Public Class frmEmployeeProfileDW
                 'If Convert.ToString(rsMain("ImageType").Value) = "application/octet-stream" Then
                 '    MsgBox("Picture format is currently not supported.", vbCritical)
                 'Else
-                Try
-                    Using ms As New MemoryStream(imageData, 0, imageData.Length)
-                        ms.Write(imageData, 0, imageData.Length)
-                        pbEmployeePhoto.Image = Image.FromStream(ms, True)
-                    End Using
-                Catch ex As Exception
-                    MsgBox("Image could not be loaded.", vbCritical)
-                End Try
+                'Try
+                '    Using ms As New MemoryStream(imageData, 0, imageData.Length)
+                '        ms.Write(imageData, 0, imageData.Length)
+                '        pbEmployeePhoto.Image = Image.FromStream(ms, True)
+                '    End Using
+                'Catch ex As Exception
+                '    MsgBox("Image could not be loaded.", vbCritical)
+                'End Try
                 'End If
             End If
         End If
@@ -602,11 +689,11 @@ Public Class frmEmployeeProfileDW
         '                    (cbMaritalStatus.SelectedValue <> cbMaritalStatus.Tag) Or (dtpStatusSince.Value <> dtpStatusSince.Tag)
     End Function
 
-    Private Sub btnNew_Click(sender As Object, e As EventArgs) Handles btnNew.Click
+    Private Sub btnNew_Click(sender As Object, e As EventArgs) Handles btn_Prepare.Click
         Call Clear()
     End Sub
 
-    Private Sub btnSave_Click(sender As Object, e As EventArgs) Handles btnSave.Click
+    Private Sub btnSave_Click(sender As Object, e As EventArgs) Handles btn_Modify.Click
         'If (txtEmployeeNo.Text = "") Or IsAnyFieldChanged() Then Exit Sub
 
         slStatus.Text = "Saving"
@@ -616,24 +703,25 @@ Public Class frmEmployeeProfileDW
         slStatus.Text = ""
     End Sub
 
-    Private Sub btnDelete_Click(sender As Object, e As EventArgs) Handles btnDelete.Click
+    Private Sub btnDelete_Click(sender As Object, e As EventArgs) Handles btn_Delete.Click
         slStatus.Text = "Deleting"
         Call Delete()
         slStatus.Text = ""
     End Sub
 
     Private Sub btnSearch_Click(sender As Object, e As EventArgs) Handles btnSearch.Click
+
         frmEmployeeSearch.sCalledForm = "Employee Profile DW"
         frmEmployeeSearch.Show()
         frmEmployeeSearch.Focus()
     End Sub
 
 
-    Private Sub btnApprove_Click(sender As Object, e As EventArgs) Handles btnApprove.Click
+    Private Sub btnApprove_Click(sender As Object, e As EventArgs) Handles btn_Approve.Click
         Save(4)
     End Sub
 
-    Private Sub btnVerify_Click(sender As Object, e As EventArgs) Handles btnVerify.Click
+    Private Sub btnVerify_Click(sender As Object, e As EventArgs) Handles btn_Verify.Click
         Save(5)
     End Sub
 
@@ -645,7 +733,7 @@ Public Class frmEmployeeProfileDW
 
     Private Sub FillAudit()
         Dim connODBC As New Odbc.OdbcConnection
-        connODBC.ConnectionString = "Dsn=ERP;uid=sa;pwd=123456"
+        connODBC.ConnectionString =  "Dsn=ERP;uid=sa"
         connODBC.Open()
         Dim ds As DataSet = New DataSet
         Dim adapter As New Odbc.OdbcDataAdapter
@@ -679,14 +767,41 @@ Public Class frmEmployeeProfileDW
         If (conn.State = ConnectionState.Open) Then conn.Close()
     End Sub
 
-    Private Sub cmdUploadPicture_Click(sender As Object, e As EventArgs) Handles cmdUploadPicture.Click
-        Dim ofdBrowsePicture As New OpenFileDialog
-        If ofdBrowsePicture.ShowDialog() = DialogResult.OK Then
-            pbEmployeePhoto.Image = Image.FromFile(ofdBrowsePicture.FileName)
-            bNewImage = True
-        Else
-            bNewImage = False
-        End If
+    'Private Sub cmdUploadPicture_Click(sender As Object, e As EventArgs) Handles cmdUploadPicture.Click
+    '    Dim ofdBrowsePicture As New OpenFileDialog
+    '    If ofdBrowsePicture.ShowDialog() = DialogResult.OK Then
+    '        pbEmployeePhoto.Image = Image.FromFile(ofdBrowsePicture.FileName)
+    '        bNewImage = True
+    '    Else
+    '        bNewImage = False
+    '    End If
+    'End Sub
+
+    Private Sub pbEmployeePhoto_Click(sender As Object, e As EventArgs) Handles pbEmployeePhoto.Click
+
     End Sub
 
+    Private Sub tlbToolbar_ItemClicked(sender As Object, e As ToolStripItemClickedEventArgs) Handles tlbToolbar.ItemClicked
+
+    End Sub
+
+    Private Sub TabControl1_Deselected(sender As Object, e As TabControlEventArgs) Handles TabControl1.Deselected
+        CurrentTab = e.TabPage
+    End Sub
+
+    Private Sub TabControl1_Selected(sender As Object, e As TabControlEventArgs) Handles TabControl1.Selected
+        PreviousTab = e.TabPage
+        'If (tbDependent.Name <> tbBank.Name) And (tbBank.Name = tbMisc.Name) Then
+        '    ' MessageBox.Show("Tab disabled.", "Selection Error", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+        '    TabControl1.SelectedTab = tbDependent
+        'End If
+        If TabControl1.TabPages(0).Enabled = False And PreviousTab.Name = tbPersonal.Name Then
+            MessageBox.Show("You Dont have Rights to To This Module", "Privilages Error ", MessageBoxButtons.OK, MessageBoxIcon.Stop)
+            TabControl1.SelectedTab = CurrentTab
+        End If
+        If TabControl1.TabPages(1).Enabled = False And PreviousTab.Name = tbFCCL.Name Then
+            MessageBox.Show("You Dont have Rights to To This Module", "Privilages Error ", MessageBoxButtons.OK, MessageBoxIcon.Stop)
+            TabControl1.SelectedTab = CurrentTab
+        End If
+    End Sub
 End Class

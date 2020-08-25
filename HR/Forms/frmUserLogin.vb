@@ -7,8 +7,6 @@ Public Class frmUserLogin
     End Sub
 
     Public Sub cmdOK_Click(sender As Object, e As EventArgs) Handles cmdOK.Click
-        'Dim frmEmployeeProfile As New frmEmployeeProfile
-        'frmEmployeeProfile.Show()
         Dim sSql As String
         Dim rsMisc As New ADODB.Recordset
         If Not ValidateFields() Then Exit Sub

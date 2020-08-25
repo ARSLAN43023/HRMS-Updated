@@ -23,14 +23,6 @@ Partial Class frmEmployeeProfileDW
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmEmployeeProfileDW))
-        Me.tlbToolbar = New System.Windows.Forms.ToolStrip()
-        Me.btnNew = New System.Windows.Forms.ToolStripButton()
-        Me.btnSave = New System.Windows.Forms.ToolStripButton()
-        Me.btnSearch = New System.Windows.Forms.ToolStripButton()
-        Me.btnDelete = New System.Windows.Forms.ToolStripButton()
-        Me.ToolStripSeparator1 = New System.Windows.Forms.ToolStripSeparator()
-        Me.btnVerify = New System.Windows.Forms.ToolStripButton()
-        Me.btnApprove = New System.Windows.Forms.ToolStripButton()
         Me.TabControl1 = New System.Windows.Forms.TabControl()
         Me.tbPersonal = New System.Windows.Forms.TabPage()
         Me.cbBloodGroup = New System.Windows.Forms.ComboBox()
@@ -97,9 +89,16 @@ Partial Class frmEmployeeProfileDW
         Me.grdAudit = New C1.Win.C1TrueDBGrid.C1TrueDBGrid()
         Me.stbDetail = New System.Windows.Forms.StatusStrip()
         Me.slStatus = New System.Windows.Forms.ToolStripStatusLabel()
-        Me.DsHR = New HR.dsHR()
+        Me.btn_Prepare = New System.Windows.Forms.ToolStripButton()
+        Me.btn_Modify = New System.Windows.Forms.ToolStripButton()
+        Me.btnSearch = New System.Windows.Forms.ToolStripButton()
+        Me.btn_Delete = New System.Windows.Forms.ToolStripButton()
+        Me.ToolStripSeparator1 = New System.Windows.Forms.ToolStripSeparator()
+        Me.btn_Verify = New System.Windows.Forms.ToolStripButton()
+        Me.btn_Approve = New System.Windows.Forms.ToolStripButton()
+        Me.tlbToolbar = New System.Windows.Forms.ToolStrip()
         Me.EM_Employee_AuditTableAdapter = New HR.dsHRTableAdapters.EM_Employee_AuditTableAdapter()
-        Me.tlbToolbar.SuspendLayout()
+        Me.DsHR = New HR.dsHR()
         Me.TabControl1.SuspendLayout()
         Me.tbPersonal.SuspendLayout()
         CType(Me.pbEmployeePhoto, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -107,82 +106,9 @@ Partial Class frmEmployeeProfileDW
         Me.tbAudit.SuspendLayout()
         CType(Me.grdAudit, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.stbDetail.SuspendLayout()
+        Me.tlbToolbar.SuspendLayout()
         CType(Me.DsHR, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
-        '
-        'tlbToolbar
-        '
-        Me.tlbToolbar.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.btnNew, Me.btnSave, Me.btnSearch, Me.btnDelete, Me.ToolStripSeparator1, Me.btnVerify, Me.btnApprove})
-        Me.tlbToolbar.Location = New System.Drawing.Point(0, 0)
-        Me.tlbToolbar.Name = "tlbToolbar"
-        Me.tlbToolbar.Size = New System.Drawing.Size(1012, 25)
-        Me.tlbToolbar.TabIndex = 1
-        Me.tlbToolbar.Text = "tlbTop"
-        '
-        'btnNew
-        '
-        Me.btnNew.BackColor = System.Drawing.SystemColors.Control
-        Me.btnNew.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
-        Me.btnNew.Image = Global.HR.My.Resources.Resources._NEW
-        Me.btnNew.ImageTransparentColor = System.Drawing.SystemColors.ButtonFace
-        Me.btnNew.Name = "btnNew"
-        Me.btnNew.Size = New System.Drawing.Size(23, 22)
-        Me.btnNew.Text = "New"
-        '
-        'btnSave
-        '
-        Me.btnSave.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
-        Me.btnSave.Image = Global.HR.My.Resources.Resources.SAVE
-        Me.btnSave.ImageTransparentColor = System.Drawing.SystemColors.ButtonFace
-        Me.btnSave.Name = "btnSave"
-        Me.btnSave.Size = New System.Drawing.Size(23, 22)
-        Me.btnSave.Text = "Save"
-        '
-        'btnSearch
-        '
-        Me.btnSearch.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
-        Me.btnSearch.Image = Global.HR.My.Resources.Resources.SEARCH
-        Me.btnSearch.ImageTransparentColor = System.Drawing.SystemColors.ButtonFace
-        Me.btnSearch.Name = "btnSearch"
-        Me.btnSearch.Size = New System.Drawing.Size(23, 22)
-        Me.btnSearch.Text = "Search"
-        '
-        'btnDelete
-        '
-        Me.btnDelete.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
-        Me.btnDelete.Image = Global.HR.My.Resources.Resources.DELETE
-        Me.btnDelete.ImageTransparentColor = System.Drawing.SystemColors.ButtonFace
-        Me.btnDelete.Name = "btnDelete"
-        Me.btnDelete.Size = New System.Drawing.Size(23, 22)
-        Me.btnDelete.Text = "Delete"
-        Me.btnDelete.Visible = False
-        '
-        'ToolStripSeparator1
-        '
-        Me.ToolStripSeparator1.Name = "ToolStripSeparator1"
-        Me.ToolStripSeparator1.Size = New System.Drawing.Size(6, 25)
-        Me.ToolStripSeparator1.Visible = False
-        '
-        'btnVerify
-        '
-        Me.btnVerify.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
-        Me.btnVerify.Image = Global.HR.My.Resources.Resources.Verify
-        Me.btnVerify.ImageTransparentColor = System.Drawing.SystemColors.ButtonFace
-        Me.btnVerify.Name = "btnVerify"
-        Me.btnVerify.Size = New System.Drawing.Size(23, 22)
-        Me.btnVerify.Text = "Verify"
-        Me.btnVerify.ToolTipText = "Verify"
-        Me.btnVerify.Visible = False
-        '
-        'btnApprove
-        '
-        Me.btnApprove.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
-        Me.btnApprove.Image = Global.HR.My.Resources.Resources.Approve2
-        Me.btnApprove.ImageTransparentColor = System.Drawing.SystemColors.ButtonFace
-        Me.btnApprove.Name = "btnApprove"
-        Me.btnApprove.Size = New System.Drawing.Size(23, 22)
-        Me.btnApprove.Text = "Approve"
-        Me.btnApprove.Visible = False
         '
         'TabControl1
         '
@@ -241,7 +167,7 @@ Partial Class frmEmployeeProfileDW
         Me.tbPersonal.Padding = New System.Windows.Forms.Padding(3)
         Me.tbPersonal.Size = New System.Drawing.Size(992, 289)
         Me.tbPersonal.TabIndex = 1
-        Me.tbPersonal.Text = "Personal Information"
+        Me.tbPersonal.Text = "Personal Info"
         '
         'cbBloodGroup
         '
@@ -333,7 +259,7 @@ Partial Class frmEmployeeProfileDW
         '
         'pbEmployeePhoto
         '
-        Me.pbEmployeePhoto.Location = New System.Drawing.Point(738, 11)
+        Me.pbEmployeePhoto.Location = New System.Drawing.Point(653, 11)
         Me.pbEmployeePhoto.Name = "pbEmployeePhoto"
         Me.pbEmployeePhoto.Size = New System.Drawing.Size(235, 235)
         Me.pbEmployeePhoto.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom
@@ -600,7 +526,7 @@ Partial Class frmEmployeeProfileDW
         Me.tbFCCL.Name = "tbFCCL"
         Me.tbFCCL.Size = New System.Drawing.Size(992, 289)
         Me.tbFCCL.TabIndex = 10
-        Me.tbFCCL.Text = "FCCL"
+        Me.tbFCCL.Text = "FCCL Info"
         '
         'Label27
         '
@@ -842,37 +768,112 @@ Partial Class frmEmployeeProfileDW
         Me.stbDetail.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.slStatus})
         Me.stbDetail.Location = New System.Drawing.Point(0, 351)
         Me.stbDetail.Name = "stbDetail"
-        Me.stbDetail.Size = New System.Drawing.Size(1012, 22)
+        Me.stbDetail.Size = New System.Drawing.Size(959, 22)
         Me.stbDetail.TabIndex = 3
         Me.stbDetail.Text = "Hello"
         '
         'slStatus
         '
         Me.slStatus.Name = "slStatus"
-        Me.slStatus.Size = New System.Drawing.Size(120, 17)
+        Me.slStatus.Size = New System.Drawing.Size(119, 17)
         Me.slStatus.Text = "ToolStripStatusLabel1"
+        '
+        'btn_Prepare
+        '
+        Me.btn_Prepare.BackColor = System.Drawing.SystemColors.Control
+        Me.btn_Prepare.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
+        Me.btn_Prepare.Enabled = False
+        Me.btn_Prepare.Image = Global.HR.My.Resources.Resources._NEW
+        Me.btn_Prepare.ImageTransparentColor = System.Drawing.SystemColors.ButtonFace
+        Me.btn_Prepare.Name = "btn_Prepare"
+        Me.btn_Prepare.Size = New System.Drawing.Size(23, 22)
+        Me.btn_Prepare.Text = "New"
+        '
+        'btn_Modify
+        '
+        Me.btn_Modify.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
+        Me.btn_Modify.Enabled = False
+        Me.btn_Modify.Image = Global.HR.My.Resources.Resources.SAVE
+        Me.btn_Modify.ImageTransparentColor = System.Drawing.SystemColors.ButtonFace
+        Me.btn_Modify.Name = "btn_Modify"
+        Me.btn_Modify.Size = New System.Drawing.Size(23, 22)
+        Me.btn_Modify.Text = "Save"
+        '
+        'btnSearch
+        '
+        Me.btnSearch.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
+        Me.btnSearch.Image = Global.HR.My.Resources.Resources.SEARCH
+        Me.btnSearch.ImageTransparentColor = System.Drawing.SystemColors.ButtonFace
+        Me.btnSearch.Name = "btnSearch"
+        Me.btnSearch.Size = New System.Drawing.Size(23, 22)
+        Me.btnSearch.Text = "Search"
+        '
+        'btn_Delete
+        '
+        Me.btn_Delete.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
+        Me.btn_Delete.Enabled = False
+        Me.btn_Delete.Image = Global.HR.My.Resources.Resources.DELETE
+        Me.btn_Delete.ImageTransparentColor = System.Drawing.SystemColors.ButtonFace
+        Me.btn_Delete.Name = "btn_Delete"
+        Me.btn_Delete.Size = New System.Drawing.Size(23, 22)
+        Me.btn_Delete.Text = "Delete"
+        '
+        'ToolStripSeparator1
+        '
+        Me.ToolStripSeparator1.Name = "ToolStripSeparator1"
+        Me.ToolStripSeparator1.Size = New System.Drawing.Size(6, 25)
+        Me.ToolStripSeparator1.Visible = False
+        '
+        'btn_Verify
+        '
+        Me.btn_Verify.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
+        Me.btn_Verify.Enabled = False
+        Me.btn_Verify.Image = Global.HR.My.Resources.Resources.Verify
+        Me.btn_Verify.ImageTransparentColor = System.Drawing.SystemColors.ButtonFace
+        Me.btn_Verify.Name = "btn_Verify"
+        Me.btn_Verify.Size = New System.Drawing.Size(23, 22)
+        Me.btn_Verify.Text = "Verify"
+        Me.btn_Verify.ToolTipText = "Verify"
+        Me.btn_Verify.Visible = False
+        '
+        'btn_Approve
+        '
+        Me.btn_Approve.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
+        Me.btn_Approve.Enabled = False
+        Me.btn_Approve.Image = Global.HR.My.Resources.Resources.Approve2
+        Me.btn_Approve.ImageTransparentColor = System.Drawing.SystemColors.ButtonFace
+        Me.btn_Approve.Name = "btn_Approve"
+        Me.btn_Approve.Size = New System.Drawing.Size(23, 22)
+        Me.btn_Approve.Text = "Approve"
+        '
+        'tlbToolbar
+        '
+        Me.tlbToolbar.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.btn_Prepare, Me.btn_Modify, Me.btnSearch, Me.btn_Delete, Me.ToolStripSeparator1, Me.btn_Verify, Me.btn_Approve})
+        Me.tlbToolbar.Location = New System.Drawing.Point(0, 0)
+        Me.tlbToolbar.Name = "tlbToolbar"
+        Me.tlbToolbar.Size = New System.Drawing.Size(959, 25)
+        Me.tlbToolbar.TabIndex = 1
+        Me.tlbToolbar.Text = "tlbTop"
+        '
+        'EM_Employee_AuditTableAdapter
+        '
+        Me.EM_Employee_AuditTableAdapter.ClearBeforeFill = True
         '
         'DsHR
         '
         Me.DsHR.DataSetName = "dsHR"
         Me.DsHR.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema
         '
-        'EM_Employee_AuditTableAdapter
-        '
-        Me.EM_Employee_AuditTableAdapter.ClearBeforeFill = True
-        '
         'frmEmployeeProfileDW
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(1012, 373)
+        Me.ClientSize = New System.Drawing.Size(959, 373)
         Me.Controls.Add(Me.stbDetail)
         Me.Controls.Add(Me.TabControl1)
         Me.Controls.Add(Me.tlbToolbar)
         Me.Name = "frmEmployeeProfileDW"
-        Me.Text = "Employee Profile - Daily Wager"
-        Me.tlbToolbar.ResumeLayout(False)
-        Me.tlbToolbar.PerformLayout()
+        Me.Text = " Daily Wager Profile"
         Me.TabControl1.ResumeLayout(False)
         Me.tbPersonal.ResumeLayout(False)
         Me.tbPersonal.PerformLayout()
@@ -883,20 +884,13 @@ Partial Class frmEmployeeProfileDW
         CType(Me.grdAudit, System.ComponentModel.ISupportInitialize).EndInit()
         Me.stbDetail.ResumeLayout(False)
         Me.stbDetail.PerformLayout()
+        Me.tlbToolbar.ResumeLayout(False)
+        Me.tlbToolbar.PerformLayout()
         CType(Me.DsHR, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
     End Sub
-
-    Friend WithEvents tlbToolbar As ToolStrip
-    Friend WithEvents btnNew As ToolStripButton
-    Friend WithEvents btnSave As ToolStripButton
-    Friend WithEvents btnSearch As ToolStripButton
-    Friend WithEvents btnDelete As ToolStripButton
-    Friend WithEvents ToolStripSeparator1 As ToolStripSeparator
-    Friend WithEvents btnVerify As ToolStripButton
-    Friend WithEvents btnApprove As ToolStripButton
     Friend WithEvents TabControl1 As TabControl
     Friend WithEvents tbPersonal As TabPage
     Friend WithEvents cbBloodGroup As ComboBox
@@ -965,4 +959,12 @@ Partial Class frmEmployeeProfileDW
     Friend WithEvents slStatus As ToolStripStatusLabel
     Friend WithEvents DsHR As dsHR
     Friend WithEvents EM_Employee_AuditTableAdapter As dsHRTableAdapters.EM_Employee_AuditTableAdapter
+    Friend WithEvents btn_Prepare As ToolStripButton
+    Friend WithEvents btn_Modify As ToolStripButton
+    Friend WithEvents btnSearch As ToolStripButton
+    Friend WithEvents btn_Delete As ToolStripButton
+    Friend WithEvents ToolStripSeparator1 As ToolStripSeparator
+    Friend WithEvents btn_Verify As ToolStripButton
+    Friend WithEvents btn_Approve As ToolStripButton
+    Friend WithEvents tlbToolbar As ToolStrip
 End Class

@@ -25,15 +25,20 @@ Partial Class frmEmployeeProfile
         Me.components = New System.ComponentModel.Container()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmEmployeeProfile))
         Me.tlbToolbar = New System.Windows.Forms.ToolStrip()
-        Me.btnNew = New System.Windows.Forms.ToolStripButton()
-        Me.btnSave = New System.Windows.Forms.ToolStripButton()
+        Me.btn_Prepare = New System.Windows.Forms.ToolStripButton()
+        Me.btn_Modify = New System.Windows.Forms.ToolStripButton()
         Me.btnSearch = New System.Windows.Forms.ToolStripButton()
-        Me.btnDelete = New System.Windows.Forms.ToolStripButton()
+        Me.btn_Delete = New System.Windows.Forms.ToolStripButton()
         Me.ToolStripSeparator1 = New System.Windows.Forms.ToolStripSeparator()
-        Me.btnVerify = New System.Windows.Forms.ToolStripButton()
-        Me.btnApprove = New System.Windows.Forms.ToolStripButton()
+        Me.btn_Verify = New System.Windows.Forms.ToolStripButton()
+        Me.btn_Approve = New System.Windows.Forms.ToolStripButton()
         Me.TabControl1 = New System.Windows.Forms.TabControl()
         Me.tbPersonal = New System.Windows.Forms.TabPage()
+        Me.txtOldEmpNo = New System.Windows.Forms.TextBox()
+        Me.Label111 = New System.Windows.Forms.Label()
+        Me.TextBox1 = New System.Windows.Forms.TextBox()
+        Me.btnBrowse = New System.Windows.Forms.Button()
+        Me.txtImport = New System.Windows.Forms.Button()
         Me.cbBloodGroup = New System.Windows.Forms.ComboBox()
         Me.Label63 = New System.Windows.Forms.Label()
         Me.cbDomicile = New System.Windows.Forms.ComboBox()
@@ -41,7 +46,6 @@ Partial Class frmEmployeeProfile
         Me.txtCNICNew = New System.Windows.Forms.TextBox()
         Me.Label102 = New System.Windows.Forms.Label()
         Me.cmdUploadPicture = New System.Windows.Forms.Button()
-        Me.Label100 = New System.Windows.Forms.Label()
         Me.Label14 = New System.Windows.Forms.Label()
         Me.txtEmpID = New System.Windows.Forms.TextBox()
         Me.pbEmployeePhoto = New System.Windows.Forms.PictureBox()
@@ -72,27 +76,36 @@ Partial Class frmEmployeeProfile
         Me.txtEmployeeNo = New System.Windows.Forms.TextBox()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.tbFCCL = New System.Windows.Forms.TabPage()
+        Me.GroupBox8 = New System.Windows.Forms.GroupBox()
+        Me.chkIsMilitaryPersonnel = New System.Windows.Forms.CheckBox()
+        Me.Label34 = New System.Windows.Forms.Label()
+        Me.dtpDateRetired = New System.Windows.Forms.DateTimePicker()
+        Me.Label36 = New System.Windows.Forms.Label()
+        Me.cbCorps = New System.Windows.Forms.ComboBox()
+        Me.Label37 = New System.Windows.Forms.Label()
+        Me.txtTradeAppointment = New System.Windows.Forms.TextBox()
+        Me.Label35 = New System.Windows.Forms.Label()
+        Me.cbRank = New System.Windows.Forms.ComboBox()
+        Me.chkLFANo = New System.Windows.Forms.CheckBox()
+        Me.ChkLFAYes = New System.Windows.Forms.CheckBox()
+        Me.Label110 = New System.Windows.Forms.Label()
+        Me.chkConfNo = New System.Windows.Forms.CheckBox()
+        Me.chkConfYes = New System.Windows.Forms.CheckBox()
+        Me.Label109 = New System.Windows.Forms.Label()
+        Me.lblIncrement = New System.Windows.Forms.Label()
+        Me.btn_Increment = New System.Windows.Forms.Button()
+        Me.chkIsTechnical = New System.Windows.Forms.CheckBox()
         Me.cbJoinedAs = New System.Windows.Forms.ComboBox()
+        Me.chkIsHOD = New System.Windows.Forms.CheckBox()
         Me.Label103 = New System.Windows.Forms.Label()
         Me.Label99 = New System.Windows.Forms.Label()
         Me.dtpRetirementDate = New System.Windows.Forms.DateTimePicker()
-        Me.cbCorps = New System.Windows.Forms.ComboBox()
-        Me.Label36 = New System.Windows.Forms.Label()
-        Me.txtTradeAppointment = New System.Windows.Forms.TextBox()
-        Me.Label37 = New System.Windows.Forms.Label()
-        Me.Label34 = New System.Windows.Forms.Label()
-        Me.dtpDateRetired = New System.Windows.Forms.DateTimePicker()
-        Me.cbRank = New System.Windows.Forms.ComboBox()
-        Me.Label35 = New System.Windows.Forms.Label()
-        Me.chkIsMilitaryPersonnel = New System.Windows.Forms.CheckBox()
         Me.txtJobDescription = New System.Windows.Forms.TextBox()
         Me.Label33 = New System.Windows.Forms.Label()
         Me.Label31 = New System.Windows.Forms.Label()
         Me.txtSupervisor = New System.Windows.Forms.TextBox()
         Me.txtHOD = New System.Windows.Forms.TextBox()
         Me.Label32 = New System.Windows.Forms.Label()
-        Me.chkIsHOD = New System.Windows.Forms.CheckBox()
-        Me.chkIsTechnical = New System.Windows.Forms.CheckBox()
         Me.Label27 = New System.Windows.Forms.Label()
         Me.dtpGradeEffectiveDate = New System.Windows.Forms.DateTimePicker()
         Me.cbGrade = New System.Windows.Forms.ComboBox()
@@ -120,11 +133,11 @@ Partial Class frmEmployeeProfile
         Me.cbBusinessUnit = New System.Windows.Forms.ComboBox()
         Me.Label16 = New System.Windows.Forms.Label()
         Me.tbExperience = New System.Windows.Forms.TabPage()
-        Me.cmdClearExperience = New System.Windows.Forms.Button()
+        Me.cmd_CreateExperience = New System.Windows.Forms.Button()
         Me.cbExperienceIndustry = New System.Windows.Forms.ComboBox()
         Me.Label61 = New System.Windows.Forms.Label()
-        Me.cmdDeleteExperience = New System.Windows.Forms.Button()
-        Me.cmdSaveExperience = New System.Windows.Forms.Button()
+        Me.btn_DeleteExperience = New System.Windows.Forms.Button()
+        Me.cmd_PrepareExperience = New System.Windows.Forms.Button()
         Me.grdExperiences = New C1.Win.C1TrueDBGrid.C1TrueDBGrid()
         Me.txtExperienceReasonForLeaving = New System.Windows.Forms.TextBox()
         Me.Label77 = New System.Windows.Forms.Label()
@@ -147,8 +160,8 @@ Partial Class frmEmployeeProfile
         Me.txtExperienceEmployer = New System.Windows.Forms.TextBox()
         Me.Label86 = New System.Windows.Forms.Label()
         Me.tbQualifications = New System.Windows.Forms.TabPage()
-        Me.cmdDeleteQualification = New System.Windows.Forms.Button()
-        Me.cmdSaveQualification = New System.Windows.Forms.Button()
+        Me.btn_DeleteQualification = New System.Windows.Forms.Button()
+        Me.cmd_PrepareQualifications = New System.Windows.Forms.Button()
         Me.txtQualificationEndYear = New System.Windows.Forms.TextBox()
         Me.txtQualificationStartYear = New System.Windows.Forms.TextBox()
         Me.GroupBox7 = New System.Windows.Forms.GroupBox()
@@ -239,8 +252,8 @@ Partial Class frmEmployeeProfile
         Me.txtPresentAddress = New System.Windows.Forms.TextBox()
         Me.Label39 = New System.Windows.Forms.Label()
         Me.tbDependents = New System.Windows.Forms.TabPage()
-        Me.cmdDeleteDependent = New System.Windows.Forms.Button()
-        Me.cmdSaveDependent = New System.Windows.Forms.Button()
+        Me.btn_DeleteDependent = New System.Windows.Forms.Button()
+        Me.cmd_SaveDependent = New System.Windows.Forms.Button()
         Me.Label76 = New System.Windows.Forms.Label()
         Me.cbDependentGender = New System.Windows.Forms.ComboBox()
         Me.chkDependentInsurance = New System.Windows.Forms.CheckBox()
@@ -257,7 +270,19 @@ Partial Class frmEmployeeProfile
         Me.Label74 = New System.Windows.Forms.Label()
         Me.txtDependentName = New System.Windows.Forms.TextBox()
         Me.Label75 = New System.Windows.Forms.Label()
-        Me.cbMisc = New System.Windows.Forms.TabPage()
+        Me.tbBankAccount = New System.Windows.Forms.TabPage()
+        Me.Label108 = New System.Windows.Forms.Label()
+        Me.cmd_SaveBankAccount = New System.Windows.Forms.Button()
+        Me.txtEmployeeName = New System.Windows.Forms.TextBox()
+        Me.Label104 = New System.Windows.Forms.Label()
+        Me.txtAccountTitle = New System.Windows.Forms.TextBox()
+        Me.txtAccountNo = New System.Windows.Forms.TextBox()
+        Me.Label107 = New System.Windows.Forms.Label()
+        Me.Label105 = New System.Windows.Forms.Label()
+        Me.cbBank = New System.Windows.Forms.ComboBox()
+        Me.txtBranch = New System.Windows.Forms.TextBox()
+        Me.Label106 = New System.Windows.Forms.Label()
+        Me.tbMisc = New System.Windows.Forms.TabPage()
         Me.Label69 = New System.Windows.Forms.Label()
         Me.dtpPassportIssueDate = New System.Windows.Forms.DateTimePicker()
         Me.Label70 = New System.Windows.Forms.Label()
@@ -277,6 +302,10 @@ Partial Class frmEmployeeProfile
         Me.grdAudit = New C1.Win.C1TrueDBGrid.C1TrueDBGrid()
         Me.stbDetail = New System.Windows.Forms.StatusStrip()
         Me.slStatus = New System.Windows.Forms.ToolStripStatusLabel()
+        Me.cmdApp = New System.Windows.Forms.Button()
+        Me.OpenFileDialog1 = New System.Windows.Forms.OpenFileDialog()
+        Me.cbSection = New System.Windows.Forms.ComboBox()
+        Me.Label100 = New System.Windows.Forms.Label()
         Me.EMEmployeeAuditBindingSource = New System.Windows.Forms.BindingSource(Me.components)
         Me.DsHR = New HR.dsHR()
         Me.EM_Employee_AuditTableAdapter = New HR.dsHRTableAdapters.EM_Employee_AuditTableAdapter()
@@ -285,6 +314,7 @@ Partial Class frmEmployeeProfile
         Me.tbPersonal.SuspendLayout()
         CType(Me.pbEmployeePhoto, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.tbFCCL.SuspendLayout()
+        Me.GroupBox8.SuspendLayout()
         Me.tbExperience.SuspendLayout()
         CType(Me.grdExperiences, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.tbQualifications.SuspendLayout()
@@ -299,7 +329,8 @@ Partial Class frmEmployeeProfile
         Me.GroupBox2.SuspendLayout()
         Me.tbDependents.SuspendLayout()
         CType(Me.grdDependents, System.ComponentModel.ISupportInitialize).BeginInit()
-        Me.cbMisc.SuspendLayout()
+        Me.tbBankAccount.SuspendLayout()
+        Me.tbMisc.SuspendLayout()
         Me.tbAudit.SuspendLayout()
         CType(Me.grdAudit, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.stbDetail.SuspendLayout()
@@ -309,31 +340,34 @@ Partial Class frmEmployeeProfile
         '
         'tlbToolbar
         '
-        Me.tlbToolbar.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.btnNew, Me.btnSave, Me.btnSearch, Me.btnDelete, Me.ToolStripSeparator1, Me.btnVerify, Me.btnApprove})
+        Me.tlbToolbar.ImageScalingSize = New System.Drawing.Size(18, 18)
+        Me.tlbToolbar.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.btn_Prepare, Me.btn_Modify, Me.btnSearch, Me.btn_Delete, Me.ToolStripSeparator1, Me.btn_Verify, Me.btn_Approve})
         Me.tlbToolbar.Location = New System.Drawing.Point(0, 0)
         Me.tlbToolbar.Name = "tlbToolbar"
-        Me.tlbToolbar.Size = New System.Drawing.Size(1028, 25)
+        Me.tlbToolbar.Size = New System.Drawing.Size(1011, 25)
         Me.tlbToolbar.TabIndex = 0
         Me.tlbToolbar.Text = "tlbTop"
         '
-        'btnNew
+        'btn_Prepare
         '
-        Me.btnNew.BackColor = System.Drawing.SystemColors.Control
-        Me.btnNew.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
-        Me.btnNew.Image = Global.HR.My.Resources.Resources._NEW
-        Me.btnNew.ImageTransparentColor = System.Drawing.SystemColors.ButtonFace
-        Me.btnNew.Name = "btnNew"
-        Me.btnNew.Size = New System.Drawing.Size(23, 22)
-        Me.btnNew.Text = "New"
+        Me.btn_Prepare.BackColor = System.Drawing.SystemColors.Control
+        Me.btn_Prepare.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
+        Me.btn_Prepare.Enabled = False
+        Me.btn_Prepare.Image = Global.HR.My.Resources.Resources._NEW
+        Me.btn_Prepare.ImageTransparentColor = System.Drawing.SystemColors.ButtonFace
+        Me.btn_Prepare.Name = "btn_Prepare"
+        Me.btn_Prepare.Size = New System.Drawing.Size(23, 22)
+        Me.btn_Prepare.Text = "New"
         '
-        'btnSave
+        'btn_Modify
         '
-        Me.btnSave.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
-        Me.btnSave.Image = Global.HR.My.Resources.Resources.SAVE
-        Me.btnSave.ImageTransparentColor = System.Drawing.SystemColors.ButtonFace
-        Me.btnSave.Name = "btnSave"
-        Me.btnSave.Size = New System.Drawing.Size(23, 22)
-        Me.btnSave.Text = "Save"
+        Me.btn_Modify.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
+        Me.btn_Modify.Enabled = False
+        Me.btn_Modify.Image = Global.HR.My.Resources.Resources.SAVE
+        Me.btn_Modify.ImageTransparentColor = System.Drawing.SystemColors.ButtonFace
+        Me.btn_Modify.Name = "btn_Modify"
+        Me.btn_Modify.Size = New System.Drawing.Size(23, 22)
+        Me.btn_Modify.Text = "Save"
         '
         'btnSearch
         '
@@ -344,15 +378,15 @@ Partial Class frmEmployeeProfile
         Me.btnSearch.Size = New System.Drawing.Size(23, 22)
         Me.btnSearch.Text = "Search"
         '
-        'btnDelete
+        'btn_Delete
         '
-        Me.btnDelete.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
-        Me.btnDelete.Image = Global.HR.My.Resources.Resources.DELETE
-        Me.btnDelete.ImageTransparentColor = System.Drawing.SystemColors.ButtonFace
-        Me.btnDelete.Name = "btnDelete"
-        Me.btnDelete.Size = New System.Drawing.Size(23, 22)
-        Me.btnDelete.Text = "Delete"
-        Me.btnDelete.Visible = False
+        Me.btn_Delete.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
+        Me.btn_Delete.Enabled = False
+        Me.btn_Delete.Image = Global.HR.My.Resources.Resources.DELETE
+        Me.btn_Delete.ImageTransparentColor = System.Drawing.SystemColors.ButtonFace
+        Me.btn_Delete.Name = "btn_Delete"
+        Me.btn_Delete.Size = New System.Drawing.Size(23, 22)
+        Me.btn_Delete.Text = "Delete"
         '
         'ToolStripSeparator1
         '
@@ -360,49 +394,57 @@ Partial Class frmEmployeeProfile
         Me.ToolStripSeparator1.Size = New System.Drawing.Size(6, 25)
         Me.ToolStripSeparator1.Visible = False
         '
-        'btnVerify
+        'btn_Verify
         '
-        Me.btnVerify.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
-        Me.btnVerify.Image = Global.HR.My.Resources.Resources.Verify
-        Me.btnVerify.ImageTransparentColor = System.Drawing.SystemColors.ButtonFace
-        Me.btnVerify.Name = "btnVerify"
-        Me.btnVerify.Size = New System.Drawing.Size(23, 22)
-        Me.btnVerify.Text = "Verify"
-        Me.btnVerify.ToolTipText = "Verify"
-        Me.btnVerify.Visible = False
+        Me.btn_Verify.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
+        Me.btn_Verify.Enabled = False
+        Me.btn_Verify.Image = Global.HR.My.Resources.Resources.Verify
+        Me.btn_Verify.ImageTransparentColor = System.Drawing.SystemColors.ButtonFace
+        Me.btn_Verify.Name = "btn_Verify"
+        Me.btn_Verify.Size = New System.Drawing.Size(23, 22)
+        Me.btn_Verify.Text = "Verify"
+        Me.btn_Verify.ToolTipText = "Verify"
         '
-        'btnApprove
+        'btn_Approve
         '
-        Me.btnApprove.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
-        Me.btnApprove.Image = Global.HR.My.Resources.Resources.Approve2
-        Me.btnApprove.ImageTransparentColor = System.Drawing.SystemColors.ButtonFace
-        Me.btnApprove.Name = "btnApprove"
-        Me.btnApprove.Size = New System.Drawing.Size(23, 22)
-        Me.btnApprove.Text = "Approve"
-        Me.btnApprove.Visible = False
+        Me.btn_Approve.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
+        Me.btn_Approve.Enabled = False
+        Me.btn_Approve.Image = Global.HR.My.Resources.Resources.Approve2
+        Me.btn_Approve.ImageTransparentColor = System.Drawing.SystemColors.ButtonFace
+        Me.btn_Approve.Name = "btn_Approve"
+        Me.btn_Approve.Size = New System.Drawing.Size(23, 22)
+        Me.btn_Approve.Text = "Approve"
         '
         'TabControl1
         '
+        Me.TabControl1.Appearance = System.Windows.Forms.TabAppearance.FlatButtons
         Me.TabControl1.Controls.Add(Me.tbPersonal)
         Me.TabControl1.Controls.Add(Me.tbFCCL)
         Me.TabControl1.Controls.Add(Me.tbExperience)
         Me.TabControl1.Controls.Add(Me.tbQualifications)
         Me.TabControl1.Controls.Add(Me.tbContacts)
         Me.TabControl1.Controls.Add(Me.tbDependents)
-        Me.TabControl1.Controls.Add(Me.cbMisc)
+        Me.TabControl1.Controls.Add(Me.tbBankAccount)
+        Me.TabControl1.Controls.Add(Me.tbMisc)
         Me.TabControl1.Controls.Add(Me.tbAudit)
         Me.TabControl1.Font = New System.Drawing.Font("Verdana", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.TabControl1.Location = New System.Drawing.Point(8, 28)
+        Me.TabControl1.Location = New System.Drawing.Point(12, 28)
+        Me.TabControl1.Multiline = True
         Me.TabControl1.Name = "TabControl1"
         Me.TabControl1.SelectedIndex = 0
-        Me.TabControl1.Size = New System.Drawing.Size(1000, 680)
-        Me.TabControl1.TabIndex = 1
+        Me.TabControl1.Size = New System.Drawing.Size(999, 462)
+        Me.TabControl1.TabIndex = 9
         '
         'tbPersonal
         '
         Me.tbPersonal.AutoScroll = True
         Me.tbPersonal.AutoScrollMinSize = New System.Drawing.Size(0, 50)
         Me.tbPersonal.BackColor = System.Drawing.SystemColors.ButtonFace
+        Me.tbPersonal.Controls.Add(Me.txtOldEmpNo)
+        Me.tbPersonal.Controls.Add(Me.Label111)
+        Me.tbPersonal.Controls.Add(Me.TextBox1)
+        Me.tbPersonal.Controls.Add(Me.btnBrowse)
+        Me.tbPersonal.Controls.Add(Me.txtImport)
         Me.tbPersonal.Controls.Add(Me.cbBloodGroup)
         Me.tbPersonal.Controls.Add(Me.Label63)
         Me.tbPersonal.Controls.Add(Me.cbDomicile)
@@ -410,7 +452,6 @@ Partial Class frmEmployeeProfile
         Me.tbPersonal.Controls.Add(Me.txtCNICNew)
         Me.tbPersonal.Controls.Add(Me.Label102)
         Me.tbPersonal.Controls.Add(Me.cmdUploadPicture)
-        Me.tbPersonal.Controls.Add(Me.Label100)
         Me.tbPersonal.Controls.Add(Me.Label14)
         Me.tbPersonal.Controls.Add(Me.txtEmpID)
         Me.tbPersonal.Controls.Add(Me.pbEmployeePhoto)
@@ -440,26 +481,71 @@ Partial Class frmEmployeeProfile
         Me.tbPersonal.Controls.Add(Me.Label3)
         Me.tbPersonal.Controls.Add(Me.txtEmployeeNo)
         Me.tbPersonal.Controls.Add(Me.Label1)
-        Me.tbPersonal.Location = New System.Drawing.Point(4, 25)
+        Me.tbPersonal.Location = New System.Drawing.Point(4, 28)
         Me.tbPersonal.Name = "tbPersonal"
         Me.tbPersonal.Padding = New System.Windows.Forms.Padding(3)
-        Me.tbPersonal.Size = New System.Drawing.Size(992, 651)
+        Me.tbPersonal.Size = New System.Drawing.Size(991, 430)
         Me.tbPersonal.TabIndex = 1
-        Me.tbPersonal.Text = "Personal Information"
+        Me.tbPersonal.Text = "Personal Info"
+        '
+        'txtOldEmpNo
+        '
+        Me.txtOldEmpNo.Location = New System.Drawing.Point(123, 41)
+        Me.txtOldEmpNo.Name = "txtOldEmpNo"
+        Me.txtOldEmpNo.Size = New System.Drawing.Size(175, 23)
+        Me.txtOldEmpNo.TabIndex = 3
+        Me.txtOldEmpNo.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
+        '
+        'Label111
+        '
+        Me.Label111.AutoSize = True
+        Me.Label111.Location = New System.Drawing.Point(12, 46)
+        Me.Label111.Name = "Label111"
+        Me.Label111.Size = New System.Drawing.Size(88, 16)
+        Me.Label111.TabIndex = 61
+        Me.Label111.Text = "Old Emp No."
+        '
+        'TextBox1
+        '
+        Me.TextBox1.Location = New System.Drawing.Point(687, 336)
+        Me.TextBox1.Name = "TextBox1"
+        Me.TextBox1.Size = New System.Drawing.Size(157, 23)
+        Me.TextBox1.TabIndex = 60
+        Me.TextBox1.Visible = False
+        '
+        'btnBrowse
+        '
+        Me.btnBrowse.Location = New System.Drawing.Point(850, 335)
+        Me.btnBrowse.Name = "btnBrowse"
+        Me.btnBrowse.Size = New System.Drawing.Size(103, 25)
+        Me.btnBrowse.TabIndex = 59
+        Me.btnBrowse.Text = "Browse"
+        Me.btnBrowse.UseVisualStyleBackColor = True
+        Me.btnBrowse.Visible = False
+        '
+        'txtImport
+        '
+        Me.txtImport.Location = New System.Drawing.Point(850, 366)
+        Me.txtImport.Name = "txtImport"
+        Me.txtImport.Size = New System.Drawing.Size(103, 25)
+        Me.txtImport.TabIndex = 57
+        Me.txtImport.Text = "Import"
+        Me.txtImport.UseVisualStyleBackColor = True
+        Me.txtImport.Visible = False
         '
         'cbBloodGroup
         '
         Me.cbBloodGroup.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cbBloodGroup.FormattingEnabled = True
-        Me.cbBloodGroup.Location = New System.Drawing.Point(471, 251)
+        Me.cbBloodGroup.Location = New System.Drawing.Point(472, 191)
         Me.cbBloodGroup.Name = "cbBloodGroup"
         Me.cbBloodGroup.Size = New System.Drawing.Size(175, 24)
-        Me.cbBloodGroup.TabIndex = 17
+        Me.cbBloodGroup.TabIndex = 14
         '
         'Label63
         '
         Me.Label63.AutoSize = True
-        Me.Label63.Location = New System.Drawing.Point(323, 256)
+        Me.Label63.Location = New System.Drawing.Point(324, 196)
         Me.Label63.Name = "Label63"
         Me.Label63.Size = New System.Drawing.Size(86, 16)
         Me.Label63.TabIndex = 56
@@ -472,7 +558,7 @@ Partial Class frmEmployeeProfile
         Me.cbDomicile.Location = New System.Drawing.Point(472, 161)
         Me.cbDomicile.Name = "cbDomicile"
         Me.cbDomicile.Size = New System.Drawing.Size(175, 24)
-        Me.cbDomicile.TabIndex = 11
+        Me.cbDomicile.TabIndex = 12
         '
         'Label101
         '
@@ -488,39 +574,30 @@ Partial Class frmEmployeeProfile
         Me.txtCNICNew.Location = New System.Drawing.Point(472, 131)
         Me.txtCNICNew.Name = "txtCNICNew"
         Me.txtCNICNew.Size = New System.Drawing.Size(175, 23)
-        Me.txtCNICNew.TabIndex = 9
+        Me.txtCNICNew.TabIndex = 10
         '
         'Label102
         '
         Me.Label102.AutoSize = True
         Me.Label102.Location = New System.Drawing.Point(322, 136)
         Me.Label102.Name = "Label102"
-        Me.Label102.Size = New System.Drawing.Size(73, 16)
+        Me.Label102.Size = New System.Drawing.Size(67, 16)
         Me.Label102.TabIndex = 53
-        Me.Label102.Text = "New CNIC"
+        Me.Label102.Text = "CNIC No."
         '
         'cmdUploadPicture
         '
-        Me.cmdUploadPicture.Location = New System.Drawing.Point(123, 253)
+        Me.cmdUploadPicture.Location = New System.Drawing.Point(682, 298)
         Me.cmdUploadPicture.Name = "cmdUploadPicture"
         Me.cmdUploadPicture.Size = New System.Drawing.Size(75, 25)
         Me.cmdUploadPicture.TabIndex = 16
         Me.cmdUploadPicture.Text = "Browse"
         Me.cmdUploadPicture.UseVisualStyleBackColor = True
         '
-        'Label100
-        '
-        Me.Label100.AutoSize = True
-        Me.Label100.Location = New System.Drawing.Point(12, 255)
-        Me.Label100.Name = "Label100"
-        Me.Label100.Size = New System.Drawing.Size(54, 16)
-        Me.Label100.TabIndex = 31
-        Me.Label100.Text = "Picture"
-        '
         'Label14
         '
         Me.Label14.AutoSize = True
-        Me.Label14.Location = New System.Drawing.Point(322, 16)
+        Me.Label14.Location = New System.Drawing.Point(322, 18)
         Me.Label14.Name = "Label14"
         Me.Label14.Size = New System.Drawing.Size(54, 16)
         Me.Label14.TabIndex = 30
@@ -529,17 +606,17 @@ Partial Class frmEmployeeProfile
         '
         'txtEmpID
         '
-        Me.txtEmpID.Location = New System.Drawing.Point(471, 11)
+        Me.txtEmpID.Location = New System.Drawing.Point(471, 13)
         Me.txtEmpID.Name = "txtEmpID"
         Me.txtEmpID.Size = New System.Drawing.Size(175, 23)
-        Me.txtEmpID.TabIndex = 29
+        Me.txtEmpID.TabIndex = 2
         Me.txtEmpID.Visible = False
         '
         'pbEmployeePhoto
         '
-        Me.pbEmployeePhoto.Location = New System.Drawing.Point(738, 11)
+        Me.pbEmployeePhoto.Location = New System.Drawing.Point(682, 11)
         Me.pbEmployeePhoto.Name = "pbEmployeePhoto"
-        Me.pbEmployeePhoto.Size = New System.Drawing.Size(235, 235)
+        Me.pbEmployeePhoto.Size = New System.Drawing.Size(258, 281)
         Me.pbEmployeePhoto.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom
         Me.pbEmployeePhoto.TabIndex = 28
         Me.pbEmployeePhoto.TabStop = False
@@ -548,17 +625,17 @@ Partial Class frmEmployeeProfile
         '
         Me.dtpStatusSince.CustomFormat = "dd/MM/yy"
         Me.dtpStatusSince.Format = System.Windows.Forms.DateTimePickerFormat.[Short]
-        Me.dtpStatusSince.Location = New System.Drawing.Point(471, 221)
+        Me.dtpStatusSince.Location = New System.Drawing.Point(472, 256)
         Me.dtpStatusSince.Name = "dtpStatusSince"
         Me.dtpStatusSince.ShowCheckBox = True
         Me.dtpStatusSince.Size = New System.Drawing.Size(175, 23)
-        Me.dtpStatusSince.TabIndex = 15
+        Me.dtpStatusSince.TabIndex = 18
         Me.dtpStatusSince.Value = New Date(2015, 11, 9, 11, 57, 14, 0)
         '
         'Label13
         '
         Me.Label13.AutoSize = True
-        Me.Label13.Location = New System.Drawing.Point(322, 226)
+        Me.Label13.Location = New System.Drawing.Point(322, 261)
         Me.Label13.Name = "Label13"
         Me.Label13.Size = New System.Drawing.Size(142, 16)
         Me.Label13.TabIndex = 26
@@ -569,15 +646,15 @@ Partial Class frmEmployeeProfile
         Me.cbMaritalStatus.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cbMaritalStatus.FormattingEnabled = True
         Me.cbMaritalStatus.Items.AddRange(New Object() {"-", "Married", "Unmarried", "Divorced", "Widowed"})
-        Me.cbMaritalStatus.Location = New System.Drawing.Point(123, 221)
+        Me.cbMaritalStatus.Location = New System.Drawing.Point(123, 256)
         Me.cbMaritalStatus.Name = "cbMaritalStatus"
         Me.cbMaritalStatus.Size = New System.Drawing.Size(175, 24)
-        Me.cbMaritalStatus.TabIndex = 14
+        Me.cbMaritalStatus.TabIndex = 17
         '
         'Label12
         '
         Me.Label12.AutoSize = True
-        Me.Label12.Location = New System.Drawing.Point(12, 226)
+        Me.Label12.Location = New System.Drawing.Point(12, 261)
         Me.Label12.Name = "Label12"
         Me.Label12.Size = New System.Drawing.Size(101, 16)
         Me.Label12.TabIndex = 24
@@ -587,15 +664,15 @@ Partial Class frmEmployeeProfile
         '
         Me.cbBirthCity.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cbBirthCity.FormattingEnabled = True
-        Me.cbBirthCity.Location = New System.Drawing.Point(471, 191)
+        Me.cbBirthCity.Location = New System.Drawing.Point(471, 223)
         Me.cbBirthCity.Name = "cbBirthCity"
         Me.cbBirthCity.Size = New System.Drawing.Size(175, 24)
-        Me.cbBirthCity.TabIndex = 13
+        Me.cbBirthCity.TabIndex = 16
         '
         'Label11
         '
         Me.Label11.AutoSize = True
-        Me.Label11.Location = New System.Drawing.Point(322, 196)
+        Me.Label11.Location = New System.Drawing.Point(322, 228)
         Me.Label11.Name = "Label11"
         Me.Label11.Size = New System.Drawing.Size(69, 16)
         Me.Label11.TabIndex = 22
@@ -605,15 +682,15 @@ Partial Class frmEmployeeProfile
         '
         Me.cbBirthCountry.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cbBirthCountry.FormattingEnabled = True
-        Me.cbBirthCountry.Location = New System.Drawing.Point(123, 191)
+        Me.cbBirthCountry.Location = New System.Drawing.Point(123, 226)
         Me.cbBirthCountry.Name = "cbBirthCountry"
         Me.cbBirthCountry.Size = New System.Drawing.Size(175, 24)
-        Me.cbBirthCountry.TabIndex = 12
+        Me.cbBirthCountry.TabIndex = 15
         '
         'Label10
         '
         Me.Label10.AutoSize = True
-        Me.Label10.Location = New System.Drawing.Point(12, 196)
+        Me.Label10.Location = New System.Drawing.Point(12, 231)
         Me.Label10.Name = "Label10"
         Me.Label10.Size = New System.Drawing.Size(95, 16)
         Me.Label10.TabIndex = 20
@@ -636,22 +713,22 @@ Partial Class frmEmployeeProfile
         Me.dtpDOB.Name = "dtpDOB"
         Me.dtpDOB.ShowCheckBox = True
         Me.dtpDOB.Size = New System.Drawing.Size(175, 23)
-        Me.dtpDOB.TabIndex = 7
+        Me.dtpDOB.TabIndex = 8
         Me.dtpDOB.Value = New Date(2015, 8, 25, 15, 57, 38, 0)
         '
         'cbNationality
         '
         Me.cbNationality.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cbNationality.FormattingEnabled = True
-        Me.cbNationality.Location = New System.Drawing.Point(123, 161)
+        Me.cbNationality.Location = New System.Drawing.Point(123, 196)
         Me.cbNationality.Name = "cbNationality"
         Me.cbNationality.Size = New System.Drawing.Size(175, 24)
-        Me.cbNationality.TabIndex = 10
+        Me.cbNationality.TabIndex = 13
         '
         'Label8
         '
         Me.Label8.AutoSize = True
-        Me.Label8.Location = New System.Drawing.Point(12, 166)
+        Me.Label8.Location = New System.Drawing.Point(12, 201)
         Me.Label8.Name = "Label8"
         Me.Label8.Size = New System.Drawing.Size(78, 16)
         Me.Label8.TabIndex = 16
@@ -661,15 +738,15 @@ Partial Class frmEmployeeProfile
         '
         Me.cbReligion.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cbReligion.FormattingEnabled = True
-        Me.cbReligion.Location = New System.Drawing.Point(123, 131)
+        Me.cbReligion.Location = New System.Drawing.Point(123, 166)
         Me.cbReligion.Name = "cbReligion"
         Me.cbReligion.Size = New System.Drawing.Size(175, 24)
-        Me.cbReligion.TabIndex = 8
+        Me.cbReligion.TabIndex = 11
         '
         'Label7
         '
         Me.Label7.AutoSize = True
-        Me.Label7.Location = New System.Drawing.Point(12, 136)
+        Me.Label7.Location = New System.Drawing.Point(12, 171)
         Me.Label7.Name = "Label7"
         Me.Label7.Size = New System.Drawing.Size(57, 16)
         Me.Label7.TabIndex = 14
@@ -680,15 +757,15 @@ Partial Class frmEmployeeProfile
         Me.cbGender.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cbGender.FormattingEnabled = True
         Me.cbGender.Items.AddRange(New Object() {"Male", "Female"})
-        Me.cbGender.Location = New System.Drawing.Point(123, 101)
+        Me.cbGender.Location = New System.Drawing.Point(123, 136)
         Me.cbGender.Name = "cbGender"
         Me.cbGender.Size = New System.Drawing.Size(175, 24)
-        Me.cbGender.TabIndex = 6
+        Me.cbGender.TabIndex = 9
         '
         'Label6
         '
         Me.Label6.AutoSize = True
-        Me.Label6.Location = New System.Drawing.Point(12, 106)
+        Me.Label6.Location = New System.Drawing.Point(12, 141)
         Me.Label6.Name = "Label6"
         Me.Label6.Size = New System.Drawing.Size(54, 16)
         Me.Label6.TabIndex = 12
@@ -699,7 +776,7 @@ Partial Class frmEmployeeProfile
         Me.txtFatherName.Location = New System.Drawing.Point(471, 71)
         Me.txtFatherName.Name = "txtFatherName"
         Me.txtFatherName.Size = New System.Drawing.Size(175, 23)
-        Me.txtFatherName.TabIndex = 5
+        Me.txtFatherName.TabIndex = 6
         '
         'Label2
         '
@@ -712,15 +789,15 @@ Partial Class frmEmployeeProfile
         '
         'txtLastName
         '
-        Me.txtLastName.Location = New System.Drawing.Point(123, 71)
+        Me.txtLastName.Location = New System.Drawing.Point(123, 106)
         Me.txtLastName.Name = "txtLastName"
         Me.txtLastName.Size = New System.Drawing.Size(175, 23)
-        Me.txtLastName.TabIndex = 4
+        Me.txtLastName.TabIndex = 7
         '
         'Label5
         '
         Me.Label5.AutoSize = True
-        Me.Label5.Location = New System.Drawing.Point(12, 76)
+        Me.Label5.Location = New System.Drawing.Point(12, 111)
         Me.Label5.Name = "Label5"
         Me.Label5.Size = New System.Drawing.Size(77, 16)
         Me.Label5.TabIndex = 8
@@ -728,15 +805,15 @@ Partial Class frmEmployeeProfile
         '
         'txtMiddleName
         '
-        Me.txtMiddleName.Location = New System.Drawing.Point(471, 41)
+        Me.txtMiddleName.Location = New System.Drawing.Point(471, 43)
         Me.txtMiddleName.Name = "txtMiddleName"
         Me.txtMiddleName.Size = New System.Drawing.Size(175, 23)
-        Me.txtMiddleName.TabIndex = 3
+        Me.txtMiddleName.TabIndex = 4
         '
         'Label4
         '
         Me.Label4.AutoSize = True
-        Me.Label4.Location = New System.Drawing.Point(322, 46)
+        Me.Label4.Location = New System.Drawing.Point(322, 48)
         Me.Label4.Name = "Label4"
         Me.Label4.Size = New System.Drawing.Size(90, 16)
         Me.Label4.TabIndex = 6
@@ -744,15 +821,15 @@ Partial Class frmEmployeeProfile
         '
         'txtFirstName
         '
-        Me.txtFirstName.Location = New System.Drawing.Point(123, 41)
+        Me.txtFirstName.Location = New System.Drawing.Point(123, 76)
         Me.txtFirstName.Name = "txtFirstName"
         Me.txtFirstName.Size = New System.Drawing.Size(175, 23)
-        Me.txtFirstName.TabIndex = 2
+        Me.txtFirstName.TabIndex = 5
         '
         'Label3
         '
         Me.Label3.AutoSize = True
-        Me.Label3.Location = New System.Drawing.Point(12, 46)
+        Me.Label3.Location = New System.Drawing.Point(12, 81)
         Me.Label3.Name = "Label3"
         Me.Label3.Size = New System.Drawing.Size(78, 16)
         Me.Label3.TabIndex = 4
@@ -778,27 +855,29 @@ Partial Class frmEmployeeProfile
         'tbFCCL
         '
         Me.tbFCCL.BackColor = System.Drawing.SystemColors.ButtonFace
+        Me.tbFCCL.Controls.Add(Me.cbSection)
+        Me.tbFCCL.Controls.Add(Me.Label100)
+        Me.tbFCCL.Controls.Add(Me.GroupBox8)
+        Me.tbFCCL.Controls.Add(Me.chkLFANo)
+        Me.tbFCCL.Controls.Add(Me.ChkLFAYes)
+        Me.tbFCCL.Controls.Add(Me.Label110)
+        Me.tbFCCL.Controls.Add(Me.chkConfNo)
+        Me.tbFCCL.Controls.Add(Me.chkConfYes)
+        Me.tbFCCL.Controls.Add(Me.Label109)
+        Me.tbFCCL.Controls.Add(Me.lblIncrement)
+        Me.tbFCCL.Controls.Add(Me.btn_Increment)
+        Me.tbFCCL.Controls.Add(Me.chkIsTechnical)
         Me.tbFCCL.Controls.Add(Me.cbJoinedAs)
+        Me.tbFCCL.Controls.Add(Me.chkIsHOD)
         Me.tbFCCL.Controls.Add(Me.Label103)
         Me.tbFCCL.Controls.Add(Me.Label99)
         Me.tbFCCL.Controls.Add(Me.dtpRetirementDate)
-        Me.tbFCCL.Controls.Add(Me.cbCorps)
-        Me.tbFCCL.Controls.Add(Me.Label36)
-        Me.tbFCCL.Controls.Add(Me.txtTradeAppointment)
-        Me.tbFCCL.Controls.Add(Me.Label37)
-        Me.tbFCCL.Controls.Add(Me.Label34)
-        Me.tbFCCL.Controls.Add(Me.dtpDateRetired)
-        Me.tbFCCL.Controls.Add(Me.cbRank)
-        Me.tbFCCL.Controls.Add(Me.Label35)
-        Me.tbFCCL.Controls.Add(Me.chkIsMilitaryPersonnel)
         Me.tbFCCL.Controls.Add(Me.txtJobDescription)
         Me.tbFCCL.Controls.Add(Me.Label33)
         Me.tbFCCL.Controls.Add(Me.Label31)
         Me.tbFCCL.Controls.Add(Me.txtSupervisor)
         Me.tbFCCL.Controls.Add(Me.txtHOD)
         Me.tbFCCL.Controls.Add(Me.Label32)
-        Me.tbFCCL.Controls.Add(Me.chkIsHOD)
-        Me.tbFCCL.Controls.Add(Me.chkIsTechnical)
         Me.tbFCCL.Controls.Add(Me.Label27)
         Me.tbFCCL.Controls.Add(Me.dtpGradeEffectiveDate)
         Me.tbFCCL.Controls.Add(Me.cbGrade)
@@ -825,90 +904,43 @@ Partial Class frmEmployeeProfile
         Me.tbFCCL.Controls.Add(Me.Label15)
         Me.tbFCCL.Controls.Add(Me.cbBusinessUnit)
         Me.tbFCCL.Controls.Add(Me.Label16)
-        Me.tbFCCL.Location = New System.Drawing.Point(4, 25)
+        Me.tbFCCL.Location = New System.Drawing.Point(4, 28)
         Me.tbFCCL.Name = "tbFCCL"
-        Me.tbFCCL.Size = New System.Drawing.Size(992, 651)
+        Me.tbFCCL.Size = New System.Drawing.Size(991, 430)
         Me.tbFCCL.TabIndex = 10
-        Me.tbFCCL.Text = "FCCL"
+        Me.tbFCCL.Text = "FCCL Info"
         '
-        'cbJoinedAs
+        'GroupBox8
         '
-        Me.cbJoinedAs.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
-        Me.cbJoinedAs.FormattingEnabled = True
-        Me.cbJoinedAs.Location = New System.Drawing.Point(475, 191)
-        Me.cbJoinedAs.Name = "cbJoinedAs"
-        Me.cbJoinedAs.Size = New System.Drawing.Size(506, 24)
-        Me.cbJoinedAs.TabIndex = 32
+        Me.GroupBox8.Controls.Add(Me.chkIsMilitaryPersonnel)
+        Me.GroupBox8.Controls.Add(Me.Label34)
+        Me.GroupBox8.Controls.Add(Me.dtpDateRetired)
+        Me.GroupBox8.Controls.Add(Me.Label36)
+        Me.GroupBox8.Controls.Add(Me.cbCorps)
+        Me.GroupBox8.Controls.Add(Me.Label37)
+        Me.GroupBox8.Controls.Add(Me.txtTradeAppointment)
+        Me.GroupBox8.Controls.Add(Me.Label35)
+        Me.GroupBox8.Controls.Add(Me.cbRank)
+        Me.GroupBox8.Location = New System.Drawing.Point(360, 158)
+        Me.GroupBox8.Name = "GroupBox8"
+        Me.GroupBox8.Size = New System.Drawing.Size(349, 186)
+        Me.GroupBox8.TabIndex = 37
+        Me.GroupBox8.TabStop = False
         '
-        'Label103
+        'chkIsMilitaryPersonnel
         '
-        Me.Label103.AutoSize = True
-        Me.Label103.Location = New System.Drawing.Point(334, 195)
-        Me.Label103.Name = "Label103"
-        Me.Label103.Size = New System.Drawing.Size(70, 16)
-        Me.Label103.TabIndex = 68
-        Me.Label103.Text = "Joined As"
-        '
-        'Label99
-        '
-        Me.Label99.AutoSize = True
-        Me.Label99.Location = New System.Drawing.Point(660, 105)
-        Me.Label99.Name = "Label99"
-        Me.Label99.Size = New System.Drawing.Size(115, 16)
-        Me.Label99.TabIndex = 67
-        Me.Label99.Text = "Retirement Date"
-        '
-        'dtpRetirementDate
-        '
-        Me.dtpRetirementDate.CustomFormat = "dd/MM/yy"
-        Me.dtpRetirementDate.Format = System.Windows.Forms.DateTimePickerFormat.[Short]
-        Me.dtpRetirementDate.Location = New System.Drawing.Point(806, 101)
-        Me.dtpRetirementDate.Name = "dtpRetirementDate"
-        Me.dtpRetirementDate.ShowCheckBox = True
-        Me.dtpRetirementDate.Size = New System.Drawing.Size(175, 23)
-        Me.dtpRetirementDate.TabIndex = 24
-        Me.dtpRetirementDate.Value = New Date(2015, 8, 25, 15, 57, 38, 0)
-        '
-        'cbCorps
-        '
-        Me.cbCorps.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
-        Me.cbCorps.Enabled = False
-        Me.cbCorps.FormattingEnabled = True
-        Me.cbCorps.Location = New System.Drawing.Point(806, 251)
-        Me.cbCorps.Name = "cbCorps"
-        Me.cbCorps.Size = New System.Drawing.Size(175, 24)
-        Me.cbCorps.TabIndex = 37
-        '
-        'Label36
-        '
-        Me.Label36.AutoSize = True
-        Me.Label36.Location = New System.Drawing.Point(660, 254)
-        Me.Label36.Name = "Label36"
-        Me.Label36.Size = New System.Drawing.Size(45, 16)
-        Me.Label36.TabIndex = 65
-        Me.Label36.Text = "Corps"
-        '
-        'txtTradeAppointment
-        '
-        Me.txtTradeAppointment.Enabled = False
-        Me.txtTradeAppointment.Location = New System.Drawing.Point(150, 251)
-        Me.txtTradeAppointment.Name = "txtTradeAppointment"
-        Me.txtTradeAppointment.Size = New System.Drawing.Size(500, 23)
-        Me.txtTradeAppointment.TabIndex = 36
-        '
-        'Label37
-        '
-        Me.Label37.AutoSize = True
-        Me.Label37.Location = New System.Drawing.Point(8, 254)
-        Me.Label37.Name = "Label37"
-        Me.Label37.Size = New System.Drawing.Size(134, 16)
-        Me.Label37.TabIndex = 63
-        Me.Label37.Text = "Trade/Appointment"
+        Me.chkIsMilitaryPersonnel.AutoSize = True
+        Me.chkIsMilitaryPersonnel.Location = New System.Drawing.Point(16, 22)
+        Me.chkIsMilitaryPersonnel.Name = "chkIsMilitaryPersonnel"
+        Me.chkIsMilitaryPersonnel.Size = New System.Drawing.Size(142, 20)
+        Me.chkIsMilitaryPersonnel.TabIndex = 33
+        Me.chkIsMilitaryPersonnel.Text = "Military Personnel"
+        Me.chkIsMilitaryPersonnel.UseVisualStyleBackColor = True
         '
         'Label34
         '
         Me.Label34.AutoSize = True
-        Me.Label34.Location = New System.Drawing.Point(660, 225)
+        Me.Label34.Location = New System.Drawing.Point(6, 53)
         Me.Label34.Name = "Label34"
         Me.Label34.Size = New System.Drawing.Size(90, 16)
         Me.Label34.TabIndex = 62
@@ -919,62 +951,222 @@ Partial Class frmEmployeeProfile
         Me.dtpDateRetired.CustomFormat = "dd/MM/yy"
         Me.dtpDateRetired.Enabled = False
         Me.dtpDateRetired.Format = System.Windows.Forms.DateTimePickerFormat.[Short]
-        Me.dtpDateRetired.Location = New System.Drawing.Point(806, 221)
+        Me.dtpDateRetired.Location = New System.Drawing.Point(146, 52)
         Me.dtpDateRetired.Name = "dtpDateRetired"
         Me.dtpDateRetired.ShowCheckBox = True
         Me.dtpDateRetired.Size = New System.Drawing.Size(175, 23)
         Me.dtpDateRetired.TabIndex = 35
         Me.dtpDateRetired.Value = New Date(2015, 8, 25, 15, 57, 38, 0)
         '
-        'cbRank
+        'Label36
         '
-        Me.cbRank.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
-        Me.cbRank.Enabled = False
-        Me.cbRank.FormattingEnabled = True
-        Me.cbRank.Location = New System.Drawing.Point(475, 221)
-        Me.cbRank.Name = "cbRank"
-        Me.cbRank.Size = New System.Drawing.Size(175, 24)
-        Me.cbRank.TabIndex = 34
+        Me.Label36.AutoSize = True
+        Me.Label36.Location = New System.Drawing.Point(6, 82)
+        Me.Label36.Name = "Label36"
+        Me.Label36.Size = New System.Drawing.Size(45, 16)
+        Me.Label36.TabIndex = 65
+        Me.Label36.Text = "Corps"
+        '
+        'cbCorps
+        '
+        Me.cbCorps.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.cbCorps.Enabled = False
+        Me.cbCorps.FormattingEnabled = True
+        Me.cbCorps.Location = New System.Drawing.Point(146, 82)
+        Me.cbCorps.Name = "cbCorps"
+        Me.cbCorps.Size = New System.Drawing.Size(175, 24)
+        Me.cbCorps.TabIndex = 37
+        '
+        'Label37
+        '
+        Me.Label37.AutoSize = True
+        Me.Label37.Location = New System.Drawing.Point(6, 116)
+        Me.Label37.Name = "Label37"
+        Me.Label37.Size = New System.Drawing.Size(134, 16)
+        Me.Label37.TabIndex = 63
+        Me.Label37.Text = "Trade/Appointment"
+        '
+        'txtTradeAppointment
+        '
+        Me.txtTradeAppointment.Enabled = False
+        Me.txtTradeAppointment.Location = New System.Drawing.Point(146, 112)
+        Me.txtTradeAppointment.Name = "txtTradeAppointment"
+        Me.txtTradeAppointment.Size = New System.Drawing.Size(176, 23)
+        Me.txtTradeAppointment.TabIndex = 36
         '
         'Label35
         '
         Me.Label35.AutoSize = True
-        Me.Label35.Location = New System.Drawing.Point(333, 225)
+        Me.Label35.Location = New System.Drawing.Point(3, 147)
         Me.Label35.Name = "Label35"
         Me.Label35.Size = New System.Drawing.Size(39, 16)
         Me.Label35.TabIndex = 59
         Me.Label35.Text = "Rank"
         '
-        'chkIsMilitaryPersonnel
+        'cbRank
         '
-        Me.chkIsMilitaryPersonnel.AutoSize = True
-        Me.chkIsMilitaryPersonnel.Location = New System.Drawing.Point(150, 224)
-        Me.chkIsMilitaryPersonnel.Name = "chkIsMilitaryPersonnel"
-        Me.chkIsMilitaryPersonnel.Size = New System.Drawing.Size(142, 20)
-        Me.chkIsMilitaryPersonnel.TabIndex = 33
-        Me.chkIsMilitaryPersonnel.Text = "Military Personnel"
-        Me.chkIsMilitaryPersonnel.UseVisualStyleBackColor = True
+        Me.cbRank.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.cbRank.Enabled = False
+        Me.cbRank.FormattingEnabled = True
+        Me.cbRank.Location = New System.Drawing.Point(145, 143)
+        Me.cbRank.Name = "cbRank"
+        Me.cbRank.Size = New System.Drawing.Size(175, 24)
+        Me.cbRank.TabIndex = 34
+        '
+        'chkLFANo
+        '
+        Me.chkLFANo.AutoSize = True
+        Me.chkLFANo.Location = New System.Drawing.Point(592, 135)
+        Me.chkLFANo.Name = "chkLFANo"
+        Me.chkLFANo.Size = New System.Drawing.Size(44, 20)
+        Me.chkLFANo.TabIndex = 76
+        Me.chkLFANo.Text = "No"
+        Me.chkLFANo.UseVisualStyleBackColor = True
+        '
+        'ChkLFAYes
+        '
+        Me.ChkLFAYes.AutoSize = True
+        Me.ChkLFAYes.Location = New System.Drawing.Point(536, 134)
+        Me.ChkLFAYes.Name = "ChkLFAYes"
+        Me.ChkLFAYes.Size = New System.Drawing.Size(50, 20)
+        Me.ChkLFAYes.TabIndex = 75
+        Me.ChkLFAYes.Text = "Yes"
+        Me.ChkLFAYes.UseVisualStyleBackColor = True
+        '
+        'Label110
+        '
+        Me.Label110.AutoSize = True
+        Me.Label110.Location = New System.Drawing.Point(373, 136)
+        Me.Label110.Name = "Label110"
+        Me.Label110.Size = New System.Drawing.Size(31, 16)
+        Me.Label110.TabIndex = 74
+        Me.Label110.Text = "LFA"
+        '
+        'chkConfNo
+        '
+        Me.chkConfNo.AutoSize = True
+        Me.chkConfNo.Location = New System.Drawing.Point(592, 106)
+        Me.chkConfNo.Name = "chkConfNo"
+        Me.chkConfNo.Size = New System.Drawing.Size(44, 20)
+        Me.chkConfNo.TabIndex = 73
+        Me.chkConfNo.Text = "No"
+        Me.chkConfNo.UseVisualStyleBackColor = True
+        '
+        'chkConfYes
+        '
+        Me.chkConfYes.AutoSize = True
+        Me.chkConfYes.Location = New System.Drawing.Point(536, 108)
+        Me.chkConfYes.Name = "chkConfYes"
+        Me.chkConfYes.Size = New System.Drawing.Size(50, 20)
+        Me.chkConfYes.TabIndex = 72
+        Me.chkConfYes.Text = "Yes"
+        Me.chkConfYes.UseVisualStyleBackColor = True
+        '
+        'Label109
+        '
+        Me.Label109.AutoSize = True
+        Me.Label109.Location = New System.Drawing.Point(373, 108)
+        Me.Label109.Name = "Label109"
+        Me.Label109.Size = New System.Drawing.Size(157, 16)
+        Me.Label109.TabIndex = 71
+        Me.Label109.Text = "Employee Confirmation"
+        '
+        'lblIncrement
+        '
+        Me.lblIncrement.AutoSize = True
+        Me.lblIncrement.Location = New System.Drawing.Point(791, 334)
+        Me.lblIncrement.Name = "lblIncrement"
+        Me.lblIncrement.Size = New System.Drawing.Size(0, 16)
+        Me.lblIncrement.TabIndex = 70
+        '
+        'btn_Increment
+        '
+        Me.btn_Increment.Enabled = False
+        Me.btn_Increment.Location = New System.Drawing.Point(747, 353)
+        Me.btn_Increment.Name = "btn_Increment"
+        Me.btn_Increment.Size = New System.Drawing.Size(225, 77)
+        Me.btn_Increment.TabIndex = 69
+        Me.btn_Increment.Text = "Enable Increment"
+        Me.btn_Increment.UseVisualStyleBackColor = True
+        '
+        'chkIsTechnical
+        '
+        Me.chkIsTechnical.AutoSize = True
+        Me.chkIsTechnical.Location = New System.Drawing.Point(376, 76)
+        Me.chkIsTechnical.Name = "chkIsTechnical"
+        Me.chkIsTechnical.Size = New System.Drawing.Size(106, 20)
+        Me.chkIsTechnical.TabIndex = 35
+        Me.chkIsTechnical.Text = "Is Technical"
+        Me.chkIsTechnical.UseVisualStyleBackColor = True
+        '
+        'cbJoinedAs
+        '
+        Me.cbJoinedAs.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.cbJoinedAs.FormattingEnabled = True
+        Me.cbJoinedAs.Location = New System.Drawing.Point(449, 11)
+        Me.cbJoinedAs.Name = "cbJoinedAs"
+        Me.cbJoinedAs.Size = New System.Drawing.Size(461, 24)
+        Me.cbJoinedAs.TabIndex = 33
+        '
+        'chkIsHOD
+        '
+        Me.chkIsHOD.AutoSize = True
+        Me.chkIsHOD.Location = New System.Drawing.Point(514, 76)
+        Me.chkIsHOD.Name = "chkIsHOD"
+        Me.chkIsHOD.Size = New System.Drawing.Size(177, 20)
+        Me.chkIsHOD.TabIndex = 36
+        Me.chkIsHOD.Text = "Is Head of Department"
+        Me.chkIsHOD.UseVisualStyleBackColor = True
+        '
+        'Label103
+        '
+        Me.Label103.AutoSize = True
+        Me.Label103.Location = New System.Drawing.Point(373, 15)
+        Me.Label103.Name = "Label103"
+        Me.Label103.Size = New System.Drawing.Size(70, 16)
+        Me.Label103.TabIndex = 68
+        Me.Label103.Text = "Joined As"
+        '
+        'Label99
+        '
+        Me.Label99.AutoSize = True
+        Me.Label99.Location = New System.Drawing.Point(8, 235)
+        Me.Label99.Name = "Label99"
+        Me.Label99.Size = New System.Drawing.Size(115, 16)
+        Me.Label99.TabIndex = 67
+        Me.Label99.Text = "Retirement Date"
+        '
+        'dtpRetirementDate
+        '
+        Me.dtpRetirementDate.CustomFormat = "dd/MM/yy"
+        Me.dtpRetirementDate.Format = System.Windows.Forms.DateTimePickerFormat.[Short]
+        Me.dtpRetirementDate.Location = New System.Drawing.Point(153, 231)
+        Me.dtpRetirementDate.Name = "dtpRetirementDate"
+        Me.dtpRetirementDate.ShowCheckBox = True
+        Me.dtpRetirementDate.Size = New System.Drawing.Size(196, 23)
+        Me.dtpRetirementDate.TabIndex = 26
+        Me.dtpRetirementDate.Value = New Date(2015, 8, 25, 15, 57, 38, 0)
         '
         'txtJobDescription
         '
-        Me.txtJobDescription.Location = New System.Drawing.Point(150, 191)
+        Me.txtJobDescription.Location = New System.Drawing.Point(449, 44)
         Me.txtJobDescription.Name = "txtJobDescription"
-        Me.txtJobDescription.Size = New System.Drawing.Size(175, 23)
-        Me.txtJobDescription.TabIndex = 31
+        Me.txtJobDescription.Size = New System.Drawing.Size(461, 23)
+        Me.txtJobDescription.TabIndex = 34
         '
         'Label33
         '
         Me.Label33.AutoSize = True
-        Me.Label33.Location = New System.Drawing.Point(8, 195)
+        Me.Label33.Location = New System.Drawing.Point(373, 48)
         Me.Label33.Name = "Label33"
-        Me.Label33.Size = New System.Drawing.Size(108, 16)
+        Me.Label33.Size = New System.Drawing.Size(72, 16)
         Me.Label33.TabIndex = 56
-        Me.Label33.Text = "Job Description"
+        Me.Label33.Text = "Job Desc."
         '
         'Label31
         '
         Me.Label31.AutoSize = True
-        Me.Label31.Location = New System.Drawing.Point(660, 165)
+        Me.Label31.Location = New System.Drawing.Point(744, 126)
         Me.Label31.Name = "Label31"
         Me.Label31.Size = New System.Drawing.Size(77, 16)
         Me.Label31.TabIndex = 55
@@ -983,66 +1175,48 @@ Partial Class frmEmployeeProfile
         '
         'txtSupervisor
         '
-        Me.txtSupervisor.Location = New System.Drawing.Point(806, 161)
+        Me.txtSupervisor.Location = New System.Drawing.Point(860, 126)
         Me.txtSupervisor.Name = "txtSupervisor"
-        Me.txtSupervisor.Size = New System.Drawing.Size(175, 23)
+        Me.txtSupervisor.Size = New System.Drawing.Size(93, 23)
         Me.txtSupervisor.TabIndex = 30
         Me.txtSupervisor.Visible = False
         '
         'txtHOD
         '
-        Me.txtHOD.Location = New System.Drawing.Point(475, 161)
+        Me.txtHOD.Location = New System.Drawing.Point(860, 154)
         Me.txtHOD.Name = "txtHOD"
-        Me.txtHOD.Size = New System.Drawing.Size(175, 23)
+        Me.txtHOD.Size = New System.Drawing.Size(93, 23)
         Me.txtHOD.TabIndex = 29
         Me.txtHOD.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
+        Me.txtHOD.Visible = False
         '
         'Label32
         '
         Me.Label32.AutoSize = True
-        Me.Label32.Location = New System.Drawing.Point(334, 165)
+        Me.Label32.Location = New System.Drawing.Point(744, 157)
         Me.Label32.Name = "Label32"
-        Me.Label32.Size = New System.Drawing.Size(141, 16)
+        Me.Label32.Size = New System.Drawing.Size(36, 16)
         Me.Label32.TabIndex = 52
-        Me.Label32.Text = "Head of Department"
-        '
-        'chkIsHOD
-        '
-        Me.chkIsHOD.AutoSize = True
-        Me.chkIsHOD.Location = New System.Drawing.Point(150, 164)
-        Me.chkIsHOD.Name = "chkIsHOD"
-        Me.chkIsHOD.Size = New System.Drawing.Size(177, 20)
-        Me.chkIsHOD.TabIndex = 28
-        Me.chkIsHOD.Text = "Is Head of Department"
-        Me.chkIsHOD.UseVisualStyleBackColor = True
-        '
-        'chkIsTechnical
-        '
-        Me.chkIsTechnical.AutoSize = True
-        Me.chkIsTechnical.Location = New System.Drawing.Point(11, 164)
-        Me.chkIsTechnical.Name = "chkIsTechnical"
-        Me.chkIsTechnical.Size = New System.Drawing.Size(106, 20)
-        Me.chkIsTechnical.TabIndex = 27
-        Me.chkIsTechnical.Text = "Is Technical"
-        Me.chkIsTechnical.UseVisualStyleBackColor = True
+        Me.Label32.Text = "HOD"
+        Me.Label32.Visible = False
         '
         'Label27
         '
         Me.Label27.AutoSize = True
-        Me.Label27.Location = New System.Drawing.Point(660, 135)
+        Me.Label27.Location = New System.Drawing.Point(8, 261)
         Me.Label27.Name = "Label27"
-        Me.Label27.Size = New System.Drawing.Size(146, 16)
+        Me.Label27.Size = New System.Drawing.Size(109, 16)
         Me.Label27.TabIndex = 41
-        Me.Label27.Text = "Grade Effective Date"
+        Me.Label27.Text = "Grade Eff. Date"
         '
         'dtpGradeEffectiveDate
         '
         Me.dtpGradeEffectiveDate.CustomFormat = "dd/MM/yy"
         Me.dtpGradeEffectiveDate.Format = System.Windows.Forms.DateTimePickerFormat.[Short]
-        Me.dtpGradeEffectiveDate.Location = New System.Drawing.Point(806, 131)
+        Me.dtpGradeEffectiveDate.Location = New System.Drawing.Point(153, 257)
         Me.dtpGradeEffectiveDate.Name = "dtpGradeEffectiveDate"
         Me.dtpGradeEffectiveDate.ShowCheckBox = True
-        Me.dtpGradeEffectiveDate.Size = New System.Drawing.Size(175, 23)
+        Me.dtpGradeEffectiveDate.Size = New System.Drawing.Size(196, 23)
         Me.dtpGradeEffectiveDate.TabIndex = 27
         Me.dtpGradeEffectiveDate.Value = New Date(2015, 8, 25, 15, 57, 38, 0)
         '
@@ -1050,15 +1224,15 @@ Partial Class frmEmployeeProfile
         '
         Me.cbGrade.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cbGrade.FormattingEnabled = True
-        Me.cbGrade.Location = New System.Drawing.Point(475, 131)
+        Me.cbGrade.Location = New System.Drawing.Point(153, 403)
         Me.cbGrade.Name = "cbGrade"
-        Me.cbGrade.Size = New System.Drawing.Size(175, 24)
-        Me.cbGrade.TabIndex = 26
+        Me.cbGrade.Size = New System.Drawing.Size(196, 24)
+        Me.cbGrade.TabIndex = 32
         '
         'Label25
         '
         Me.Label25.AutoSize = True
-        Me.Label25.Location = New System.Drawing.Point(334, 135)
+        Me.Label25.Location = New System.Drawing.Point(8, 407)
         Me.Label25.Name = "Label25"
         Me.Label25.Size = New System.Drawing.Size(46, 16)
         Me.Label25.TabIndex = 38
@@ -1068,15 +1242,15 @@ Partial Class frmEmployeeProfile
         '
         Me.cbEmployeeType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cbEmployeeType.FormattingEnabled = True
-        Me.cbEmployeeType.Location = New System.Drawing.Point(150, 131)
+        Me.cbEmployeeType.Location = New System.Drawing.Point(153, 344)
         Me.cbEmployeeType.Name = "cbEmployeeType"
-        Me.cbEmployeeType.Size = New System.Drawing.Size(175, 24)
-        Me.cbEmployeeType.TabIndex = 25
+        Me.cbEmployeeType.Size = New System.Drawing.Size(196, 24)
+        Me.cbEmployeeType.TabIndex = 30
         '
         'Label26
         '
         Me.Label26.AutoSize = True
-        Me.Label26.Location = New System.Drawing.Point(8, 135)
+        Me.Label26.Location = New System.Drawing.Point(10, 347)
         Me.Label26.Name = "Label26"
         Me.Label26.Size = New System.Drawing.Size(107, 16)
         Me.Label26.TabIndex = 36
@@ -1085,7 +1259,7 @@ Partial Class frmEmployeeProfile
         'Label24
         '
         Me.Label24.AutoSize = True
-        Me.Label24.Location = New System.Drawing.Point(8, 105)
+        Me.Label24.Location = New System.Drawing.Point(8, 321)
         Me.Label24.Name = "Label24"
         Me.Label24.Size = New System.Drawing.Size(135, 16)
         Me.Label24.TabIndex = 35
@@ -1095,17 +1269,17 @@ Partial Class frmEmployeeProfile
         '
         Me.dtpProbationEndDate.CustomFormat = "dd/MM/yy"
         Me.dtpProbationEndDate.Format = System.Windows.Forms.DateTimePickerFormat.[Short]
-        Me.dtpProbationEndDate.Location = New System.Drawing.Point(150, 101)
+        Me.dtpProbationEndDate.Location = New System.Drawing.Point(153, 317)
         Me.dtpProbationEndDate.Name = "dtpProbationEndDate"
         Me.dtpProbationEndDate.ShowCheckBox = True
-        Me.dtpProbationEndDate.Size = New System.Drawing.Size(175, 23)
-        Me.dtpProbationEndDate.TabIndex = 22
+        Me.dtpProbationEndDate.Size = New System.Drawing.Size(196, 23)
+        Me.dtpProbationEndDate.TabIndex = 29
         Me.dtpProbationEndDate.Value = New Date(2015, 8, 25, 15, 57, 38, 0)
         '
         'Label23
         '
         Me.Label23.AutoSize = True
-        Me.Label23.Location = New System.Drawing.Point(334, 105)
+        Me.Label23.Location = New System.Drawing.Point(8, 291)
         Me.Label23.Name = "Label23"
         Me.Label23.Size = New System.Drawing.Size(126, 16)
         Me.Label23.TabIndex = 33
@@ -1114,18 +1288,19 @@ Partial Class frmEmployeeProfile
         'dtpConfirmationDate
         '
         Me.dtpConfirmationDate.CustomFormat = "dd/MM/yy"
+        Me.dtpConfirmationDate.Enabled = False
         Me.dtpConfirmationDate.Format = System.Windows.Forms.DateTimePickerFormat.[Short]
-        Me.dtpConfirmationDate.Location = New System.Drawing.Point(475, 101)
+        Me.dtpConfirmationDate.Location = New System.Drawing.Point(153, 287)
         Me.dtpConfirmationDate.Name = "dtpConfirmationDate"
         Me.dtpConfirmationDate.ShowCheckBox = True
-        Me.dtpConfirmationDate.Size = New System.Drawing.Size(175, 23)
-        Me.dtpConfirmationDate.TabIndex = 23
+        Me.dtpConfirmationDate.Size = New System.Drawing.Size(196, 23)
+        Me.dtpConfirmationDate.TabIndex = 28
         Me.dtpConfirmationDate.Value = New Date(2015, 8, 25, 15, 57, 38, 0)
         '
         'Label22
         '
         Me.Label22.AutoSize = True
-        Me.Label22.Location = New System.Drawing.Point(660, 75)
+        Me.Label22.Location = New System.Drawing.Point(8, 180)
         Me.Label22.Name = "Label22"
         Me.Label22.Size = New System.Drawing.Size(131, 16)
         Me.Label22.TabIndex = 31
@@ -1134,18 +1309,19 @@ Partial Class frmEmployeeProfile
         'dtpContractEndDate
         '
         Me.dtpContractEndDate.CustomFormat = "dd/MM/yy"
+        Me.dtpContractEndDate.Enabled = False
         Me.dtpContractEndDate.Format = System.Windows.Forms.DateTimePickerFormat.[Short]
-        Me.dtpContractEndDate.Location = New System.Drawing.Point(806, 71)
+        Me.dtpContractEndDate.Location = New System.Drawing.Point(153, 176)
         Me.dtpContractEndDate.Name = "dtpContractEndDate"
         Me.dtpContractEndDate.ShowCheckBox = True
-        Me.dtpContractEndDate.Size = New System.Drawing.Size(175, 23)
-        Me.dtpContractEndDate.TabIndex = 21
+        Me.dtpContractEndDate.Size = New System.Drawing.Size(196, 23)
+        Me.dtpContractEndDate.TabIndex = 24
         Me.dtpContractEndDate.Value = New Date(2015, 8, 25, 15, 57, 38, 0)
         '
         'Label21
         '
         Me.Label21.AutoSize = True
-        Me.Label21.Location = New System.Drawing.Point(334, 75)
+        Me.Label21.Location = New System.Drawing.Point(8, 153)
         Me.Label21.Name = "Label21"
         Me.Label21.Size = New System.Drawing.Size(141, 16)
         Me.Label21.TabIndex = 29
@@ -1155,11 +1331,11 @@ Partial Class frmEmployeeProfile
         '
         Me.dtpContractStartDate.CustomFormat = "dd/MM/yy"
         Me.dtpContractStartDate.Format = System.Windows.Forms.DateTimePickerFormat.[Short]
-        Me.dtpContractStartDate.Location = New System.Drawing.Point(476, 71)
+        Me.dtpContractStartDate.Location = New System.Drawing.Point(153, 149)
         Me.dtpContractStartDate.Name = "dtpContractStartDate"
         Me.dtpContractStartDate.ShowCheckBox = True
-        Me.dtpContractStartDate.Size = New System.Drawing.Size(175, 23)
-        Me.dtpContractStartDate.TabIndex = 20
+        Me.dtpContractStartDate.Size = New System.Drawing.Size(196, 23)
+        Me.dtpContractStartDate.TabIndex = 23
         Me.dtpContractStartDate.Value = New Date(2015, 8, 25, 15, 57, 38, 0)
         '
         'cbContractType
@@ -1167,15 +1343,15 @@ Partial Class frmEmployeeProfile
         Me.cbContractType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cbContractType.FormattingEnabled = True
         Me.cbContractType.Items.AddRange(New Object() {"Permanent", "Contract"})
-        Me.cbContractType.Location = New System.Drawing.Point(150, 71)
+        Me.cbContractType.Location = New System.Drawing.Point(153, 120)
         Me.cbContractType.Name = "cbContractType"
-        Me.cbContractType.Size = New System.Drawing.Size(175, 24)
-        Me.cbContractType.TabIndex = 19
+        Me.cbContractType.Size = New System.Drawing.Size(196, 24)
+        Me.cbContractType.TabIndex = 22
         '
         'Label20
         '
         Me.Label20.AutoSize = True
-        Me.Label20.Location = New System.Drawing.Point(8, 75)
+        Me.Label20.Location = New System.Drawing.Point(8, 123)
         Me.Label20.Name = "Label20"
         Me.Label20.Size = New System.Drawing.Size(103, 16)
         Me.Label20.TabIndex = 26
@@ -1184,7 +1360,7 @@ Partial Class frmEmployeeProfile
         'Label19
         '
         Me.Label19.AutoSize = True
-        Me.Label19.Location = New System.Drawing.Point(660, 45)
+        Me.Label19.Location = New System.Drawing.Point(8, 209)
         Me.Label19.Name = "Label19"
         Me.Label19.Size = New System.Drawing.Size(88, 16)
         Me.Label19.TabIndex = 25
@@ -1194,26 +1370,26 @@ Partial Class frmEmployeeProfile
         '
         Me.dtpJoiningDate.CustomFormat = "dd/MM/yy"
         Me.dtpJoiningDate.Format = System.Windows.Forms.DateTimePickerFormat.[Short]
-        Me.dtpJoiningDate.Location = New System.Drawing.Point(806, 41)
+        Me.dtpJoiningDate.Location = New System.Drawing.Point(153, 205)
         Me.dtpJoiningDate.Name = "dtpJoiningDate"
         Me.dtpJoiningDate.ShowCheckBox = True
-        Me.dtpJoiningDate.Size = New System.Drawing.Size(175, 23)
-        Me.dtpJoiningDate.TabIndex = 18
+        Me.dtpJoiningDate.Size = New System.Drawing.Size(196, 23)
+        Me.dtpJoiningDate.TabIndex = 25
         Me.dtpJoiningDate.Value = New Date(2015, 8, 25, 15, 57, 38, 0)
         '
         'cbDesignation
         '
         Me.cbDesignation.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cbDesignation.FormattingEnabled = True
-        Me.cbDesignation.Location = New System.Drawing.Point(150, 41)
+        Me.cbDesignation.Location = New System.Drawing.Point(153, 373)
         Me.cbDesignation.Name = "cbDesignation"
-        Me.cbDesignation.Size = New System.Drawing.Size(500, 24)
-        Me.cbDesignation.TabIndex = 17
+        Me.cbDesignation.Size = New System.Drawing.Size(523, 24)
+        Me.cbDesignation.TabIndex = 31
         '
         'Label18
         '
         Me.Label18.AutoSize = True
-        Me.Label18.Location = New System.Drawing.Point(8, 45)
+        Me.Label18.Location = New System.Drawing.Point(8, 376)
         Me.Label18.Name = "Label18"
         Me.Label18.Size = New System.Drawing.Size(84, 16)
         Me.Label18.TabIndex = 22
@@ -1223,15 +1399,15 @@ Partial Class frmEmployeeProfile
         '
         Me.cbDepartment.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cbDepartment.FormattingEnabled = True
-        Me.cbDepartment.Location = New System.Drawing.Point(806, 11)
+        Me.cbDepartment.Location = New System.Drawing.Point(153, 68)
         Me.cbDepartment.Name = "cbDepartment"
-        Me.cbDepartment.Size = New System.Drawing.Size(175, 24)
-        Me.cbDepartment.TabIndex = 16
+        Me.cbDepartment.Size = New System.Drawing.Size(196, 24)
+        Me.cbDepartment.TabIndex = 21
         '
         'Label17
         '
         Me.Label17.AutoSize = True
-        Me.Label17.Location = New System.Drawing.Point(660, 15)
+        Me.Label17.Location = New System.Drawing.Point(8, 71)
         Me.Label17.Name = "Label17"
         Me.Label17.Size = New System.Drawing.Size(85, 16)
         Me.Label17.TabIndex = 20
@@ -1241,15 +1417,15 @@ Partial Class frmEmployeeProfile
         '
         Me.cbBranch.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cbBranch.FormattingEnabled = True
-        Me.cbBranch.Location = New System.Drawing.Point(475, 11)
+        Me.cbBranch.Location = New System.Drawing.Point(153, 40)
         Me.cbBranch.Name = "cbBranch"
-        Me.cbBranch.Size = New System.Drawing.Size(175, 24)
-        Me.cbBranch.TabIndex = 15
+        Me.cbBranch.Size = New System.Drawing.Size(196, 24)
+        Me.cbBranch.TabIndex = 20
         '
         'Label15
         '
         Me.Label15.AutoSize = True
-        Me.Label15.Location = New System.Drawing.Point(334, 15)
+        Me.Label15.Location = New System.Drawing.Point(8, 43)
         Me.Label15.Name = "Label15"
         Me.Label15.Size = New System.Drawing.Size(53, 16)
         Me.Label15.TabIndex = 18
@@ -1259,10 +1435,10 @@ Partial Class frmEmployeeProfile
         '
         Me.cbBusinessUnit.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cbBusinessUnit.FormattingEnabled = True
-        Me.cbBusinessUnit.Location = New System.Drawing.Point(150, 11)
+        Me.cbBusinessUnit.Location = New System.Drawing.Point(153, 11)
         Me.cbBusinessUnit.Name = "cbBusinessUnit"
-        Me.cbBusinessUnit.Size = New System.Drawing.Size(175, 24)
-        Me.cbBusinessUnit.TabIndex = 14
+        Me.cbBusinessUnit.Size = New System.Drawing.Size(196, 24)
+        Me.cbBusinessUnit.TabIndex = 19
         '
         'Label16
         '
@@ -1276,11 +1452,11 @@ Partial Class frmEmployeeProfile
         'tbExperience
         '
         Me.tbExperience.BackColor = System.Drawing.SystemColors.ButtonFace
-        Me.tbExperience.Controls.Add(Me.cmdClearExperience)
+        Me.tbExperience.Controls.Add(Me.cmd_CreateExperience)
         Me.tbExperience.Controls.Add(Me.cbExperienceIndustry)
         Me.tbExperience.Controls.Add(Me.Label61)
-        Me.tbExperience.Controls.Add(Me.cmdDeleteExperience)
-        Me.tbExperience.Controls.Add(Me.cmdSaveExperience)
+        Me.tbExperience.Controls.Add(Me.btn_DeleteExperience)
+        Me.tbExperience.Controls.Add(Me.cmd_PrepareExperience)
         Me.tbExperience.Controls.Add(Me.grdExperiences)
         Me.tbExperience.Controls.Add(Me.txtExperienceReasonForLeaving)
         Me.tbExperience.Controls.Add(Me.Label77)
@@ -1302,20 +1478,21 @@ Partial Class frmEmployeeProfile
         Me.tbExperience.Controls.Add(Me.Label85)
         Me.tbExperience.Controls.Add(Me.txtExperienceEmployer)
         Me.tbExperience.Controls.Add(Me.Label86)
-        Me.tbExperience.Location = New System.Drawing.Point(4, 25)
+        Me.tbExperience.Location = New System.Drawing.Point(4, 28)
         Me.tbExperience.Name = "tbExperience"
-        Me.tbExperience.Size = New System.Drawing.Size(992, 651)
+        Me.tbExperience.Size = New System.Drawing.Size(991, 430)
         Me.tbExperience.TabIndex = 14
         Me.tbExperience.Text = "Experience"
         '
-        'cmdClearExperience
+        'cmd_CreateExperience
         '
-        Me.cmdClearExperience.Location = New System.Drawing.Point(715, 160)
-        Me.cmdClearExperience.Name = "cmdClearExperience"
-        Me.cmdClearExperience.Size = New System.Drawing.Size(85, 25)
-        Me.cmdClearExperience.TabIndex = 64
-        Me.cmdClearExperience.Text = "New"
-        Me.cmdClearExperience.UseVisualStyleBackColor = True
+        Me.cmd_CreateExperience.Enabled = False
+        Me.cmd_CreateExperience.Location = New System.Drawing.Point(715, 160)
+        Me.cmd_CreateExperience.Name = "cmd_CreateExperience"
+        Me.cmd_CreateExperience.Size = New System.Drawing.Size(85, 25)
+        Me.cmd_CreateExperience.TabIndex = 64
+        Me.cmd_CreateExperience.Text = "New"
+        Me.cmd_CreateExperience.UseVisualStyleBackColor = True
         '
         'cbExperienceIndustry
         '
@@ -1336,23 +1513,25 @@ Partial Class frmEmployeeProfile
         Me.Label61.TabIndex = 63
         Me.Label61.Text = "Industry"
         '
-        'cmdDeleteExperience
+        'btn_DeleteExperience
         '
-        Me.cmdDeleteExperience.Location = New System.Drawing.Point(897, 160)
-        Me.cmdDeleteExperience.Name = "cmdDeleteExperience"
-        Me.cmdDeleteExperience.Size = New System.Drawing.Size(85, 25)
-        Me.cmdDeleteExperience.TabIndex = 53
-        Me.cmdDeleteExperience.Text = "Delete"
-        Me.cmdDeleteExperience.UseVisualStyleBackColor = True
+        Me.btn_DeleteExperience.Enabled = False
+        Me.btn_DeleteExperience.Location = New System.Drawing.Point(897, 160)
+        Me.btn_DeleteExperience.Name = "btn_DeleteExperience"
+        Me.btn_DeleteExperience.Size = New System.Drawing.Size(85, 25)
+        Me.btn_DeleteExperience.TabIndex = 53
+        Me.btn_DeleteExperience.Text = "Delete"
+        Me.btn_DeleteExperience.UseVisualStyleBackColor = True
         '
-        'cmdSaveExperience
+        'cmd_PrepareExperience
         '
-        Me.cmdSaveExperience.Location = New System.Drawing.Point(806, 160)
-        Me.cmdSaveExperience.Name = "cmdSaveExperience"
-        Me.cmdSaveExperience.Size = New System.Drawing.Size(85, 25)
-        Me.cmdSaveExperience.TabIndex = 52
-        Me.cmdSaveExperience.Text = "Save"
-        Me.cmdSaveExperience.UseVisualStyleBackColor = True
+        Me.cmd_PrepareExperience.Enabled = False
+        Me.cmd_PrepareExperience.Location = New System.Drawing.Point(806, 160)
+        Me.cmd_PrepareExperience.Name = "cmd_PrepareExperience"
+        Me.cmd_PrepareExperience.Size = New System.Drawing.Size(85, 25)
+        Me.cmd_PrepareExperience.TabIndex = 52
+        Me.cmd_PrepareExperience.Text = "Save"
+        Me.cmd_PrepareExperience.UseVisualStyleBackColor = True
         '
         'grdExperiences
         '
@@ -1366,11 +1545,11 @@ Partial Class frmEmployeeProfile
         Me.grdExperiences.PreviewInfo.Size = New System.Drawing.Size(0, 0)
         Me.grdExperiences.PreviewInfo.ZoomFactor = 75.0R
         Me.grdExperiences.PrintInfo.PageSettings = CType(resources.GetObject("grdExperiences.PrintInfo.PageSettings"), System.Drawing.Printing.PageSettings)
-        Me.grdExperiences.PropBag = resources.GetString("grdExperiences.PropBag")
         Me.grdExperiences.RowHeight = 15
-        Me.grdExperiences.Size = New System.Drawing.Size(967, 89)
+        Me.grdExperiences.Size = New System.Drawing.Size(967, 223)
         Me.grdExperiences.TabIndex = 54
         Me.grdExperiences.TabStop = False
+        Me.grdExperiences.PropBag = resources.GetString("grdExperiences.PropBag")
         '
         'txtExperienceReasonForLeaving
         '
@@ -1548,8 +1727,8 @@ Partial Class frmEmployeeProfile
         'tbQualifications
         '
         Me.tbQualifications.BackColor = System.Drawing.SystemColors.ButtonFace
-        Me.tbQualifications.Controls.Add(Me.cmdDeleteQualification)
-        Me.tbQualifications.Controls.Add(Me.cmdSaveQualification)
+        Me.tbQualifications.Controls.Add(Me.btn_DeleteQualification)
+        Me.tbQualifications.Controls.Add(Me.cmd_PrepareQualifications)
         Me.tbQualifications.Controls.Add(Me.txtQualificationEndYear)
         Me.tbQualifications.Controls.Add(Me.txtQualificationStartYear)
         Me.tbQualifications.Controls.Add(Me.GroupBox7)
@@ -1577,29 +1756,31 @@ Partial Class frmEmployeeProfile
         Me.tbQualifications.Controls.Add(Me.txtQualificationOtherDegree)
         Me.tbQualifications.Controls.Add(Me.Label97)
         Me.tbQualifications.Controls.Add(Me.Label98)
-        Me.tbQualifications.Location = New System.Drawing.Point(4, 25)
+        Me.tbQualifications.Location = New System.Drawing.Point(4, 28)
         Me.tbQualifications.Name = "tbQualifications"
-        Me.tbQualifications.Size = New System.Drawing.Size(992, 651)
+        Me.tbQualifications.Size = New System.Drawing.Size(991, 430)
         Me.tbQualifications.TabIndex = 15
         Me.tbQualifications.Text = "Qualifications"
         '
-        'cmdDeleteQualification
+        'btn_DeleteQualification
         '
-        Me.cmdDeleteQualification.Location = New System.Drawing.Point(897, 189)
-        Me.cmdDeleteQualification.Name = "cmdDeleteQualification"
-        Me.cmdDeleteQualification.Size = New System.Drawing.Size(85, 25)
-        Me.cmdDeleteQualification.TabIndex = 64
-        Me.cmdDeleteQualification.Text = "Delete"
-        Me.cmdDeleteQualification.UseVisualStyleBackColor = True
+        Me.btn_DeleteQualification.Enabled = False
+        Me.btn_DeleteQualification.Location = New System.Drawing.Point(897, 189)
+        Me.btn_DeleteQualification.Name = "btn_DeleteQualification"
+        Me.btn_DeleteQualification.Size = New System.Drawing.Size(85, 25)
+        Me.btn_DeleteQualification.TabIndex = 64
+        Me.btn_DeleteQualification.Text = "Delete"
+        Me.btn_DeleteQualification.UseVisualStyleBackColor = True
         '
-        'cmdSaveQualification
+        'cmd_PrepareQualifications
         '
-        Me.cmdSaveQualification.Location = New System.Drawing.Point(806, 189)
-        Me.cmdSaveQualification.Name = "cmdSaveQualification"
-        Me.cmdSaveQualification.Size = New System.Drawing.Size(85, 25)
-        Me.cmdSaveQualification.TabIndex = 63
-        Me.cmdSaveQualification.Text = "Save"
-        Me.cmdSaveQualification.UseVisualStyleBackColor = True
+        Me.cmd_PrepareQualifications.Enabled = False
+        Me.cmd_PrepareQualifications.Location = New System.Drawing.Point(806, 189)
+        Me.cmd_PrepareQualifications.Name = "cmd_PrepareQualifications"
+        Me.cmd_PrepareQualifications.Size = New System.Drawing.Size(85, 25)
+        Me.cmd_PrepareQualifications.TabIndex = 63
+        Me.cmd_PrepareQualifications.Text = "Save"
+        Me.cmd_PrepareQualifications.UseVisualStyleBackColor = True
         '
         'txtQualificationEndYear
         '
@@ -1726,11 +1907,11 @@ Partial Class frmEmployeeProfile
         Me.grdQualifications.PreviewInfo.Size = New System.Drawing.Size(0, 0)
         Me.grdQualifications.PreviewInfo.ZoomFactor = 75.0R
         Me.grdQualifications.PrintInfo.PageSettings = CType(resources.GetObject("grdQualifications.PrintInfo.PageSettings"), System.Drawing.Printing.PageSettings)
-        Me.grdQualifications.PropBag = resources.GetString("grdQualifications.PropBag")
         Me.grdQualifications.RowHeight = 15
-        Me.grdQualifications.Size = New System.Drawing.Size(967, 66)
+        Me.grdQualifications.Size = New System.Drawing.Size(967, 179)
         Me.grdQualifications.TabIndex = 63
         Me.grdQualifications.TabStop = False
+        Me.grdQualifications.PropBag = resources.GetString("grdQualifications.PropBag")
         '
         'txtQualificationDistinctions
         '
@@ -1867,9 +2048,9 @@ Partial Class frmEmployeeProfile
         Me.tbContacts.Controls.Add(Me.GroupBox5)
         Me.tbContacts.Controls.Add(Me.GroupBox3)
         Me.tbContacts.Controls.Add(Me.GroupBox1)
-        Me.tbContacts.Location = New System.Drawing.Point(4, 25)
+        Me.tbContacts.Location = New System.Drawing.Point(4, 28)
         Me.tbContacts.Name = "tbContacts"
-        Me.tbContacts.Size = New System.Drawing.Size(992, 651)
+        Me.tbContacts.Size = New System.Drawing.Size(991, 430)
         Me.tbContacts.TabIndex = 11
         Me.tbContacts.Text = "Contacts"
         '
@@ -2435,8 +2616,8 @@ Partial Class frmEmployeeProfile
         'tbDependents
         '
         Me.tbDependents.BackColor = System.Drawing.SystemColors.ButtonFace
-        Me.tbDependents.Controls.Add(Me.cmdDeleteDependent)
-        Me.tbDependents.Controls.Add(Me.cmdSaveDependent)
+        Me.tbDependents.Controls.Add(Me.btn_DeleteDependent)
+        Me.tbDependents.Controls.Add(Me.cmd_SaveDependent)
         Me.tbDependents.Controls.Add(Me.Label76)
         Me.tbDependents.Controls.Add(Me.cbDependentGender)
         Me.tbDependents.Controls.Add(Me.chkDependentInsurance)
@@ -2453,29 +2634,31 @@ Partial Class frmEmployeeProfile
         Me.tbDependents.Controls.Add(Me.Label74)
         Me.tbDependents.Controls.Add(Me.txtDependentName)
         Me.tbDependents.Controls.Add(Me.Label75)
-        Me.tbDependents.Location = New System.Drawing.Point(4, 25)
+        Me.tbDependents.Location = New System.Drawing.Point(4, 28)
         Me.tbDependents.Name = "tbDependents"
-        Me.tbDependents.Size = New System.Drawing.Size(992, 651)
+        Me.tbDependents.Size = New System.Drawing.Size(991, 430)
         Me.tbDependents.TabIndex = 13
         Me.tbDependents.Text = "Dependents"
         '
-        'cmdDeleteDependent
+        'btn_DeleteDependent
         '
-        Me.cmdDeleteDependent.Location = New System.Drawing.Point(896, 71)
-        Me.cmdDeleteDependent.Name = "cmdDeleteDependent"
-        Me.cmdDeleteDependent.Size = New System.Drawing.Size(85, 25)
-        Me.cmdDeleteDependent.TabIndex = 32
-        Me.cmdDeleteDependent.Text = "Delete"
-        Me.cmdDeleteDependent.UseVisualStyleBackColor = True
+        Me.btn_DeleteDependent.Enabled = False
+        Me.btn_DeleteDependent.Location = New System.Drawing.Point(896, 71)
+        Me.btn_DeleteDependent.Name = "btn_DeleteDependent"
+        Me.btn_DeleteDependent.Size = New System.Drawing.Size(85, 25)
+        Me.btn_DeleteDependent.TabIndex = 32
+        Me.btn_DeleteDependent.Text = "Delete"
+        Me.btn_DeleteDependent.UseVisualStyleBackColor = True
         '
-        'cmdSaveDependent
+        'cmd_SaveDependent
         '
-        Me.cmdSaveDependent.Location = New System.Drawing.Point(805, 71)
-        Me.cmdSaveDependent.Name = "cmdSaveDependent"
-        Me.cmdSaveDependent.Size = New System.Drawing.Size(85, 25)
-        Me.cmdSaveDependent.TabIndex = 31
-        Me.cmdSaveDependent.Text = "Save"
-        Me.cmdSaveDependent.UseVisualStyleBackColor = True
+        Me.cmd_SaveDependent.Enabled = False
+        Me.cmd_SaveDependent.Location = New System.Drawing.Point(805, 71)
+        Me.cmd_SaveDependent.Name = "cmd_SaveDependent"
+        Me.cmd_SaveDependent.Size = New System.Drawing.Size(85, 25)
+        Me.cmd_SaveDependent.TabIndex = 31
+        Me.cmd_SaveDependent.Text = "Save"
+        Me.cmd_SaveDependent.UseVisualStyleBackColor = True
         '
         'Label76
         '
@@ -2514,17 +2697,17 @@ Partial Class frmEmployeeProfile
         Me.grdDependents.CaptionHeight = 20
         Me.grdDependents.Font = New System.Drawing.Font("Verdana", 9.5!)
         Me.grdDependents.Images.Add(CType(resources.GetObject("grdDependents.Images"), System.Drawing.Image))
-        Me.grdDependents.Location = New System.Drawing.Point(14, 102)
+        Me.grdDependents.Location = New System.Drawing.Point(13, 122)
         Me.grdDependents.Name = "grdDependents"
         Me.grdDependents.PreviewInfo.Location = New System.Drawing.Point(0, 0)
         Me.grdDependents.PreviewInfo.Size = New System.Drawing.Size(0, 0)
         Me.grdDependents.PreviewInfo.ZoomFactor = 75.0R
         Me.grdDependents.PrintInfo.PageSettings = CType(resources.GetObject("grdDependents.PrintInfo.PageSettings"), System.Drawing.Printing.PageSettings)
-        Me.grdDependents.PropBag = resources.GetString("grdDependents.PropBag")
         Me.grdDependents.RowHeight = 15
-        Me.grdDependents.Size = New System.Drawing.Size(967, 176)
+        Me.grdDependents.Size = New System.Drawing.Size(967, 272)
         Me.grdDependents.TabIndex = 33
         Me.grdDependents.TabStop = False
+        Me.grdDependents.PropBag = resources.GetString("grdDependents.PropBag")
         '
         'dtpDependentDOB
         '
@@ -2636,29 +2819,143 @@ Partial Class frmEmployeeProfile
         Me.Label75.TabIndex = 26
         Me.Label75.Text = "Dependent Name"
         '
-        'cbMisc
+        'tbBankAccount
         '
-        Me.cbMisc.BackColor = System.Drawing.SystemColors.ButtonFace
-        Me.cbMisc.Controls.Add(Me.Label69)
-        Me.cbMisc.Controls.Add(Me.dtpPassportIssueDate)
-        Me.cbMisc.Controls.Add(Me.Label70)
-        Me.cbMisc.Controls.Add(Me.dtpPassportExpiryDate)
-        Me.cbMisc.Controls.Add(Me.cbPassportCountry)
-        Me.cbMisc.Controls.Add(Me.Label67)
-        Me.cbMisc.Controls.Add(Me.txtPassportNo)
-        Me.cbMisc.Controls.Add(Me.Label68)
-        Me.cbMisc.Controls.Add(Me.Label66)
-        Me.cbMisc.Controls.Add(Me.chkPassport)
-        Me.cbMisc.Controls.Add(Me.txtNTN)
-        Me.cbMisc.Controls.Add(Me.txtDrivingLicenseNo)
-        Me.cbMisc.Controls.Add(Me.Label62)
-        Me.cbMisc.Controls.Add(Me.txtCNICOld)
-        Me.cbMisc.Controls.Add(Me.Label65)
-        Me.cbMisc.Location = New System.Drawing.Point(4, 25)
-        Me.cbMisc.Name = "cbMisc"
-        Me.cbMisc.Size = New System.Drawing.Size(992, 651)
-        Me.cbMisc.TabIndex = 12
-        Me.cbMisc.Text = " Miscellaneous"
+        Me.tbBankAccount.BackColor = System.Drawing.SystemColors.ButtonFace
+        Me.tbBankAccount.Controls.Add(Me.Label108)
+        Me.tbBankAccount.Controls.Add(Me.cmd_SaveBankAccount)
+        Me.tbBankAccount.Controls.Add(Me.txtEmployeeName)
+        Me.tbBankAccount.Controls.Add(Me.Label104)
+        Me.tbBankAccount.Controls.Add(Me.txtAccountTitle)
+        Me.tbBankAccount.Controls.Add(Me.txtAccountNo)
+        Me.tbBankAccount.Controls.Add(Me.Label107)
+        Me.tbBankAccount.Controls.Add(Me.Label105)
+        Me.tbBankAccount.Controls.Add(Me.cbBank)
+        Me.tbBankAccount.Controls.Add(Me.txtBranch)
+        Me.tbBankAccount.Controls.Add(Me.Label106)
+        Me.tbBankAccount.Location = New System.Drawing.Point(4, 28)
+        Me.tbBankAccount.Name = "tbBankAccount"
+        Me.tbBankAccount.Size = New System.Drawing.Size(991, 430)
+        Me.tbBankAccount.TabIndex = 16
+        Me.tbBankAccount.Text = "Bank Account"
+        '
+        'Label108
+        '
+        Me.Label108.AutoSize = True
+        Me.Label108.Location = New System.Drawing.Point(23, 32)
+        Me.Label108.Name = "Label108"
+        Me.Label108.Size = New System.Drawing.Size(111, 16)
+        Me.Label108.TabIndex = 20
+        Me.Label108.Text = "Employee Name"
+        '
+        'cmd_SaveBankAccount
+        '
+        Me.cmd_SaveBankAccount.Enabled = False
+        Me.cmd_SaveBankAccount.Location = New System.Drawing.Point(594, 177)
+        Me.cmd_SaveBankAccount.Name = "cmd_SaveBankAccount"
+        Me.cmd_SaveBankAccount.Size = New System.Drawing.Size(66, 32)
+        Me.cmd_SaveBankAccount.TabIndex = 30
+        Me.cmd_SaveBankAccount.Text = "Save"
+        Me.cmd_SaveBankAccount.UseVisualStyleBackColor = True
+        '
+        'txtEmployeeName
+        '
+        Me.txtEmployeeName.Enabled = False
+        Me.txtEmployeeName.Location = New System.Drawing.Point(160, 25)
+        Me.txtEmployeeName.Name = "txtEmployeeName"
+        Me.txtEmployeeName.Size = New System.Drawing.Size(175, 23)
+        Me.txtEmployeeName.TabIndex = 21
+        '
+        'Label104
+        '
+        Me.Label104.AutoSize = True
+        Me.Label104.Location = New System.Drawing.Point(21, 153)
+        Me.Label104.Name = "Label104"
+        Me.Label104.Size = New System.Drawing.Size(53, 16)
+        Me.Label104.TabIndex = 29
+        Me.Label104.Text = "Branch"
+        '
+        'txtAccountTitle
+        '
+        Me.txtAccountTitle.Location = New System.Drawing.Point(160, 84)
+        Me.txtAccountTitle.Name = "txtAccountTitle"
+        Me.txtAccountTitle.Size = New System.Drawing.Size(175, 23)
+        Me.txtAccountTitle.TabIndex = 23
+        '
+        'txtAccountNo
+        '
+        Me.txtAccountNo.Location = New System.Drawing.Point(160, 55)
+        Me.txtAccountNo.Name = "txtAccountNo"
+        Me.txtAccountNo.Size = New System.Drawing.Size(175, 23)
+        Me.txtAccountNo.TabIndex = 22
+        Me.txtAccountNo.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
+        '
+        'Label107
+        '
+        Me.Label107.AutoSize = True
+        Me.Label107.Location = New System.Drawing.Point(21, 60)
+        Me.Label107.Name = "Label107"
+        Me.Label107.Size = New System.Drawing.Size(90, 16)
+        Me.Label107.TabIndex = 25
+        Me.Label107.Text = "Account No."
+        '
+        'Label105
+        '
+        Me.Label105.AutoSize = True
+        Me.Label105.Location = New System.Drawing.Point(21, 123)
+        Me.Label105.Name = "Label105"
+        Me.Label105.Size = New System.Drawing.Size(39, 16)
+        Me.Label105.TabIndex = 28
+        Me.Label105.Text = "Bank"
+        '
+        'cbBank
+        '
+        Me.cbBank.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.cbBank.FormattingEnabled = True
+        Me.cbBank.Location = New System.Drawing.Point(160, 118)
+        Me.cbBank.Name = "cbBank"
+        Me.cbBank.Size = New System.Drawing.Size(500, 24)
+        Me.cbBank.TabIndex = 24
+        '
+        'txtBranch
+        '
+        Me.txtBranch.Location = New System.Drawing.Point(160, 148)
+        Me.txtBranch.Name = "txtBranch"
+        Me.txtBranch.Size = New System.Drawing.Size(500, 23)
+        Me.txtBranch.TabIndex = 26
+        '
+        'Label106
+        '
+        Me.Label106.AutoSize = True
+        Me.Label106.Location = New System.Drawing.Point(21, 89)
+        Me.Label106.Name = "Label106"
+        Me.Label106.Size = New System.Drawing.Size(97, 16)
+        Me.Label106.TabIndex = 27
+        Me.Label106.Text = "Account Title"
+        '
+        'tbMisc
+        '
+        Me.tbMisc.BackColor = System.Drawing.SystemColors.ButtonFace
+        Me.tbMisc.Controls.Add(Me.Label69)
+        Me.tbMisc.Controls.Add(Me.dtpPassportIssueDate)
+        Me.tbMisc.Controls.Add(Me.Label70)
+        Me.tbMisc.Controls.Add(Me.dtpPassportExpiryDate)
+        Me.tbMisc.Controls.Add(Me.cbPassportCountry)
+        Me.tbMisc.Controls.Add(Me.Label67)
+        Me.tbMisc.Controls.Add(Me.txtPassportNo)
+        Me.tbMisc.Controls.Add(Me.Label68)
+        Me.tbMisc.Controls.Add(Me.Label66)
+        Me.tbMisc.Controls.Add(Me.chkPassport)
+        Me.tbMisc.Controls.Add(Me.txtNTN)
+        Me.tbMisc.Controls.Add(Me.txtDrivingLicenseNo)
+        Me.tbMisc.Controls.Add(Me.Label62)
+        Me.tbMisc.Controls.Add(Me.txtCNICOld)
+        Me.tbMisc.Controls.Add(Me.Label65)
+        Me.tbMisc.Location = New System.Drawing.Point(4, 28)
+        Me.tbMisc.Name = "tbMisc"
+        Me.tbMisc.Size = New System.Drawing.Size(991, 430)
+        Me.tbMisc.TabIndex = 12
+        Me.tbMisc.Text = " Miscellaneous"
         '
         'Label69
         '
@@ -2800,9 +3097,9 @@ Partial Class frmEmployeeProfile
         '
         Me.tbAudit.BackColor = System.Drawing.SystemColors.ButtonFace
         Me.tbAudit.Controls.Add(Me.grdAudit)
-        Me.tbAudit.Location = New System.Drawing.Point(4, 25)
+        Me.tbAudit.Location = New System.Drawing.Point(4, 28)
         Me.tbAudit.Name = "tbAudit"
-        Me.tbAudit.Size = New System.Drawing.Size(992, 651)
+        Me.tbAudit.Size = New System.Drawing.Size(991, 430)
         Me.tbAudit.TabIndex = 9
         Me.tbAudit.Text = "Audit"
         '
@@ -2818,26 +3115,61 @@ Partial Class frmEmployeeProfile
         Me.grdAudit.PreviewInfo.Size = New System.Drawing.Size(0, 0)
         Me.grdAudit.PreviewInfo.ZoomFactor = 75.0R
         Me.grdAudit.PrintInfo.PageSettings = CType(resources.GetObject("grdAudit.PrintInfo.PageSettings"), System.Drawing.Printing.PageSettings)
-        Me.grdAudit.PropBag = resources.GetString("grdAudit.PropBag")
         Me.grdAudit.RowHeight = 15
-        Me.grdAudit.Size = New System.Drawing.Size(979, 277)
+        Me.grdAudit.Size = New System.Drawing.Size(979, 424)
         Me.grdAudit.TabIndex = 34
         Me.grdAudit.TabStop = False
+        Me.grdAudit.PropBag = resources.GetString("grdAudit.PropBag")
         '
         'stbDetail
         '
+        Me.stbDetail.ImageScalingSize = New System.Drawing.Size(18, 18)
         Me.stbDetail.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.slStatus})
-        Me.stbDetail.Location = New System.Drawing.Point(0, 360)
+        Me.stbDetail.Location = New System.Drawing.Point(0, 493)
         Me.stbDetail.Name = "stbDetail"
-        Me.stbDetail.Size = New System.Drawing.Size(1028, 22)
+        Me.stbDetail.Size = New System.Drawing.Size(1011, 22)
         Me.stbDetail.TabIndex = 2
         Me.stbDetail.Text = "Hello"
         '
         'slStatus
         '
         Me.slStatus.Name = "slStatus"
-        Me.slStatus.Size = New System.Drawing.Size(120, 17)
+        Me.slStatus.Size = New System.Drawing.Size(119, 17)
         Me.slStatus.Text = "ToolStripStatusLabel1"
+        '
+        'cmdApp
+        '
+        Me.cmdApp.Enabled = False
+        Me.cmdApp.Location = New System.Drawing.Point(863, 12)
+        Me.cmdApp.Name = "cmdApp"
+        Me.cmdApp.Size = New System.Drawing.Size(122, 34)
+        Me.cmdApp.TabIndex = 3
+        Me.cmdApp.Text = "Appraisals/Discipline"
+        Me.cmdApp.UseVisualStyleBackColor = True
+        Me.cmdApp.Visible = False
+        '
+        'OpenFileDialog1
+        '
+        Me.OpenFileDialog1.FileName = "EM_Employee"
+        Me.OpenFileDialog1.Filter = "Excel 2016 File(*.xlsx)|*.xlsx"
+        '
+        'cbSection
+        '
+        Me.cbSection.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.cbSection.FormattingEnabled = True
+        Me.cbSection.Location = New System.Drawing.Point(153, 94)
+        Me.cbSection.Name = "cbSection"
+        Me.cbSection.Size = New System.Drawing.Size(196, 24)
+        Me.cbSection.TabIndex = 78
+        '
+        'Label100
+        '
+        Me.Label100.AutoSize = True
+        Me.Label100.Location = New System.Drawing.Point(8, 97)
+        Me.Label100.Name = "Label100"
+        Me.Label100.Size = New System.Drawing.Size(58, 16)
+        Me.Label100.TabIndex = 77
+        Me.Label100.Text = "Section"
         '
         'EMEmployeeAuditBindingSource
         '
@@ -2857,7 +3189,9 @@ Partial Class frmEmployeeProfile
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(1028, 382)
+        Me.BackColor = System.Drawing.SystemColors.ButtonFace
+        Me.ClientSize = New System.Drawing.Size(1011, 515)
+        Me.Controls.Add(Me.cmdApp)
         Me.Controls.Add(Me.stbDetail)
         Me.Controls.Add(Me.TabControl1)
         Me.Controls.Add(Me.tlbToolbar)
@@ -2873,6 +3207,8 @@ Partial Class frmEmployeeProfile
         CType(Me.pbEmployeePhoto, System.ComponentModel.ISupportInitialize).EndInit()
         Me.tbFCCL.ResumeLayout(False)
         Me.tbFCCL.PerformLayout()
+        Me.GroupBox8.ResumeLayout(False)
+        Me.GroupBox8.PerformLayout()
         Me.tbExperience.ResumeLayout(False)
         Me.tbExperience.PerformLayout()
         CType(Me.grdExperiences, System.ComponentModel.ISupportInitialize).EndInit()
@@ -2897,8 +3233,10 @@ Partial Class frmEmployeeProfile
         Me.tbDependents.ResumeLayout(False)
         Me.tbDependents.PerformLayout()
         CType(Me.grdDependents, System.ComponentModel.ISupportInitialize).EndInit()
-        Me.cbMisc.ResumeLayout(False)
-        Me.cbMisc.PerformLayout()
+        Me.tbBankAccount.ResumeLayout(False)
+        Me.tbBankAccount.PerformLayout()
+        Me.tbMisc.ResumeLayout(False)
+        Me.tbMisc.PerformLayout()
         Me.tbAudit.ResumeLayout(False)
         CType(Me.grdAudit, System.ComponentModel.ISupportInitialize).EndInit()
         Me.stbDetail.ResumeLayout(False)
@@ -2911,8 +3249,8 @@ Partial Class frmEmployeeProfile
     End Sub
 
     Friend WithEvents tlbToolbar As ToolStrip
-    Friend WithEvents btnSave As ToolStripButton
-    Friend WithEvents btnNew As ToolStripButton
+    Friend WithEvents btn_Modify As ToolStripButton
+    Friend WithEvents btn_Prepare As ToolStripButton
     Friend WithEvents TabControl1 As TabControl
     Friend WithEvents tbPersonal As TabPage
     Friend WithEvents tbAudit As TabPage
@@ -2947,10 +3285,10 @@ Partial Class frmEmployeeProfile
     Friend WithEvents btnSearch As ToolStripButton
     Friend WithEvents Label14 As Label
     Friend WithEvents txtEmpID As TextBox
-    Friend WithEvents btnDelete As ToolStripButton
+    Friend WithEvents btn_Delete As ToolStripButton
     Friend WithEvents ToolStripSeparator1 As ToolStripSeparator
-    Friend WithEvents btnVerify As ToolStripButton
-    Friend WithEvents btnApprove As ToolStripButton
+    Friend WithEvents btn_Verify As ToolStripButton
+    Friend WithEvents btn_Approve As ToolStripButton
     Friend WithEvents tbFCCL As TabPage
     Friend WithEvents cbBranch As ComboBox
     Friend WithEvents Label15 As Label
@@ -3053,7 +3391,7 @@ Partial Class frmEmployeeProfile
     Friend WithEvents Label59 As Label
     Friend WithEvents txtPersonalEmail As TextBox
     Friend WithEvents Label64 As Label
-    Friend WithEvents cbMisc As TabPage
+    Friend WithEvents tbMisc As TabPage
     Friend WithEvents txtNTN As TextBox
     Friend WithEvents txtDrivingLicenseNo As TextBox
     Friend WithEvents Label62 As Label
@@ -3091,8 +3429,8 @@ Partial Class frmEmployeeProfile
     Friend WithEvents Label75 As Label
     Protected Friend WithEvents Label18 As Label
     Friend WithEvents Label76 As Label
-    Friend WithEvents cmdSaveDependent As Button
-    Friend WithEvents cmdDeleteDependent As Button
+    Friend WithEvents cmd_SaveDependent As Button
+    Friend WithEvents btn_DeleteDependent As Button
     Friend WithEvents tbExperience As TabPage
     Friend WithEvents txtExperienceReasonForLeaving As TextBox
     Friend WithEvents Label77 As Label
@@ -3114,8 +3452,8 @@ Partial Class frmEmployeeProfile
     Friend WithEvents Label85 As Label
     Friend WithEvents txtExperienceEmployer As TextBox
     Friend WithEvents Label86 As Label
-    Friend WithEvents cmdDeleteExperience As Button
-    Friend WithEvents cmdSaveExperience As Button
+    Friend WithEvents btn_DeleteExperience As Button
+    Friend WithEvents cmd_PrepareExperience As Button
     Friend WithEvents tbQualifications As TabPage
     Friend WithEvents txtQualificationEndYear As TextBox
     Friend WithEvents txtQualificationStartYear As TextBox
@@ -3145,11 +3483,10 @@ Partial Class frmEmployeeProfile
     Friend WithEvents txtQualificationOtherDegree As TextBox
     Friend WithEvents Label97 As Label
     Friend WithEvents Label98 As Label
-    Friend WithEvents cmdDeleteQualification As Button
-    Friend WithEvents cmdSaveQualification As Button
+    Friend WithEvents btn_DeleteQualification As Button
+    Friend WithEvents cmd_PrepareQualifications As Button
     Friend WithEvents Label99 As Label
     Friend WithEvents dtpRetirementDate As DateTimePicker
-    Friend WithEvents Label100 As Label
     Friend WithEvents cmdUploadPicture As Button
     Friend WithEvents cbDomicile As ComboBox
     Friend WithEvents Label101 As Label
@@ -3157,7 +3494,7 @@ Partial Class frmEmployeeProfile
     Friend WithEvents Label102 As Label
     Friend WithEvents cbExperienceIndustry As ComboBox
     Friend WithEvents Label61 As Label
-    Friend WithEvents cmdClearExperience As Button
+    Friend WithEvents cmd_CreateExperience As Button
     Friend WithEvents Label63 As Label
     Friend WithEvents cbBloodGroup As ComboBox
     Friend WithEvents cbJoinedAs As ComboBox
@@ -3166,4 +3503,34 @@ Partial Class frmEmployeeProfile
     Private WithEvents grdAudit As C1.Win.C1TrueDBGrid.C1TrueDBGrid
     Private WithEvents grdExperiences As C1.Win.C1TrueDBGrid.C1TrueDBGrid
     Private WithEvents grdQualifications As C1.Win.C1TrueDBGrid.C1TrueDBGrid
+    Friend WithEvents tbBankAccount As TabPage
+    Friend WithEvents cmdApp As Button
+    Friend WithEvents Label108 As Label
+    Friend WithEvents cmd_SaveBankAccount As Button
+    Friend WithEvents txtEmployeeName As TextBox
+    Friend WithEvents Label104 As Label
+    Friend WithEvents txtAccountTitle As TextBox
+    Friend WithEvents txtAccountNo As TextBox
+    Friend WithEvents Label107 As Label
+    Friend WithEvents Label105 As Label
+    Friend WithEvents cbBank As ComboBox
+    Friend WithEvents txtBranch As TextBox
+    Friend WithEvents Label106 As Label
+    Friend WithEvents txtImport As Button
+    Friend WithEvents btnBrowse As Button
+    Friend WithEvents OpenFileDialog1 As OpenFileDialog
+    Friend WithEvents TextBox1 As TextBox
+    Friend WithEvents btn_Increment As Button
+    Friend WithEvents lblIncrement As Label
+    Friend WithEvents chkConfNo As CheckBox
+    Friend WithEvents chkConfYes As CheckBox
+    Friend WithEvents Label109 As Label
+    Friend WithEvents chkLFANo As CheckBox
+    Friend WithEvents ChkLFAYes As CheckBox
+    Friend WithEvents Label110 As Label
+    Friend WithEvents txtOldEmpNo As TextBox
+    Friend WithEvents Label111 As Label
+    Friend WithEvents GroupBox8 As GroupBox
+    Friend WithEvents cbSection As ComboBox
+    Friend WithEvents Label100 As Label
 End Class
