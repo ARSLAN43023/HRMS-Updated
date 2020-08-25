@@ -361,7 +361,7 @@ Public Class frmEmployeeStatus
                         New System.Net.Security.RemoteCertificateValidationCallback(AddressOf customCertValidation)
                         Smtp_Server.EnableSsl = True
                         Smtp_Server.Send(e_mail)
-                        '  MsgBox("Mail Sent")
+
                         bEmail = False
 
 
@@ -385,7 +385,6 @@ Public Class frmEmployeeStatus
                         e_mail = New MailMessage()
                         e_mail.From = New MailAddress("ems@fccl.com.pk")
                         e_mail.To.Add(ContactEmail)
-                        'e_mail.To.Add("arslan.ahmed@fccl.com.pk")
 
                         e_mail.Subject = "Employee Status Updated"
                         e_mail.IsBodyHtml = False
@@ -414,7 +413,7 @@ Public Class frmEmployeeStatus
                         New System.Net.Security.RemoteCertificateValidationCallback(AddressOf customCertValidation)
                         Smtp_Server.EnableSsl = True
                         Smtp_Server.Send(e_mail)
-                        '  MsgBox("Mail Sent")
+
                         bEmail = False
 
 
