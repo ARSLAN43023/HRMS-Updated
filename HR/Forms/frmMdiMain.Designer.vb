@@ -54,6 +54,7 @@ Partial Class frmMdiMain
         Me.CitiesToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.CountriesToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.QualificationsToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.InstitutionsToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.ExitToolStripMenuItem1 = New System.Windows.Forms.ToolStripMenuItem()
         Me.Timer1 = New System.Windows.Forms.Timer(Me.components)
         Me.Panel1 = New System.Windows.Forms.Panel()
@@ -67,13 +68,13 @@ Partial Class frmMdiMain
         Me.cmdAwards = New System.Windows.Forms.Button()
         Me.cmdBankAccount = New System.Windows.Forms.Button()
         Me.cmdPromotions = New System.Windows.Forms.Button()
-        Me.InstitutionsToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.mnuMainMenu.SuspendLayout()
         Me.Panel1.SuspendLayout()
         Me.SuspendLayout()
         '
         'mnuMainMenu
         '
+        Me.mnuMainMenu.BackColor = System.Drawing.Color.White
         Me.mnuMainMenu.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ConfigurationToolStripMenuItem, Me.EmployeeProfileToolStripMenuItem1, Me.UpdateStatusToolStripMenuItem, Me.DailyWagerProfileToolStripMenuItem1, Me.AppraisalsDisciiplineToolStripMenuItem, Me.FormsToolStripMenuItem, Me.ExitToolStripMenuItem1})
         Me.mnuMainMenu.Location = New System.Drawing.Point(0, 0)
         Me.mnuMainMenu.Name = "mnuMainMenu"
@@ -129,41 +130,50 @@ Partial Class frmMdiMain
         '
         'EmployeeProfileToolStripMenuItem1
         '
+        Me.EmployeeProfileToolStripMenuItem1.BackColor = System.Drawing.Color.White
+        Me.EmployeeProfileToolStripMenuItem1.Font = New System.Drawing.Font("Arial", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.EmployeeProfileToolStripMenuItem1.Image = CType(resources.GetObject("EmployeeProfileToolStripMenuItem1.Image"), System.Drawing.Image)
         Me.EmployeeProfileToolStripMenuItem1.Name = "EmployeeProfileToolStripMenuItem1"
-        Me.EmployeeProfileToolStripMenuItem1.Size = New System.Drawing.Size(108, 20)
+        Me.EmployeeProfileToolStripMenuItem1.Size = New System.Drawing.Size(134, 20)
         Me.EmployeeProfileToolStripMenuItem1.Text = "Employee Profile"
         '
         'UpdateStatusToolStripMenuItem
         '
+        Me.UpdateStatusToolStripMenuItem.Font = New System.Drawing.Font("Arial", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.UpdateStatusToolStripMenuItem.Image = CType(resources.GetObject("UpdateStatusToolStripMenuItem.Image"), System.Drawing.Image)
         Me.UpdateStatusToolStripMenuItem.Name = "UpdateStatusToolStripMenuItem"
-        Me.UpdateStatusToolStripMenuItem.Size = New System.Drawing.Size(147, 20)
+        Me.UpdateStatusToolStripMenuItem.Size = New System.Drawing.Size(181, 20)
         Me.UpdateStatusToolStripMenuItem.Text = "Update Employee Status"
         '
         'DailyWagerProfileToolStripMenuItem1
         '
+        Me.DailyWagerProfileToolStripMenuItem1.Font = New System.Drawing.Font("Arial", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.DailyWagerProfileToolStripMenuItem1.Image = CType(resources.GetObject("DailyWagerProfileToolStripMenuItem1.Image"), System.Drawing.Image)
         Me.DailyWagerProfileToolStripMenuItem1.Name = "DailyWagerProfileToolStripMenuItem1"
-        Me.DailyWagerProfileToolStripMenuItem1.Size = New System.Drawing.Size(119, 20)
+        Me.DailyWagerProfileToolStripMenuItem1.Size = New System.Drawing.Size(147, 20)
         Me.DailyWagerProfileToolStripMenuItem1.Text = "Daily Wager Profile"
         '
         'AppraisalsDisciiplineToolStripMenuItem
         '
+        Me.AppraisalsDisciiplineToolStripMenuItem.Font = New System.Drawing.Font("Arial", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.AppraisalsDisciiplineToolStripMenuItem.Image = CType(resources.GetObject("AppraisalsDisciiplineToolStripMenuItem.Image"), System.Drawing.Image)
         Me.AppraisalsDisciiplineToolStripMenuItem.Name = "AppraisalsDisciiplineToolStripMenuItem"
-        Me.AppraisalsDisciiplineToolStripMenuItem.Size = New System.Drawing.Size(129, 20)
+        Me.AppraisalsDisciiplineToolStripMenuItem.Size = New System.Drawing.Size(157, 20)
         Me.AppraisalsDisciiplineToolStripMenuItem.Text = "Appraisals/Discipline"
-        Me.AppraisalsDisciiplineToolStripMenuItem.Visible = False
         '
         'FormsToolStripMenuItem
         '
         Me.FormsToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mnuProfessionalExperience, Me.mnuTrainings, Me.mnuPromotions, Me.mnuTransfers, Me.mnuEducation, Me.mnuDependents, Me.mnuBankAccounts, Me.mnuBenefits, Me.mnuLeaves, Me.mnuAppraisals, Me.mnuAwards, Me.mnuTrainingCourseSeminar, Me.mnuDiscipline, Me.StatusToolStripMenuItem, Me.CitiesToolStripMenuItem, Me.CountriesToolStripMenuItem, Me.QualificationsToolStripMenuItem, Me.InstitutionsToolStripMenuItem})
+        Me.FormsToolStripMenuItem.Font = New System.Drawing.Font("Arial", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.FormsToolStripMenuItem.Name = "FormsToolStripMenuItem"
-        Me.FormsToolStripMenuItem.Size = New System.Drawing.Size(52, 20)
+        Me.FormsToolStripMenuItem.Size = New System.Drawing.Size(57, 20)
         Me.FormsToolStripMenuItem.Text = "Forms"
         '
         'mnuProfessionalExperience
         '
         Me.mnuProfessionalExperience.Enabled = False
         Me.mnuProfessionalExperience.Name = "mnuProfessionalExperience"
-        Me.mnuProfessionalExperience.Size = New System.Drawing.Size(206, 22)
+        Me.mnuProfessionalExperience.Size = New System.Drawing.Size(218, 22)
         Me.mnuProfessionalExperience.Text = "Professional Experience"
         Me.mnuProfessionalExperience.Visible = False
         '
@@ -171,7 +181,7 @@ Partial Class frmMdiMain
         '
         Me.mnuTrainings.Enabled = False
         Me.mnuTrainings.Name = "mnuTrainings"
-        Me.mnuTrainings.Size = New System.Drawing.Size(206, 22)
+        Me.mnuTrainings.Size = New System.Drawing.Size(218, 22)
         Me.mnuTrainings.Text = "Trainings"
         Me.mnuTrainings.Visible = False
         '
@@ -179,7 +189,7 @@ Partial Class frmMdiMain
         '
         Me.mnuPromotions.Enabled = False
         Me.mnuPromotions.Name = "mnuPromotions"
-        Me.mnuPromotions.Size = New System.Drawing.Size(206, 22)
+        Me.mnuPromotions.Size = New System.Drawing.Size(218, 22)
         Me.mnuPromotions.Text = "Promotions"
         Me.mnuPromotions.Visible = False
         '
@@ -187,7 +197,7 @@ Partial Class frmMdiMain
         '
         Me.mnuTransfers.Enabled = False
         Me.mnuTransfers.Name = "mnuTransfers"
-        Me.mnuTransfers.Size = New System.Drawing.Size(206, 22)
+        Me.mnuTransfers.Size = New System.Drawing.Size(218, 22)
         Me.mnuTransfers.Text = "Transfers"
         Me.mnuTransfers.Visible = False
         '
@@ -195,7 +205,7 @@ Partial Class frmMdiMain
         '
         Me.mnuEducation.Enabled = False
         Me.mnuEducation.Name = "mnuEducation"
-        Me.mnuEducation.Size = New System.Drawing.Size(206, 22)
+        Me.mnuEducation.Size = New System.Drawing.Size(218, 22)
         Me.mnuEducation.Text = "Qualifications"
         Me.mnuEducation.Visible = False
         '
@@ -203,7 +213,7 @@ Partial Class frmMdiMain
         '
         Me.mnuDependents.Enabled = False
         Me.mnuDependents.Name = "mnuDependents"
-        Me.mnuDependents.Size = New System.Drawing.Size(206, 22)
+        Me.mnuDependents.Size = New System.Drawing.Size(218, 22)
         Me.mnuDependents.Text = "Dependents"
         Me.mnuDependents.Visible = False
         '
@@ -211,7 +221,7 @@ Partial Class frmMdiMain
         '
         Me.mnuBankAccounts.Enabled = False
         Me.mnuBankAccounts.Name = "mnuBankAccounts"
-        Me.mnuBankAccounts.Size = New System.Drawing.Size(206, 22)
+        Me.mnuBankAccounts.Size = New System.Drawing.Size(218, 22)
         Me.mnuBankAccounts.Text = "Bank Accounts"
         Me.mnuBankAccounts.Visible = False
         '
@@ -219,7 +229,7 @@ Partial Class frmMdiMain
         '
         Me.mnuBenefits.Enabled = False
         Me.mnuBenefits.Name = "mnuBenefits"
-        Me.mnuBenefits.Size = New System.Drawing.Size(206, 22)
+        Me.mnuBenefits.Size = New System.Drawing.Size(218, 22)
         Me.mnuBenefits.Text = "Benefits"
         Me.mnuBenefits.Visible = False
         '
@@ -227,7 +237,7 @@ Partial Class frmMdiMain
         '
         Me.mnuLeaves.Enabled = False
         Me.mnuLeaves.Name = "mnuLeaves"
-        Me.mnuLeaves.Size = New System.Drawing.Size(206, 22)
+        Me.mnuLeaves.Size = New System.Drawing.Size(218, 22)
         Me.mnuLeaves.Text = "Leaves"
         Me.mnuLeaves.Visible = False
         '
@@ -235,7 +245,7 @@ Partial Class frmMdiMain
         '
         Me.mnuAppraisals.Enabled = False
         Me.mnuAppraisals.Name = "mnuAppraisals"
-        Me.mnuAppraisals.Size = New System.Drawing.Size(206, 22)
+        Me.mnuAppraisals.Size = New System.Drawing.Size(218, 22)
         Me.mnuAppraisals.Text = "Appraisals"
         Me.mnuAppraisals.Visible = False
         '
@@ -243,7 +253,7 @@ Partial Class frmMdiMain
         '
         Me.mnuAwards.Enabled = False
         Me.mnuAwards.Name = "mnuAwards"
-        Me.mnuAwards.Size = New System.Drawing.Size(206, 22)
+        Me.mnuAwards.Size = New System.Drawing.Size(218, 22)
         Me.mnuAwards.Text = "Awards"
         Me.mnuAwards.Visible = False
         '
@@ -251,7 +261,7 @@ Partial Class frmMdiMain
         '
         Me.mnuTrainingCourseSeminar.Enabled = False
         Me.mnuTrainingCourseSeminar.Name = "mnuTrainingCourseSeminar"
-        Me.mnuTrainingCourseSeminar.Size = New System.Drawing.Size(206, 22)
+        Me.mnuTrainingCourseSeminar.Size = New System.Drawing.Size(218, 22)
         Me.mnuTrainingCourseSeminar.Text = "Training/Course/Seminar"
         Me.mnuTrainingCourseSeminar.Visible = False
         '
@@ -259,7 +269,7 @@ Partial Class frmMdiMain
         '
         Me.mnuDiscipline.Enabled = False
         Me.mnuDiscipline.Name = "mnuDiscipline"
-        Me.mnuDiscipline.Size = New System.Drawing.Size(206, 22)
+        Me.mnuDiscipline.Size = New System.Drawing.Size(218, 22)
         Me.mnuDiscipline.Text = "Discipline"
         Me.mnuDiscipline.Visible = False
         '
@@ -267,32 +277,39 @@ Partial Class frmMdiMain
         '
         Me.StatusToolStripMenuItem.Enabled = False
         Me.StatusToolStripMenuItem.Name = "StatusToolStripMenuItem"
-        Me.StatusToolStripMenuItem.Size = New System.Drawing.Size(206, 22)
+        Me.StatusToolStripMenuItem.Size = New System.Drawing.Size(218, 22)
         Me.StatusToolStripMenuItem.Text = "Status"
         Me.StatusToolStripMenuItem.Visible = False
         '
         'CitiesToolStripMenuItem
         '
         Me.CitiesToolStripMenuItem.Name = "CitiesToolStripMenuItem"
-        Me.CitiesToolStripMenuItem.Size = New System.Drawing.Size(206, 22)
+        Me.CitiesToolStripMenuItem.Size = New System.Drawing.Size(218, 22)
         Me.CitiesToolStripMenuItem.Text = "Cities"
         '
         'CountriesToolStripMenuItem
         '
         Me.CountriesToolStripMenuItem.Name = "CountriesToolStripMenuItem"
-        Me.CountriesToolStripMenuItem.Size = New System.Drawing.Size(206, 22)
+        Me.CountriesToolStripMenuItem.Size = New System.Drawing.Size(218, 22)
         Me.CountriesToolStripMenuItem.Text = "Countries"
         '
         'QualificationsToolStripMenuItem
         '
         Me.QualificationsToolStripMenuItem.Name = "QualificationsToolStripMenuItem"
-        Me.QualificationsToolStripMenuItem.Size = New System.Drawing.Size(206, 22)
+        Me.QualificationsToolStripMenuItem.Size = New System.Drawing.Size(218, 22)
         Me.QualificationsToolStripMenuItem.Text = "Qualifications"
+        '
+        'InstitutionsToolStripMenuItem
+        '
+        Me.InstitutionsToolStripMenuItem.Name = "InstitutionsToolStripMenuItem"
+        Me.InstitutionsToolStripMenuItem.Size = New System.Drawing.Size(218, 22)
+        Me.InstitutionsToolStripMenuItem.Text = "Institutions"
         '
         'ExitToolStripMenuItem1
         '
+        Me.ExitToolStripMenuItem1.Font = New System.Drawing.Font("Arial", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.ExitToolStripMenuItem1.Name = "ExitToolStripMenuItem1"
-        Me.ExitToolStripMenuItem1.Size = New System.Drawing.Size(38, 20)
+        Me.ExitToolStripMenuItem1.Size = New System.Drawing.Size(43, 20)
         Me.ExitToolStripMenuItem1.Text = "Exit"
         '
         'Panel1
@@ -433,19 +450,13 @@ Partial Class frmMdiMain
         Me.cmdPromotions.BackColor = System.Drawing.Color.DimGray
         Me.cmdPromotions.Font = New System.Drawing.Font("Verdana", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.cmdPromotions.ForeColor = System.Drawing.Color.White
-        Me.cmdPromotions.Location = New System.Drawing.Point(878, 93)
+        Me.cmdPromotions.Location = New System.Drawing.Point(866, 121)
         Me.cmdPromotions.Name = "cmdPromotions"
         Me.cmdPromotions.Size = New System.Drawing.Size(150, 60)
         Me.cmdPromotions.TabIndex = 33
         Me.cmdPromotions.Text = "Promotions"
         Me.cmdPromotions.UseVisualStyleBackColor = False
         Me.cmdPromotions.Visible = False
-        '
-        'InstitutionsToolStripMenuItem
-        '
-        Me.InstitutionsToolStripMenuItem.Name = "InstitutionsToolStripMenuItem"
-        Me.InstitutionsToolStripMenuItem.Size = New System.Drawing.Size(206, 22)
-        Me.InstitutionsToolStripMenuItem.Text = "Institutions"
         '
         'frmMdiMain
         '
@@ -462,7 +473,6 @@ Partial Class frmMdiMain
         Me.IsMdiContainer = True
         Me.MainMenuStrip = Me.mnuMainMenu
         Me.Name = "frmMdiMain"
-        Me.Text = " "
         Me.WindowState = System.Windows.Forms.FormWindowState.Maximized
         Me.mnuMainMenu.ResumeLayout(False)
         Me.mnuMainMenu.PerformLayout()

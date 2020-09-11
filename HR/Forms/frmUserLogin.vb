@@ -3,8 +3,80 @@ Imports System.Data.Odbc
 
 Public Class frmUserLogin
     Private Sub frmuserlogin_load(sender As Object, e As EventArgs) Handles MyBase.Load
-        PopulateControls()
+
+        Dim sSql As String
+        Dim rsComp As New ADODB.Recordset
+        '''''''''''''''''''''''''''''''''''''''''
+        'txtUserID.Text = GetSetting("ERP", "HRMS", "UserLoginId", "")
+        'If Trim(txtUserID.Text) <> "" Then
+        '    txtPassword.Select()
+        'End If
+
+        ConnectToDataBase()
+
+        If (nlResult = AIS_SUCCESS) Then
+            If (conn.State <> ConnectionState.Open) Then conn.Open(connectionString)
+            sSql = "Select nCompanyId, vcCompanyCode From comCompany"
+            GetRecordSet(rsComp, sSql)
+            If rsComp.RecordCount > 0 Then
+                rsComp.MoveFirst()
+                g_nCompanyId = CInt(rsComp("nCompanyId").Value)
+            Else
+                g_nCompanyId = 0
+            End If
+            '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+            'txtUserID.Text = GetSetting("ERP", "HRMS", "UserLoginId", "")
+            If g_nCompanyId = 1 Then
+                txtUserID.Text = GetSetting("ERP", "HRMS", "UserLoginId", "")
+            ElseIf g_nCompanyId = 2 Then
+                txtUserID.Text = GetSetting("ERPACL", "HRMS", "UserLoginId", "")
+            End If
+            If Trim(txtUserID.Text) <> "" Then
+                txtPassword.Select()
+            End If
+            '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+            g_sLoggedInUser = txtUserID.Text
+            '''''''''''''''''''''''''''''''''''''''
+            PopulateControls()
+            frmODBCLogin.Close()
+        End If
+
     End Sub
+
+    Public Function ConnectToDataBase() As Integer
+
+        Dim connetionString As String = Nothing
+        Dim conn As Odbc.OdbcConnection
+        Dim adapter As New Odbc.OdbcDataAdapter()
+        Dim ds As New DataSet()
+        Dim i As Integer = 0
+
+
+        g_sConnectionLoginId = GetSetting("ERP", "Database Settings", "UserId", "")
+        g_sConnectionPassword = GetSetting("ERP", "Database Settings", "Password", "")
+        g_sDSN = GetSetting("ERP", "Database Settings", "DSN", "")
+
+        If g_sConnectionPassword = "" Then
+            connectionString = "Dsn=" + g_sDSN + ";Uid=" + g_sConnectionLoginId + ""
+        Else
+            connectionString = "Dsn=" + g_sDSN + ";Uid=" + g_sConnectionLoginId + ";pwd=" + g_sConnectionPassword
+        End If
+
+
+        conn = New Odbc.OdbcConnection(connectionString)
+        Try
+            conn.Open()
+            conn.Close()
+            ConnectToDataBase = AIS_SUCCESS
+            nlResult = AIS_SUCCESS
+
+        Catch ex As Exception
+            If nlResult = AIS_SUCCESS Then nlResult = AIS_FAILURE
+            ConnectToDataBase = nlResult
+        End Try
+
+    End Function
+
 
     Public Sub cmdOK_Click(sender As Object, e As EventArgs) Handles cmdOK.Click
         Dim sSql As String
@@ -31,6 +103,14 @@ Public Class frmUserLogin
                 End If
 
                 mdFunctions.sUserId = txtUserID.Text
+                ''''''''''''''''''''''''''''''''''''
+                'SaveSetting("ERP", "HRMS", "UserLoginId", txtUserID.Text)
+                If g_nCompanyId = 1 Then
+                    SaveSetting("ERP", "HRMS", "UserLoginId", txtUserID.Text)
+                ElseIf g_nCompanyId = 2 Then
+                    SaveSetting("ERPACL", "HRMS", "UserLoginId", txtUserID.Text)
+                End If
+                ''''''''''''''''''''''''''''''''''''
                 frmMdiMain.Show()
                 frmMdiMain.Focus()
                 Me.Hide()
@@ -73,7 +153,8 @@ Public Class frmUserLogin
 
     Private Sub PopulateControls()
         PopulateControl(cbCompany, "Select nCompanyId, vcCompanyCode From comCompany", "nCompanyId", "vcCompanyCode")
-        cbCompany.SelectedValue = 1
+        'cbCompany.SelectedValue = 1
+        cbCompany.SelectedIndex = 0
         PopulateControl(cbLocation, "Select nLocationId, vcLocationName From comLocation Order by vcLocationName", "nLocationId", "vcLocationName")
     End Sub
 

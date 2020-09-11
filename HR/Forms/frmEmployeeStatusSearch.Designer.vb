@@ -105,7 +105,7 @@ Partial Class frmEmployeeStatusSearch
         '
         Me.cbStatus.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cbStatus.FormattingEnabled = True
-        Me.cbStatus.Items.AddRange(New Object() {"Active", "Retired", "Resigned", "Terminated", "Deceased", "Re-joined"})
+        Me.cbStatus.Items.AddRange(New Object() {"Active", "Retired", "Resigned", "Terminated", "Deceased", "Re-joined", "Re-trenched"})
         Me.cbStatus.Location = New System.Drawing.Point(602, 22)
         Me.cbStatus.Name = "cbStatus"
         Me.cbStatus.Size = New System.Drawing.Size(175, 24)

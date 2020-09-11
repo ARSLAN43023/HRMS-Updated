@@ -138,10 +138,10 @@ Partial Class frmEmployeeStatus
         Me.tbPersonal.Controls.Add(Me.Label3)
         Me.tbPersonal.Controls.Add(Me.txtEmployeeName)
         Me.tbPersonal.Controls.Add(Me.Label1)
-        Me.tbPersonal.Location = New System.Drawing.Point(4, 26)
+        Me.tbPersonal.Location = New System.Drawing.Point(4, 25)
         Me.tbPersonal.Name = "tbPersonal"
         Me.tbPersonal.Padding = New System.Windows.Forms.Padding(3)
-        Me.tbPersonal.Size = New System.Drawing.Size(650, 96)
+        Me.tbPersonal.Size = New System.Drawing.Size(650, 97)
         Me.tbPersonal.TabIndex = 1
         Me.tbPersonal.Text = "Employee Status"
         '
@@ -159,7 +159,7 @@ Partial Class frmEmployeeStatus
         Me.txtDocumentNo.Enabled = False
         Me.txtDocumentNo.Location = New System.Drawing.Point(468, 7)
         Me.txtDocumentNo.Name = "txtDocumentNo"
-        Me.txtDocumentNo.Size = New System.Drawing.Size(175, 25)
+        Me.txtDocumentNo.Size = New System.Drawing.Size(175, 23)
         Me.txtDocumentNo.TabIndex = 48
         Me.txtDocumentNo.Visible = False
         '
@@ -168,7 +168,7 @@ Partial Class frmEmployeeStatus
         Me.Label13.AutoSize = True
         Me.Label13.Location = New System.Drawing.Point(4, 74)
         Me.Label13.Name = "Label13"
-        Me.Label13.Size = New System.Drawing.Size(74, 18)
+        Me.Label13.Size = New System.Drawing.Size(62, 16)
         Me.Label13.TabIndex = 47
         Me.Label13.Text = "Remarks"
         '
@@ -176,7 +176,7 @@ Partial Class frmEmployeeStatus
         '
         Me.txtRemarks.Location = New System.Drawing.Point(143, 69)
         Me.txtRemarks.Name = "txtRemarks"
-        Me.txtRemarks.Size = New System.Drawing.Size(502, 25)
+        Me.txtRemarks.Size = New System.Drawing.Size(502, 23)
         Me.txtRemarks.TabIndex = 3
         '
         'Label2
@@ -184,7 +184,7 @@ Partial Class frmEmployeeStatus
         Me.Label2.AutoSize = True
         Me.Label2.Location = New System.Drawing.Point(355, 43)
         Me.Label2.Name = "Label2"
-        Me.Label2.Size = New System.Drawing.Size(43, 18)
+        Me.Label2.Size = New System.Drawing.Size(39, 16)
         Me.Label2.TabIndex = 15
         Me.Label2.Text = "Date"
         '
@@ -195,7 +195,7 @@ Partial Class frmEmployeeStatus
         Me.dtpDate.Location = New System.Drawing.Point(468, 38)
         Me.dtpDate.Name = "dtpDate"
         Me.dtpDate.ShowCheckBox = True
-        Me.dtpDate.Size = New System.Drawing.Size(175, 25)
+        Me.dtpDate.Size = New System.Drawing.Size(175, 23)
         Me.dtpDate.TabIndex = 2
         Me.dtpDate.Value = New Date(2015, 11, 9, 11, 57, 14, 0)
         '
@@ -203,10 +203,10 @@ Partial Class frmEmployeeStatus
         '
         Me.cbStatus.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cbStatus.FormattingEnabled = True
-        Me.cbStatus.Items.AddRange(New Object() {"Active", "Retired", "Resigned", "Terminated", "Deceased", "Re-joined"})
+        Me.cbStatus.Items.AddRange(New Object() {"Active", "Retired", "Resigned", "Terminated", "Deceased", "Re-joined", "Re-trenched"})
         Me.cbStatus.Location = New System.Drawing.Point(143, 36)
         Me.cbStatus.Name = "cbStatus"
-        Me.cbStatus.Size = New System.Drawing.Size(175, 25)
+        Me.cbStatus.Size = New System.Drawing.Size(175, 24)
         Me.cbStatus.TabIndex = 1
         '
         'Label3
@@ -214,7 +214,7 @@ Partial Class frmEmployeeStatus
         Me.Label3.AutoSize = True
         Me.Label3.Location = New System.Drawing.Point(4, 44)
         Me.Label3.Name = "Label3"
-        Me.Label3.Size = New System.Drawing.Size(56, 18)
+        Me.Label3.Size = New System.Drawing.Size(52, 16)
         Me.Label3.TabIndex = 4
         Me.Label3.Text = "Status"
         '
@@ -223,7 +223,7 @@ Partial Class frmEmployeeStatus
         Me.txtEmployeeName.Enabled = False
         Me.txtEmployeeName.Location = New System.Drawing.Point(143, 9)
         Me.txtEmployeeName.Name = "txtEmployeeName"
-        Me.txtEmployeeName.Size = New System.Drawing.Size(175, 25)
+        Me.txtEmployeeName.Size = New System.Drawing.Size(175, 23)
         Me.txtEmployeeName.TabIndex = 1
         '
         'Label1
@@ -231,7 +231,7 @@ Partial Class frmEmployeeStatus
         Me.Label1.AutoSize = True
         Me.Label1.Location = New System.Drawing.Point(4, 14)
         Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(130, 18)
+        Me.Label1.Size = New System.Drawing.Size(111, 16)
         Me.Label1.TabIndex = 0
         Me.Label1.Text = "Employee Name"
         '
@@ -239,9 +239,9 @@ Partial Class frmEmployeeStatus
         '
         Me.tbAudit.BackColor = System.Drawing.SystemColors.ButtonFace
         Me.tbAudit.Controls.Add(Me.grdAudit)
-        Me.tbAudit.Location = New System.Drawing.Point(4, 26)
+        Me.tbAudit.Location = New System.Drawing.Point(4, 25)
         Me.tbAudit.Name = "tbAudit"
-        Me.tbAudit.Size = New System.Drawing.Size(650, 96)
+        Me.tbAudit.Size = New System.Drawing.Size(650, 97)
         Me.tbAudit.TabIndex = 9
         Me.tbAudit.Text = "Audit"
         '

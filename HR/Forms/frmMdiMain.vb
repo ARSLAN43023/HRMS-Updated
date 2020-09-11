@@ -8,6 +8,12 @@
         cmdApp.Visible = False
         cmdStatus.Location = New Point(161, 3)
 
+        If g_nCompanyId = 1 Then
+            Me.Text = "Human Resource Management System - Fauji Cement Company Limited - Logged in: " & g_sLoggedInUser
+        Else
+            Me.Text = "Human Resource Management System - Askari Cement Company Limited - Logged in: " & g_sLoggedInUser
+        End If
+
     End Sub
 
     Private Sub mnuProfessionalExperience_Click(sender As Object, e As EventArgs) Handles mnuProfessionalExperience.Click
@@ -198,7 +204,7 @@
         frmEmployeeProfile.Show()
         frmEmployeeProfile.Visible = True
 
-        frmAppraisals_Discipline.Show()
+        'frmAppraisals_Discipline.Show()
         frmEmployeeProfile.Focus()
     End Sub
 
@@ -230,11 +236,13 @@
     End Sub
 
     Private Sub AppraisalsDisciiplineToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles AppraisalsDisciiplineToolStripMenuItem.Click
-        Dim f3 As frmAppraisals_Discipline = CType(Application.OpenForms("frmAppraisals_Discipline"), frmAppraisals_Discipline)
-        Dim f2 As frmEmployeeProfile = CType(Application.OpenForms("frmEmployeeProfile"), frmEmployeeProfile)
+        ''Dim f3 As frmAppraisals_Discipline = CType(Application.OpenForms("frmAppraisals_Discipline"), frmAppraisals_Discipline)
+        ''Dim f2 As frmEmployeeProfile = CType(Application.OpenForms("frmEmployeeProfile"), frmEmployeeProfile)
 
-        f3.Focus()
-        f3.WindowState = FormWindowState.Normal
+        ''f3.Focus()
+        ''f3.WindowState = FormWindowState.Normal
+        frmAppraisals_Discipline.Show()
+        frmAppraisals_Discipline.Focus()
     End Sub
 
     Private Sub ExitToolStripMenuItem1_Click_1(sender As Object, e As EventArgs) Handles ExitToolStripMenuItem1.Click

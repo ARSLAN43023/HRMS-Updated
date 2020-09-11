@@ -127,8 +127,9 @@
 
         'If Not IsFormLoaded("frmEmployeeProfile", 1, False) Then 
         If sCalledForm = "Employee Profile" Then
+
             frmEmployeeProfile.Show()
-            frmAppraisals_Discipline.Show()
+            ''frmAppraisals_Discipline.Show()
             frmEmployeeProfile.SearchRecords(sQueryForTransfer, grdSearch.Columns(0).Value)
             frmEmployeeProfile.Focus()
         ElseIf sCalledForm = "Employee Profile DW" Then
@@ -193,28 +194,30 @@
         Try
 
             If sCalledForm = "Employee Profile" Then
-                Dim f3 As frmAppraisals_Discipline = CType(Application.OpenForms("frmAppraisals_Discipline"), frmAppraisals_Discipline)
-                Dim Main As frmMdiMain = CType(Application.OpenForms("frmMdiMain"), frmMdiMain)
-                Dim empProfile As frmEmployeeProfile = CType(Application.OpenForms("frmEmployeeProfile"), frmEmployeeProfile)
-                '  Main.cmdApp.Visible = True
-                '  empProfile.cmdApp.Visible = True
-                Main.AppraisalsDisciiplineToolStripMenuItem.Visible = True
-                Main.cmdApp.Location = New Point(161, 3)
-                Main.cmdStatus.Location = New Point(311, 3)
+                ''Dim f3 As frmAppraisals_Discipline = CType(Application.OpenForms("frmAppraisals_Discipline"), frmAppraisals_Discipline)
+                ''Dim Main As frmMdiMain = CType(Application.OpenForms("frmMdiMain"), frmMdiMain)
+                ''Dim empProfile As frmEmployeeProfile = CType(Application.OpenForms("frmEmployeeProfile"), frmEmployeeProfile)
+                '''  Main.cmdApp.Visible = True
+                '''  empProfile.cmdApp.Visible = True
+                ''Main.AppraisalsDisciiplineToolStripMenuItem.Visible = True
+                ''Main.cmdApp.Location = New Point(161, 3)
+                ''Main.cmdStatus.Location = New Point(311, 3)
 
-                f3.Show()
-                f3.WindowState = FormWindowState.Minimized
-                f3.Location = New Point(0, 0)
-                Me.Close()
+                ''f3.Show()
+                ''f3.WindowState = FormWindowState.Minimized
+                ''f3.Location = New Point(0, 0)
+                ''Me.Close()
 
+                slStatus.Text = "Loading Employee Profile Information Please Wait..............."
                 Call SendResultsToMainForm()
-                Call sendResultsToPromotionsForm()
+                Me.Close()
+                ''Call sendResultsToPromotionsForm()
 
-                frmEmployeeProfile.Visible = True
-                frmEmployeeProfile.Refresh()
-                For Each ctrl In frmEmployeeProfile.Controls
-                    ctrl.refresh()
-                Next
+                ''frmEmployeeProfile.Visible = True
+                ''frmEmployeeProfile.Refresh()
+                ''For Each ctrl In frmEmployeeProfile.Controls
+                ''    ctrl.refresh()
+                ''Next
 
             ElseIf sCalledForm = "Employee Status" Then
                 Call SendResultsToMainForm()
@@ -223,6 +226,10 @@
             ElseIf sCalledForm = "Employee Profile DW" Then
 
                 Call SendResultsToMainForm()
+
+            ElseIf sCalledForm = "Appraisals_Discipline" Then
+                Call sendResultsToPromotionsForm()
+                Me.Close()
 
             End If
 
@@ -236,34 +243,38 @@
         Try
 
             If sCalledForm = "Employee Profile" Then
-                Dim f3 As frmAppraisals_Discipline = CType(Application.OpenForms("frmAppraisals_Discipline"), frmAppraisals_Discipline)
-                Dim Main As frmMdiMain = CType(Application.OpenForms("frmMdiMain"), frmMdiMain)
-                Dim empProfile As frmEmployeeProfile = CType(Application.OpenForms("frmEmployeeProfile"), frmEmployeeProfile)
-                ' Main.cmdApp.Visible = True
-                ' empProfile.cmdApp.Visible = True
-                Main.AppraisalsDisciiplineToolStripMenuItem.Visible = True
-                Main.cmdApp.Location = New Point(161, 3)
-                Main.cmdStatus.Location = New Point(311, 3)
-                f3.Show()
-                f3.WindowState = FormWindowState.Minimized
-                f3.Location = New Point(0, 0)
-                Me.Close()
+                ''Dim f3 As frmAppraisals_Discipline = CType(Application.OpenForms("frmAppraisals_Discipline"), frmAppraisals_Discipline)
+                ''Dim Main As frmMdiMain = CType(Application.OpenForms("frmMdiMain"), frmMdiMain)
+                ''Dim empProfile As frmEmployeeProfile = CType(Application.OpenForms("frmEmployeeProfile"), frmEmployeeProfile)
+                '' Main.cmdApp.Visible = True
+                '' empProfile.cmdApp.Visible = True
+                ''Main.AppraisalsDisciiplineToolStripMenuItem.Visible = True
+                ''Main.cmdApp.Location = New Point(161, 3)
+                ''Main.cmdStatus.Location = New Point(311, 3)
+                ' 'f3.Show()
+                ''f3.WindowState = FormWindowState.Minimized
+                ''f3.Location = New Point(0, 0)
+                ''Me.Close()
+                slStatus.Text = "Loading Employee Profile Information Please Wait..............."
                 Call SendResultsToMainForm()
-                Call sendResultsToPromotionsForm()
+                Me.Close()
+                ''Call sendResultsToPromotionsForm()
 
-                frmEmployeeProfile.Visible = True
-                frmEmployeeProfile.Refresh()
-                For Each ctrl In frmEmployeeProfile.Controls
-                    ctrl.refresh()
-                Next
+                ''frmEmployeeProfile.Visible = True
+                ''frmEmployeeProfile.Refresh()
+                ''For Each ctrl In frmEmployeeProfile.Controls
+                ''    ctrl.refresh()
+                ''Next
 
             ElseIf sCalledForm = "Employee Status" Then
                 Call SendResultsToMainForm()
 
 
             ElseIf sCalledForm = "Employee Profile DW" Then
-
                 Call SendResultsToMainForm()
+                Me.Close()
+            ElseIf sCalledForm = "Appraisals_Discipline" Then
+                Call sendResultsToPromotionsForm()
                 Me.Close()
 
             End If
@@ -282,6 +293,10 @@
     End Sub
 
     Private Sub chkTechnical_CheckedChanged(sender As Object, e As EventArgs) Handles chkTechnical.CheckedChanged
+
+    End Sub
+
+    Private Sub grdSearch_Click(sender As Object, e As EventArgs) Handles grdSearch.Click
 
     End Sub
 End Class

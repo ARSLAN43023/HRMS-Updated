@@ -263,7 +263,12 @@ Public Class frmEmployeeStatus
         conn.Execute(sSql)
 
         MsgBox("Employee status saved.",)
-        GenerateMails()
+        'GenerateMails()
+        If g_nCompanyId = 1 Then
+            GenerateMails()
+        ElseIf g_nCompanyId = 2 Then
+            GenerateMailsAcl()
+        End If
         Display()
 
         bProcessing = False
@@ -275,7 +280,8 @@ Public Class frmEmployeeStatus
         Dim rsEmailInt As New ADODB.Recordset
         Dim EmpDepartment As String
         Dim EmpDesignation As String
-        Dim EmpBranch As Integer
+        Dim EmpBranchId As Integer
+        Dim EmpBranch As String
         Dim EmpOfficialEmail As String
         If bEmail <> True Then Exit Function
         Dim EmailEmp As Integer
@@ -286,8 +292,14 @@ Public Class frmEmployeeStatus
         Dim rsMisc As New ADODB.Recordset
         Dim rsCont As New ADODB.Recordset
 
-        sSql = "Select dbo.ufn_GetDesignation(DesignationId) vcDesignation, dbo.ufn_GetDepartmentName(DepartmentId) vcDepartment,dbo.ufn_GetBranchName(BranchId)vcBranch,ContactOfficialEmail,BranchId From EM_Employee Where EmployeeNo='" & sEmpNo & "'"
+        sSql = "Select dbo.ufn_GetDesignation(DesignationId) vcDesignation, dbo.ufn_GetDepartmentName(DepartmentId) vcDepartment,dbo.ufn_GetBranchName(BranchId)vcBranch,ContactOfficialEmail,BranchId,dbo.ufn_GetBranchName(BranchId)vcBranch From EM_Employee Where EmployeeNo='" & sEmpNo & "'"
         GetRecordSet(rsMail, sSql)
+
+        EmpDepartment = Convert.ToString(rsMail("vcDepartment").Value)
+        EmpDesignation = Convert.ToString(rsMail("vcDesignation").Value)
+        EmpBranchId = Convert.ToInt32(rsMail("BranchId").Value)
+        EmpBranch = Convert.ToString(rsMail("vcBranch").Value)
+        EmpOfficialEmail = Convert.ToString(rsMail("ContactOfficialEmail").Value)
 
         EmpCount = 1
         EmailIntimation = "EmpExitEmail_Emp" & EmpCount
@@ -314,12 +326,7 @@ Public Class frmEmployeeStatus
                 ContactEmail = Convert.ToString(rsCont("ContactOfficialEmail").Value)
                 ExitEmailBranch = Convert.ToInt32(rsCont("BranchId").Value)
 
-                EmpDepartment = Convert.ToString(rsMail("vcDepartment").Value)
-                EmpDesignation = Convert.ToString(rsMail("vcDesignation").Value)
-                EmpBranch = Convert.ToInt32(rsMail("BranchId").Value)
-                EmpOfficialEmail = Convert.ToString(rsMail("ContactOfficialEmail").Value)
-
-                If EmpBranch = ExitEmailBranch And ExitEmailBranch <> 6 Then
+                If (EmpBranchId = ExitEmailBranch Or EmpBranchId = 2) And ExitEmailBranch <> 6 Then
                     Try
                         Dim Smtp_Server As New SmtpClient
                         Dim e_mail As New MailMessage()
@@ -330,25 +337,29 @@ Public Class frmEmployeeStatus
                         Smtp_Server.Host = "192.168.2.3"
 
                         e_mail = New MailMessage()
+
+
                         e_mail.From = New MailAddress("ems@fccl.com.pk")
                         e_mail.To.Add(ContactEmail)
+                        'e_mail.To.Add("arslan.ahmed@fccl.com.pk")
                         e_mail.Subject = "Employee Status Updated"
                         e_mail.IsBodyHtml = False
-                        e_mail.Body = "Status of following Employee has been changed" + vbNewLine + vbNewLine '( " & sEmpNo & " - " & txtEmployeeName.Text & " )
+                        e_mail.Body = "Status of following Employee has been changed:" + vbNewLine + vbNewLine '( " & sEmpNo & " - " & txtEmployeeName.Text & " )
                         e_mail.Body = e_mail.Body & "Employee No : " & sEmpNo & "" + vbNewLine
                         e_mail.Body = e_mail.Body & "Employee Name: " & txtEmployeeName.Text & "" + vbNewLine
                         e_mail.Body = e_mail.Body & "Designation: " & EmpDesignation & "" + vbNewLine
                         e_mail.Body = e_mail.Body & "Department: " & EmpDepartment & "" + vbNewLine
                         e_mail.Body = e_mail.Body & "Location: " & EmpBranch & "" + vbNewLine
                         If EmpOfficialEmail = "" Then
-                            e_mail.Body = e_mail.Body & "Email: No Email Exists" + vbNewLine + vbNewLine
+                            e_mail.Body = e_mail.Body & "Email: No email exists" + vbNewLine + vbNewLine
                         Else
                             e_mail.Body = e_mail.Body & "Email: " & EmpOfficialEmail & "" + vbNewLine + vbNewLine
                         End If
 
                         If sStatus <> "" Then
-                            e_mail.Body = e_mail.Body & "Employee Status Has been Changed To : " & cbStatus.Text + vbNewLine
-                            e_mail.Body = e_mail.Body & "Dated : " & dtpDate.Text + vbNewLine
+                            e_mail.Body = e_mail.Body & "Employee status has been changed to : " & cbStatus.Text + vbNewLine
+                            e_mail.Body = e_mail.Body & "Dated : " & dtpDate.Text + vbNewLine + vbNewLine
+                            e_mail.Body = e_mail.Body & "Changes made by: " & g_sLoggedInUser + vbNewLine
                         End If
                         e_mail.Body = e_mail.Body + vbNewLine + vbNewLine
                         e_mail.Body = e_mail.Body & "Regards" + vbNewLine
@@ -369,7 +380,7 @@ Public Class frmEmployeeStatus
 
                 End If
 
-                If EmpBranch = 6 Then
+                If EmpBranchId = 6 Then
 
                     Try
                         Dim Smtp_Server As New SmtpClient
@@ -383,7 +394,7 @@ Public Class frmEmployeeStatus
                         e_mail = New MailMessage()
                         e_mail.From = New MailAddress("ems@fccl.com.pk")
                         e_mail.To.Add(ContactEmail)
-
+                        'e_mail.To.Add("arslan.ahmed@fccl.com.pk")
                         e_mail.Subject = "Employee Status Updated"
                         e_mail.IsBodyHtml = False
                         e_mail.Body = "Status of following Employee has been changed" + vbNewLine + vbNewLine '( " & sEmpNo & " - " & txtEmployeeName.Text & " )
@@ -399,8 +410,9 @@ Public Class frmEmployeeStatus
                         End If
 
                         If sStatus <> "" Then
-                            e_mail.Body = e_mail.Body & "Employee Status Has been Changed To : " & cbStatus.Text + vbNewLine
-                            e_mail.Body = e_mail.Body & "Dated : " & dtpDate.Text + vbNewLine
+                            e_mail.Body = e_mail.Body & "Employee status has been changed to : " & cbStatus.Text + vbNewLine
+                            e_mail.Body = e_mail.Body & "Dated : " & dtpDate.Text + vbNewLine + vbNewLine
+                            e_mail.Body = e_mail.Body & "Changes Made by: " & g_sLoggedInUser + vbNewLine
                         End If
                         e_mail.Body = e_mail.Body + vbNewLine + vbNewLine
                         e_mail.Body = e_mail.Body & "Regards" + vbNewLine
@@ -580,4 +592,246 @@ Public Class frmEmployeeStatus
     Private Sub cbStatus_SelectedIndexChanged(sender As Object, e As EventArgs)
 
     End Sub
+    Private Function GenerateMailsAcl() As Boolean
+        Dim sSql As String
+        Dim rsMail As New ADODB.Recordset
+        Dim rsEmailInt As New ADODB.Recordset
+        Dim EmpDepartment As String
+        Dim EmpDesignation As String
+        Dim EmpBranch As String
+        Dim EmpBranchId As Integer
+        Dim EmpOfficialEmail As String
+        If bEmail <> True Then Exit Function
+        'Dim EmailEmp As Integer
+        Dim EmailEmp As String
+        Dim ContactEmail As String
+        Dim EmpCount As Integer
+        Dim EmailIntimation As String
+        Dim ExitEmailBranch As Integer
+        Dim rsMisc As New ADODB.Recordset
+        Dim rsCont As New ADODB.Recordset
+
+        'sSql = "Select dbo.ufn_GetDesignation(DesignationId) vcDesignation, dbo.ufn_GetDepartmentName(DepartmentId) vcDepartment,dbo.ufn_GetBranchName(BranchId)vcBranch,ContactOfficialEmail,BranchId From EM_Employee Where EmployeeNo='" & sEmpNo & "'"
+        sSql = "Select dbo.ufn_GetDesignation(DesignationId) vcDesignation, dbo.ufn_GetDepartmentName(DepartmentId) vcDepartment,dbo.ufn_GetBranchName(BranchId)vcBranch,ContactOfficialEmail,BranchId,dbo.ufn_GetBranchName(BranchId)vcBranch From EM_Employee Where EmployeeNo='" & sEmpNo & "'"
+        GetRecordSet(rsMail, sSql)
+
+        EmpDepartment = Convert.ToString(rsMail("vcDepartment").Value)
+        EmpDesignation = Convert.ToString(rsMail("vcDesignation").Value)
+        EmpBranchId = Convert.ToInt32(rsMail("BranchId").Value)
+        EmpBranch = Convert.ToString(rsMail("vcBranch").Value)
+        EmpOfficialEmail = Convert.ToString(rsMail("ContactOfficialEmail").Value)
+
+        EmpCount = 1
+        EmailIntimation = "EmpExitEmail_Emp" & EmpCount
+
+        sSql = "Select vcPrefName,vcPrefValue from EM_SysPreferences where vcPrefName Like '%EmpExitEmail_Emp%'"
+        GetRecordSet(rsEmailInt, sSql)
+
+        If rsEmailInt.RecordCount > 0 Then
+
+            While Not rsEmailInt.EOF
+
+                EmailIntimation = "EmpExitEmail_Emp" & EmpCount
+
+                sSql = "Select vcPrefName,vcPrefValue from EM_SysPreferences where vcPrefName='" & EmailIntimation & "' "
+                GetRecordSet(rsMisc, sSql)
+
+                If rsMisc.EOF Then Exit Function
+
+                'EmailEmp = Convert.ToInt32(rsMisc("vcPrefValue").Value)
+                EmailEmp = Convert.ToString(rsMisc("vcPrefValue").Value)
+
+                sSql = "Select BranchId,ContactOfficialEmail from EM_Employee where EmployeeNo='" & EmailEmp & "'"
+                GetRecordSet(rsCont, sSql)
+
+                ContactEmail = Convert.ToString(rsCont("ContactOfficialEmail").Value)
+                ExitEmailBranch = Convert.ToInt32(rsCont("BranchId").Value)
+
+                'If EmpBranch = ExitEmailBranch And ExitEmailBranch <> 6 Then
+                'If EmpBranchId = ExitEmailBranch And (ExitEmailBranch <> 7 And ExitEmailBranch <> 8) Then
+                If (EmpBranchId = ExitEmailBranch Or EmpBranchId = 2) And (ExitEmailBranch <> 7 And ExitEmailBranch <> 8) Then
+                    Try
+                        Dim Smtp_Server As New SmtpClient
+                        Dim e_mail As New MailMessage()
+                        Smtp_Server.UseDefaultCredentials = False
+                        'Smtp_Server.Credentials = New Net.NetworkCredential("ems", "Ems753")
+                        Smtp_Server.Credentials = New Net.NetworkCredential("ems@askaricement.com.pk", "Ems753")
+                        Smtp_Server.Port = 25
+                        'Smtp_Server.EnableSsl = True
+                        'Smtp_Server.Host = "192.168.2.3"
+                        Smtp_Server.Host = "mail.askaricement.com.pk"
+
+                        e_mail = New MailMessage()
+                        'e_mail.From = New MailAddress("ems@fccl.com.pk")
+                        e_mail.From = New MailAddress("ems@askaricement.com.pk")
+                        e_mail.To.Add(ContactEmail)
+                        'e_mail.To.Add("arslan.ahmed@fccl.com.pk")
+
+                        e_mail.Subject = "Employee Status Updated"
+                        e_mail.IsBodyHtml = False
+                        e_mail.Body = "Status of following Employee has been changed" + vbNewLine + vbNewLine '( " & sEmpNo & " - " & txtEmployeeName.Text & " )
+                        e_mail.Body = e_mail.Body & "Employee No : " & sEmpNo & "" + vbNewLine
+                        e_mail.Body = e_mail.Body & "Employee Name: " & txtEmployeeName.Text & "" + vbNewLine
+                        e_mail.Body = e_mail.Body & "Designation: " & EmpDesignation & "" + vbNewLine
+                        e_mail.Body = e_mail.Body & "Department: " & EmpDepartment & "" + vbNewLine
+                        e_mail.Body = e_mail.Body & "Location: " & EmpBranch & "" + vbNewLine
+                        If EmpOfficialEmail = "" Then
+                            e_mail.Body = e_mail.Body & "Email: No Email Exists" + vbNewLine + vbNewLine
+                        Else
+                            e_mail.Body = e_mail.Body & "Email: " & EmpOfficialEmail & "" + vbNewLine + vbNewLine
+                        End If
+
+                        If sStatus <> "" Then
+                            e_mail.Body = e_mail.Body & "Employee status has been changed to : " & cbStatus.Text + vbNewLine
+                            e_mail.Body = e_mail.Body & "Dated : " & dtpDate.Text + vbNewLine + vbNewLine
+                            e_mail.Body = e_mail.Body & "Changes Made by: " & g_sLoggedInUser + vbNewLine
+                        End If
+                        e_mail.Body = e_mail.Body + vbNewLine + vbNewLine
+                        e_mail.Body = e_mail.Body & "Regards" + vbNewLine
+                        e_mail.Body = e_mail.Body & "HR Department" + vbNewLine
+                        'e_mail.Body = e_mail.Body & "Fauji Cement Company Limited." + vbNewLine
+                        e_mail.Body = e_mail.Body & "Askari Cement Ltd." + vbNewLine
+
+
+                        ServicePointManager.ServerCertificateValidationCallback =
+                        New System.Net.Security.RemoteCertificateValidationCallback(AddressOf customCertValidation)
+                        'Smtp_Server.EnableSsl = True
+                        Smtp_Server.Send(e_mail)
+                        '  MsgBox("Mail Sent")
+                        bEmail = False
+
+
+                    Catch error_t As Exception
+                        MsgBox(error_t.ToString)
+                    End Try
+
+                End If
+
+                'If EmpBranch = 6 Then
+                If EmpBranchId = 7 And ExitEmailBranch <> 8 Then
+
+                    Try
+                        Dim Smtp_Server As New SmtpClient
+                        Dim e_mail As New MailMessage()
+                        Smtp_Server.UseDefaultCredentials = False
+                        'Smtp_Server.Credentials = New Net.NetworkCredential("ems", "Ems753")
+                        Smtp_Server.Credentials = New Net.NetworkCredential("ems@askarcement.com.pk", "Ems753")
+                        Smtp_Server.Port = 25
+                        'Smtp_Server.EnableSsl = True
+                        'Smtp_Server.Host = "192.168.2.3"
+                        Smtp_Server.Host = "mail.askaricement.com.pk"
+
+                        e_mail = New MailMessage()
+                        'e_mail.From = New MailAddress("ems@fccl.com.pk")
+                        e_mail.From = New MailAddress("ems@askarcement.com.pk")
+                        e_mail.To.Add(ContactEmail)
+                        'e_mail.To.Add("arslan.ahmed@fccl.com.pk")
+
+                        e_mail.Subject = "Employee Status Updated"
+                        e_mail.IsBodyHtml = False
+                        e_mail.Body = "Status of following Employee has been changed" + vbNewLine + vbNewLine '( " & sEmpNo & " - " & txtEmployeeName.Text & " )
+                        e_mail.Body = e_mail.Body & "Employee No : " & sEmpNo & "" + vbNewLine
+                        e_mail.Body = e_mail.Body & "Employee Name: " & txtEmployeeName.Text & "" + vbNewLine
+                        e_mail.Body = e_mail.Body & "Designation: " & EmpDesignation & "" + vbNewLine
+                        e_mail.Body = e_mail.Body & "Department: " & EmpDepartment & "" + vbNewLine
+                        e_mail.Body = e_mail.Body & "Location: " & EmpBranch & "" + vbNewLine
+                        If EmpOfficialEmail = "" Then
+                            e_mail.Body = e_mail.Body & "Email: No Email Exists" + vbNewLine + vbNewLine
+                        Else
+                            e_mail.Body = e_mail.Body & "Email: " & EmpOfficialEmail & "" + vbNewLine + vbNewLine
+                        End If
+
+                        If sStatus <> "" Then
+                            e_mail.Body = e_mail.Body & "Employee status has been changed to : " & cbStatus.Text + vbNewLine
+                            e_mail.Body = e_mail.Body & "Dated : " & dtpDate.Text + vbNewLine + vbNewLine
+                            e_mail.Body = e_mail.Body & "Changes Made by: " & g_sLoggedInUser + vbNewLine
+                        End If
+                        e_mail.Body = e_mail.Body + vbNewLine + vbNewLine
+                        e_mail.Body = e_mail.Body & "Regards" + vbNewLine
+                        e_mail.Body = e_mail.Body & "HR Department" + vbNewLine
+                        'e_mail.Body = e_mail.Body & "Fauji Cement Company Limited." + vbNewLine
+                        e_mail.Body = e_mail.Body & "Askari Cement Ltd." + vbNewLine
+
+                        ServicePointManager.ServerCertificateValidationCallback =
+                        New System.Net.Security.RemoteCertificateValidationCallback(AddressOf customCertValidation)
+                        'Smtp_Server.EnableSsl = True
+                        Smtp_Server.Send(e_mail)
+                        '  MsgBox("Mail Sent")
+                        bEmail = False
+
+
+                    Catch error_t As Exception
+                        MsgBox(error_t.ToString)
+                    End Try
+
+                End If
+
+                If EmpBranchId = 8 And ExitEmailBranch <> 7 Then
+
+                    Try
+                        Dim Smtp_Server As New SmtpClient
+                        Dim e_mail As New MailMessage()
+                        Smtp_Server.UseDefaultCredentials = False
+                        'Smtp_Server.Credentials = New Net.NetworkCredential("ems", "Ems753")
+                        Smtp_Server.Credentials = New Net.NetworkCredential("ems@askarcement.com.pk", "Ems753")
+                        Smtp_Server.Port = 25
+                        'Smtp_Server.EnableSsl = True
+                        'Smtp_Server.Host = "192.168.2.3"
+                        Smtp_Server.Host = "mail.askaricement.com.pk"
+
+                        e_mail = New MailMessage()
+                        'e_mail.From = New MailAddress("ems@fccl.com.pk")
+                        e_mail.From = New MailAddress("ems@askarcement.com.pk")
+                        e_mail.To.Add(ContactEmail)
+                        'e_mail.To.Add("arslan.ahmed@fccl.com.pk")
+
+                        e_mail.Subject = "Employee Status Updated"
+                        e_mail.IsBodyHtml = False
+                        e_mail.Body = "Status of following Employee has been changed" + vbNewLine + vbNewLine '( " & sEmpNo & " - " & txtEmployeeName.Text & " )
+                        e_mail.Body = e_mail.Body & "Employee No : " & sEmpNo & "" + vbNewLine
+                        e_mail.Body = e_mail.Body & "Employee Name: " & txtEmployeeName.Text & "" + vbNewLine
+                        e_mail.Body = e_mail.Body & "Designation: " & EmpDesignation & "" + vbNewLine
+                        e_mail.Body = e_mail.Body & "Department: " & EmpDepartment & "" + vbNewLine
+                        e_mail.Body = e_mail.Body & "Location: " & EmpBranch & "" + vbNewLine
+                        If EmpOfficialEmail = "" Then
+                            e_mail.Body = e_mail.Body & "Email: No Email Exists" + vbNewLine + vbNewLine
+                        Else
+                            e_mail.Body = e_mail.Body & "Email: " & EmpOfficialEmail & "" + vbNewLine + vbNewLine
+                        End If
+
+                        If sStatus <> "" Then
+                            e_mail.Body = e_mail.Body & "Employee status has been changed to : " & cbStatus.Text + vbNewLine
+                            e_mail.Body = e_mail.Body & "Dated : " & dtpDate.Text + vbNewLine + vbNewLine
+                            e_mail.Body = e_mail.Body & "Changes Made by: " & g_sLoggedInUser + vbNewLine
+                        End If
+                        e_mail.Body = e_mail.Body + vbNewLine + vbNewLine
+                        e_mail.Body = e_mail.Body & "Regards" + vbNewLine
+                        e_mail.Body = e_mail.Body & "HR Department" + vbNewLine
+                        'e_mail.Body = e_mail.Body & "Fauji Cement Company Limited." + vbNewLine
+                        e_mail.Body = e_mail.Body & "Askari Cement Ltd." + vbNewLine
+
+                        ServicePointManager.ServerCertificateValidationCallback =
+                        New System.Net.Security.RemoteCertificateValidationCallback(AddressOf customCertValidation)
+                        'Smtp_Server.EnableSsl = True
+                        Smtp_Server.Send(e_mail)
+                        '  MsgBox("Mail Sent")
+                        bEmail = False
+
+
+                    Catch error_t As Exception
+                        MsgBox(error_t.ToString)
+                    End Try
+
+                End If
+
+                EmpCount = EmpCount + 1
+
+                rsEmailInt.MoveNext()
+
+            End While
+
+            Return bEmail
+        End If
+
+    End Function
 End Class

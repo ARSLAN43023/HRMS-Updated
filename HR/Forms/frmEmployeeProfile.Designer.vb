@@ -76,6 +76,9 @@ Partial Class frmEmployeeProfile
         Me.txtEmployeeNo = New System.Windows.Forms.TextBox()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.tbFCCL = New System.Windows.Forms.TabPage()
+        Me.chkOtherCompEmp = New System.Windows.Forms.CheckBox()
+        Me.cbSection = New System.Windows.Forms.ComboBox()
+        Me.Label100 = New System.Windows.Forms.Label()
         Me.GroupBox8 = New System.Windows.Forms.GroupBox()
         Me.chkIsMilitaryPersonnel = New System.Windows.Forms.CheckBox()
         Me.Label34 = New System.Windows.Forms.Label()
@@ -304,8 +307,6 @@ Partial Class frmEmployeeProfile
         Me.slStatus = New System.Windows.Forms.ToolStripStatusLabel()
         Me.cmdApp = New System.Windows.Forms.Button()
         Me.OpenFileDialog1 = New System.Windows.Forms.OpenFileDialog()
-        Me.cbSection = New System.Windows.Forms.ComboBox()
-        Me.Label100 = New System.Windows.Forms.Label()
         Me.EMEmployeeAuditBindingSource = New System.Windows.Forms.BindingSource(Me.components)
         Me.DsHR = New HR.dsHR()
         Me.EM_Employee_AuditTableAdapter = New HR.dsHRTableAdapters.EM_Employee_AuditTableAdapter()
@@ -340,6 +341,7 @@ Partial Class frmEmployeeProfile
         '
         'tlbToolbar
         '
+        Me.tlbToolbar.BackColor = System.Drawing.SystemColors.ButtonHighlight
         Me.tlbToolbar.ImageScalingSize = New System.Drawing.Size(18, 18)
         Me.tlbToolbar.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.btn_Prepare, Me.btn_Modify, Me.btnSearch, Me.btn_Delete, Me.ToolStripSeparator1, Me.btn_Verify, Me.btn_Approve})
         Me.tlbToolbar.Location = New System.Drawing.Point(0, 0)
@@ -855,6 +857,7 @@ Partial Class frmEmployeeProfile
         'tbFCCL
         '
         Me.tbFCCL.BackColor = System.Drawing.SystemColors.ButtonFace
+        Me.tbFCCL.Controls.Add(Me.chkOtherCompEmp)
         Me.tbFCCL.Controls.Add(Me.cbSection)
         Me.tbFCCL.Controls.Add(Me.Label100)
         Me.tbFCCL.Controls.Add(Me.GroupBox8)
@@ -908,7 +911,35 @@ Partial Class frmEmployeeProfile
         Me.tbFCCL.Name = "tbFCCL"
         Me.tbFCCL.Size = New System.Drawing.Size(991, 430)
         Me.tbFCCL.TabIndex = 10
-        Me.tbFCCL.Text = "FCCL Info"
+        Me.tbFCCL.Text = "Info"
+        '
+        'chkOtherCompEmp
+        '
+        Me.chkOtherCompEmp.AutoSize = True
+        Me.chkOtherCompEmp.Location = New System.Drawing.Point(768, 76)
+        Me.chkOtherCompEmp.Name = "chkOtherCompEmp"
+        Me.chkOtherCompEmp.Size = New System.Drawing.Size(136, 20)
+        Me.chkOtherCompEmp.TabIndex = 79
+        Me.chkOtherCompEmp.Text = "Is ACL Employee"
+        Me.chkOtherCompEmp.UseVisualStyleBackColor = True
+        '
+        'cbSection
+        '
+        Me.cbSection.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.cbSection.FormattingEnabled = True
+        Me.cbSection.Location = New System.Drawing.Point(153, 94)
+        Me.cbSection.Name = "cbSection"
+        Me.cbSection.Size = New System.Drawing.Size(264, 24)
+        Me.cbSection.TabIndex = 78
+        '
+        'Label100
+        '
+        Me.Label100.AutoSize = True
+        Me.Label100.Location = New System.Drawing.Point(8, 97)
+        Me.Label100.Name = "Label100"
+        Me.Label100.Size = New System.Drawing.Size(58, 16)
+        Me.Label100.TabIndex = 77
+        Me.Label100.Text = "Section"
         '
         'GroupBox8
         '
@@ -921,7 +952,7 @@ Partial Class frmEmployeeProfile
         Me.GroupBox8.Controls.Add(Me.txtTradeAppointment)
         Me.GroupBox8.Controls.Add(Me.Label35)
         Me.GroupBox8.Controls.Add(Me.cbRank)
-        Me.GroupBox8.Location = New System.Drawing.Point(360, 158)
+        Me.GroupBox8.Location = New System.Drawing.Point(442, 158)
         Me.GroupBox8.Name = "GroupBox8"
         Me.GroupBox8.Size = New System.Drawing.Size(349, 186)
         Me.GroupBox8.TabIndex = 37
@@ -1016,7 +1047,7 @@ Partial Class frmEmployeeProfile
         'chkLFANo
         '
         Me.chkLFANo.AutoSize = True
-        Me.chkLFANo.Location = New System.Drawing.Point(592, 135)
+        Me.chkLFANo.Location = New System.Drawing.Point(663, 135)
         Me.chkLFANo.Name = "chkLFANo"
         Me.chkLFANo.Size = New System.Drawing.Size(44, 20)
         Me.chkLFANo.TabIndex = 76
@@ -1026,7 +1057,7 @@ Partial Class frmEmployeeProfile
         'ChkLFAYes
         '
         Me.ChkLFAYes.AutoSize = True
-        Me.ChkLFAYes.Location = New System.Drawing.Point(536, 134)
+        Me.ChkLFAYes.Location = New System.Drawing.Point(607, 134)
         Me.ChkLFAYes.Name = "ChkLFAYes"
         Me.ChkLFAYes.Size = New System.Drawing.Size(50, 20)
         Me.ChkLFAYes.TabIndex = 75
@@ -1036,7 +1067,7 @@ Partial Class frmEmployeeProfile
         'Label110
         '
         Me.Label110.AutoSize = True
-        Me.Label110.Location = New System.Drawing.Point(373, 136)
+        Me.Label110.Location = New System.Drawing.Point(444, 136)
         Me.Label110.Name = "Label110"
         Me.Label110.Size = New System.Drawing.Size(31, 16)
         Me.Label110.TabIndex = 74
@@ -1045,7 +1076,7 @@ Partial Class frmEmployeeProfile
         'chkConfNo
         '
         Me.chkConfNo.AutoSize = True
-        Me.chkConfNo.Location = New System.Drawing.Point(592, 106)
+        Me.chkConfNo.Location = New System.Drawing.Point(663, 106)
         Me.chkConfNo.Name = "chkConfNo"
         Me.chkConfNo.Size = New System.Drawing.Size(44, 20)
         Me.chkConfNo.TabIndex = 73
@@ -1055,7 +1086,7 @@ Partial Class frmEmployeeProfile
         'chkConfYes
         '
         Me.chkConfYes.AutoSize = True
-        Me.chkConfYes.Location = New System.Drawing.Point(536, 108)
+        Me.chkConfYes.Location = New System.Drawing.Point(607, 108)
         Me.chkConfYes.Name = "chkConfYes"
         Me.chkConfYes.Size = New System.Drawing.Size(50, 20)
         Me.chkConfYes.TabIndex = 72
@@ -1065,7 +1096,7 @@ Partial Class frmEmployeeProfile
         'Label109
         '
         Me.Label109.AutoSize = True
-        Me.Label109.Location = New System.Drawing.Point(373, 108)
+        Me.Label109.Location = New System.Drawing.Point(444, 108)
         Me.Label109.Name = "Label109"
         Me.Label109.Size = New System.Drawing.Size(157, 16)
         Me.Label109.TabIndex = 71
@@ -1092,7 +1123,7 @@ Partial Class frmEmployeeProfile
         'chkIsTechnical
         '
         Me.chkIsTechnical.AutoSize = True
-        Me.chkIsTechnical.Location = New System.Drawing.Point(376, 76)
+        Me.chkIsTechnical.Location = New System.Drawing.Point(447, 76)
         Me.chkIsTechnical.Name = "chkIsTechnical"
         Me.chkIsTechnical.Size = New System.Drawing.Size(106, 20)
         Me.chkIsTechnical.TabIndex = 35
@@ -1103,7 +1134,7 @@ Partial Class frmEmployeeProfile
         '
         Me.cbJoinedAs.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cbJoinedAs.FormattingEnabled = True
-        Me.cbJoinedAs.Location = New System.Drawing.Point(449, 11)
+        Me.cbJoinedAs.Location = New System.Drawing.Point(520, 11)
         Me.cbJoinedAs.Name = "cbJoinedAs"
         Me.cbJoinedAs.Size = New System.Drawing.Size(461, 24)
         Me.cbJoinedAs.TabIndex = 33
@@ -1111,7 +1142,7 @@ Partial Class frmEmployeeProfile
         'chkIsHOD
         '
         Me.chkIsHOD.AutoSize = True
-        Me.chkIsHOD.Location = New System.Drawing.Point(514, 76)
+        Me.chkIsHOD.Location = New System.Drawing.Point(585, 76)
         Me.chkIsHOD.Name = "chkIsHOD"
         Me.chkIsHOD.Size = New System.Drawing.Size(177, 20)
         Me.chkIsHOD.TabIndex = 36
@@ -1121,7 +1152,7 @@ Partial Class frmEmployeeProfile
         'Label103
         '
         Me.Label103.AutoSize = True
-        Me.Label103.Location = New System.Drawing.Point(373, 15)
+        Me.Label103.Location = New System.Drawing.Point(444, 15)
         Me.Label103.Name = "Label103"
         Me.Label103.Size = New System.Drawing.Size(70, 16)
         Me.Label103.TabIndex = 68
@@ -1149,7 +1180,7 @@ Partial Class frmEmployeeProfile
         '
         'txtJobDescription
         '
-        Me.txtJobDescription.Location = New System.Drawing.Point(449, 44)
+        Me.txtJobDescription.Location = New System.Drawing.Point(520, 44)
         Me.txtJobDescription.Name = "txtJobDescription"
         Me.txtJobDescription.Size = New System.Drawing.Size(461, 23)
         Me.txtJobDescription.TabIndex = 34
@@ -1157,7 +1188,7 @@ Partial Class frmEmployeeProfile
         'Label33
         '
         Me.Label33.AutoSize = True
-        Me.Label33.Location = New System.Drawing.Point(373, 48)
+        Me.Label33.Location = New System.Drawing.Point(444, 48)
         Me.Label33.Name = "Label33"
         Me.Label33.Size = New System.Drawing.Size(72, 16)
         Me.Label33.TabIndex = 56
@@ -1345,7 +1376,7 @@ Partial Class frmEmployeeProfile
         Me.cbContractType.Items.AddRange(New Object() {"Permanent", "Contract"})
         Me.cbContractType.Location = New System.Drawing.Point(153, 120)
         Me.cbContractType.Name = "cbContractType"
-        Me.cbContractType.Size = New System.Drawing.Size(196, 24)
+        Me.cbContractType.Size = New System.Drawing.Size(264, 24)
         Me.cbContractType.TabIndex = 22
         '
         'Label20
@@ -1401,7 +1432,7 @@ Partial Class frmEmployeeProfile
         Me.cbDepartment.FormattingEnabled = True
         Me.cbDepartment.Location = New System.Drawing.Point(153, 68)
         Me.cbDepartment.Name = "cbDepartment"
-        Me.cbDepartment.Size = New System.Drawing.Size(196, 24)
+        Me.cbDepartment.Size = New System.Drawing.Size(264, 24)
         Me.cbDepartment.TabIndex = 21
         '
         'Label17
@@ -1419,7 +1450,7 @@ Partial Class frmEmployeeProfile
         Me.cbBranch.FormattingEnabled = True
         Me.cbBranch.Location = New System.Drawing.Point(153, 40)
         Me.cbBranch.Name = "cbBranch"
-        Me.cbBranch.Size = New System.Drawing.Size(196, 24)
+        Me.cbBranch.Size = New System.Drawing.Size(264, 24)
         Me.cbBranch.TabIndex = 20
         '
         'Label15
@@ -1437,7 +1468,7 @@ Partial Class frmEmployeeProfile
         Me.cbBusinessUnit.FormattingEnabled = True
         Me.cbBusinessUnit.Location = New System.Drawing.Point(153, 11)
         Me.cbBusinessUnit.Name = "cbBusinessUnit"
-        Me.cbBusinessUnit.Size = New System.Drawing.Size(196, 24)
+        Me.cbBusinessUnit.Size = New System.Drawing.Size(264, 24)
         Me.cbBusinessUnit.TabIndex = 19
         '
         'Label16
@@ -3134,12 +3165,10 @@ Partial Class frmEmployeeProfile
         'slStatus
         '
         Me.slStatus.Name = "slStatus"
-        Me.slStatus.Size = New System.Drawing.Size(119, 17)
-        Me.slStatus.Text = "ToolStripStatusLabel1"
+        Me.slStatus.Size = New System.Drawing.Size(0, 17)
         '
         'cmdApp
         '
-        Me.cmdApp.Enabled = False
         Me.cmdApp.Location = New System.Drawing.Point(863, 12)
         Me.cmdApp.Name = "cmdApp"
         Me.cmdApp.Size = New System.Drawing.Size(122, 34)
@@ -3152,24 +3181,6 @@ Partial Class frmEmployeeProfile
         '
         Me.OpenFileDialog1.FileName = "EM_Employee"
         Me.OpenFileDialog1.Filter = "Excel 2016 File(*.xlsx)|*.xlsx"
-        '
-        'cbSection
-        '
-        Me.cbSection.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
-        Me.cbSection.FormattingEnabled = True
-        Me.cbSection.Location = New System.Drawing.Point(153, 94)
-        Me.cbSection.Name = "cbSection"
-        Me.cbSection.Size = New System.Drawing.Size(196, 24)
-        Me.cbSection.TabIndex = 78
-        '
-        'Label100
-        '
-        Me.Label100.AutoSize = True
-        Me.Label100.Location = New System.Drawing.Point(8, 97)
-        Me.Label100.Name = "Label100"
-        Me.Label100.Size = New System.Drawing.Size(58, 16)
-        Me.Label100.TabIndex = 77
-        Me.Label100.Text = "Section"
         '
         'EMEmployeeAuditBindingSource
         '
@@ -3533,4 +3544,5 @@ Partial Class frmEmployeeProfile
     Friend WithEvents GroupBox8 As GroupBox
     Friend WithEvents cbSection As ComboBox
     Friend WithEvents Label100 As Label
+    Friend WithEvents chkOtherCompEmp As CheckBox
 End Class

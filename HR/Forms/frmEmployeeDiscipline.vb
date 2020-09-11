@@ -164,7 +164,7 @@
 
     Private Sub FillAudit()
         Dim connODBC As New Odbc.OdbcConnection
-        connODBC.ConnectionString = "Dsn=ERP;uid=sa;pwd=123456;pwd=123456"
+        connODBC.ConnectionString = "Dsn=ERPACL;uid=sa;pwd=Delt@13l;pwd=123456;pwd=123456"
         connODBC.Open()
         Dim ds As DataSet = New DataSet
         Dim adapter As New Odbc.OdbcDataAdapter

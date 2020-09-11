@@ -42,6 +42,9 @@ Public Class frmEmployeeProfileDW
         Me.EM_Employee_AuditTableAdapter.Fill(Me.DsHR.EM_Employee_Audit)
         rsMain = New ADODB.Recordset
         rsMain.CursorLocation = ADODB.CursorLocationEnum.adUseClient
+        '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+        TabControl1.TabPages(1).Text = IIf(g_nCompanyId = 1, "FCCL Info", "ACL Info")
+        '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
         UserRights(rsMisc)
         PopulateControls()
         Clear()
@@ -108,7 +111,7 @@ Public Class frmEmployeeProfileDW
                 End If
                 rsMisc.MoveNext()
             End While
-            TabControl1.TabPages.Add(tbAudit)
+            'TabControl1.TabPages.Add(tbAudit)
         Catch ex As Exception
             MsgBox("Error" & ex.Message)
         End Try
@@ -733,7 +736,7 @@ Public Class frmEmployeeProfileDW
 
     Private Sub FillAudit()
         Dim connODBC As New Odbc.OdbcConnection
-        connODBC.ConnectionString =  "Dsn=ERP;uid=sa"
+        connODBC.ConnectionString = "Dsn=ERP;uid=sa"
         connODBC.Open()
         Dim ds As DataSet = New DataSet
         Dim adapter As New Odbc.OdbcDataAdapter

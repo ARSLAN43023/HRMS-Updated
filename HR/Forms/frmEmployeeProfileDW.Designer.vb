@@ -526,12 +526,12 @@ Partial Class frmEmployeeProfileDW
         Me.tbFCCL.Name = "tbFCCL"
         Me.tbFCCL.Size = New System.Drawing.Size(992, 289)
         Me.tbFCCL.TabIndex = 10
-        Me.tbFCCL.Text = "FCCL Info"
+        Me.tbFCCL.Text = "Info"
         '
         'Label27
         '
         Me.Label27.AutoSize = True
-        Me.Label27.Location = New System.Drawing.Point(660, 105)
+        Me.Label27.Location = New System.Drawing.Point(431, 105)
         Me.Label27.Name = "Label27"
         Me.Label27.Size = New System.Drawing.Size(146, 16)
         Me.Label27.TabIndex = 41
@@ -541,26 +541,26 @@ Partial Class frmEmployeeProfileDW
         '
         Me.dtpGradeEffectiveDate.CustomFormat = "dd/MM/yy"
         Me.dtpGradeEffectiveDate.Format = System.Windows.Forms.DateTimePickerFormat.[Short]
-        Me.dtpGradeEffectiveDate.Location = New System.Drawing.Point(806, 101)
+        Me.dtpGradeEffectiveDate.Location = New System.Drawing.Point(577, 102)
         Me.dtpGradeEffectiveDate.Name = "dtpGradeEffectiveDate"
         Me.dtpGradeEffectiveDate.ShowCheckBox = True
         Me.dtpGradeEffectiveDate.Size = New System.Drawing.Size(175, 23)
-        Me.dtpGradeEffectiveDate.TabIndex = 27
+        Me.dtpGradeEffectiveDate.TabIndex = 22
         Me.dtpGradeEffectiveDate.Value = New Date(2015, 8, 25, 15, 57, 38, 0)
         '
         'cbGrade
         '
         Me.cbGrade.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cbGrade.FormattingEnabled = True
-        Me.cbGrade.Location = New System.Drawing.Point(475, 101)
+        Me.cbGrade.Location = New System.Drawing.Point(577, 132)
         Me.cbGrade.Name = "cbGrade"
         Me.cbGrade.Size = New System.Drawing.Size(175, 24)
-        Me.cbGrade.TabIndex = 26
+        Me.cbGrade.TabIndex = 23
         '
         'Label25
         '
         Me.Label25.AutoSize = True
-        Me.Label25.Location = New System.Drawing.Point(334, 105)
+        Me.Label25.Location = New System.Drawing.Point(431, 135)
         Me.Label25.Name = "Label25"
         Me.Label25.Size = New System.Drawing.Size(46, 16)
         Me.Label25.TabIndex = 38
@@ -570,15 +570,15 @@ Partial Class frmEmployeeProfileDW
         '
         Me.cbEmployeeType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cbEmployeeType.FormattingEnabled = True
-        Me.cbEmployeeType.Location = New System.Drawing.Point(150, 101)
+        Me.cbEmployeeType.Location = New System.Drawing.Point(150, 132)
         Me.cbEmployeeType.Name = "cbEmployeeType"
-        Me.cbEmployeeType.Size = New System.Drawing.Size(175, 24)
-        Me.cbEmployeeType.TabIndex = 25
+        Me.cbEmployeeType.Size = New System.Drawing.Size(259, 24)
+        Me.cbEmployeeType.TabIndex = 18
         '
         'Label26
         '
         Me.Label26.AutoSize = True
-        Me.Label26.Location = New System.Drawing.Point(8, 105)
+        Me.Label26.Location = New System.Drawing.Point(8, 135)
         Me.Label26.Name = "Label26"
         Me.Label26.Size = New System.Drawing.Size(107, 16)
         Me.Label26.TabIndex = 36
@@ -587,7 +587,7 @@ Partial Class frmEmployeeProfileDW
         'Label22
         '
         Me.Label22.AutoSize = True
-        Me.Label22.Location = New System.Drawing.Point(660, 75)
+        Me.Label22.Location = New System.Drawing.Point(431, 75)
         Me.Label22.Name = "Label22"
         Me.Label22.Size = New System.Drawing.Size(131, 16)
         Me.Label22.TabIndex = 31
@@ -597,7 +597,7 @@ Partial Class frmEmployeeProfileDW
         '
         Me.dtpContractEndDate.CustomFormat = "dd/MM/yy"
         Me.dtpContractEndDate.Format = System.Windows.Forms.DateTimePickerFormat.[Short]
-        Me.dtpContractEndDate.Location = New System.Drawing.Point(806, 71)
+        Me.dtpContractEndDate.Location = New System.Drawing.Point(577, 72)
         Me.dtpContractEndDate.Name = "dtpContractEndDate"
         Me.dtpContractEndDate.ShowCheckBox = True
         Me.dtpContractEndDate.Size = New System.Drawing.Size(175, 23)
@@ -607,7 +607,7 @@ Partial Class frmEmployeeProfileDW
         'Label21
         '
         Me.Label21.AutoSize = True
-        Me.Label21.Location = New System.Drawing.Point(334, 75)
+        Me.Label21.Location = New System.Drawing.Point(431, 15)
         Me.Label21.Name = "Label21"
         Me.Label21.Size = New System.Drawing.Size(141, 16)
         Me.Label21.TabIndex = 29
@@ -617,11 +617,11 @@ Partial Class frmEmployeeProfileDW
         '
         Me.dtpContractStartDate.CustomFormat = "dd/MM/yy"
         Me.dtpContractStartDate.Format = System.Windows.Forms.DateTimePickerFormat.[Short]
-        Me.dtpContractStartDate.Location = New System.Drawing.Point(476, 71)
+        Me.dtpContractStartDate.Location = New System.Drawing.Point(577, 12)
         Me.dtpContractStartDate.Name = "dtpContractStartDate"
         Me.dtpContractStartDate.ShowCheckBox = True
         Me.dtpContractStartDate.Size = New System.Drawing.Size(175, 23)
-        Me.dtpContractStartDate.TabIndex = 20
+        Me.dtpContractStartDate.TabIndex = 19
         Me.dtpContractStartDate.Value = New Date(2015, 8, 25, 15, 57, 38, 0)
         '
         'cbContractType
@@ -629,15 +629,15 @@ Partial Class frmEmployeeProfileDW
         Me.cbContractType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cbContractType.FormattingEnabled = True
         Me.cbContractType.Items.AddRange(New Object() {"Permanent", "Contract"})
-        Me.cbContractType.Location = New System.Drawing.Point(150, 71)
+        Me.cbContractType.Location = New System.Drawing.Point(150, 101)
         Me.cbContractType.Name = "cbContractType"
-        Me.cbContractType.Size = New System.Drawing.Size(175, 24)
-        Me.cbContractType.TabIndex = 19
+        Me.cbContractType.Size = New System.Drawing.Size(259, 24)
+        Me.cbContractType.TabIndex = 17
         '
         'Label20
         '
         Me.Label20.AutoSize = True
-        Me.Label20.Location = New System.Drawing.Point(8, 75)
+        Me.Label20.Location = New System.Drawing.Point(8, 105)
         Me.Label20.Name = "Label20"
         Me.Label20.Size = New System.Drawing.Size(103, 16)
         Me.Label20.TabIndex = 26
@@ -646,7 +646,7 @@ Partial Class frmEmployeeProfileDW
         'Label19
         '
         Me.Label19.AutoSize = True
-        Me.Label19.Location = New System.Drawing.Point(660, 45)
+        Me.Label19.Location = New System.Drawing.Point(431, 45)
         Me.Label19.Name = "Label19"
         Me.Label19.Size = New System.Drawing.Size(88, 16)
         Me.Label19.TabIndex = 25
@@ -656,26 +656,26 @@ Partial Class frmEmployeeProfileDW
         '
         Me.dtpJoiningDate.CustomFormat = "dd/MM/yy"
         Me.dtpJoiningDate.Format = System.Windows.Forms.DateTimePickerFormat.[Short]
-        Me.dtpJoiningDate.Location = New System.Drawing.Point(806, 41)
+        Me.dtpJoiningDate.Location = New System.Drawing.Point(577, 42)
         Me.dtpJoiningDate.Name = "dtpJoiningDate"
         Me.dtpJoiningDate.ShowCheckBox = True
         Me.dtpJoiningDate.Size = New System.Drawing.Size(175, 23)
-        Me.dtpJoiningDate.TabIndex = 18
+        Me.dtpJoiningDate.TabIndex = 20
         Me.dtpJoiningDate.Value = New Date(2015, 8, 25, 15, 57, 38, 0)
         '
         'cbDesignation
         '
         Me.cbDesignation.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cbDesignation.FormattingEnabled = True
-        Me.cbDesignation.Location = New System.Drawing.Point(150, 41)
+        Me.cbDesignation.Location = New System.Drawing.Point(150, 164)
         Me.cbDesignation.Name = "cbDesignation"
-        Me.cbDesignation.Size = New System.Drawing.Size(500, 24)
-        Me.cbDesignation.TabIndex = 17
+        Me.cbDesignation.Size = New System.Drawing.Size(603, 24)
+        Me.cbDesignation.TabIndex = 24
         '
         'Label18
         '
         Me.Label18.AutoSize = True
-        Me.Label18.Location = New System.Drawing.Point(8, 45)
+        Me.Label18.Location = New System.Drawing.Point(8, 167)
         Me.Label18.Name = "Label18"
         Me.Label18.Size = New System.Drawing.Size(84, 16)
         Me.Label18.TabIndex = 22
@@ -685,15 +685,15 @@ Partial Class frmEmployeeProfileDW
         '
         Me.cbDepartment.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cbDepartment.FormattingEnabled = True
-        Me.cbDepartment.Location = New System.Drawing.Point(806, 11)
+        Me.cbDepartment.Location = New System.Drawing.Point(150, 71)
         Me.cbDepartment.Name = "cbDepartment"
-        Me.cbDepartment.Size = New System.Drawing.Size(175, 24)
+        Me.cbDepartment.Size = New System.Drawing.Size(259, 24)
         Me.cbDepartment.TabIndex = 16
         '
         'Label17
         '
         Me.Label17.AutoSize = True
-        Me.Label17.Location = New System.Drawing.Point(660, 15)
+        Me.Label17.Location = New System.Drawing.Point(8, 75)
         Me.Label17.Name = "Label17"
         Me.Label17.Size = New System.Drawing.Size(85, 16)
         Me.Label17.TabIndex = 20
@@ -703,15 +703,15 @@ Partial Class frmEmployeeProfileDW
         '
         Me.cbBranch.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cbBranch.FormattingEnabled = True
-        Me.cbBranch.Location = New System.Drawing.Point(475, 11)
+        Me.cbBranch.Location = New System.Drawing.Point(149, 41)
         Me.cbBranch.Name = "cbBranch"
-        Me.cbBranch.Size = New System.Drawing.Size(175, 24)
+        Me.cbBranch.Size = New System.Drawing.Size(261, 24)
         Me.cbBranch.TabIndex = 15
         '
         'Label15
         '
         Me.Label15.AutoSize = True
-        Me.Label15.Location = New System.Drawing.Point(334, 15)
+        Me.Label15.Location = New System.Drawing.Point(8, 45)
         Me.Label15.Name = "Label15"
         Me.Label15.Size = New System.Drawing.Size(53, 16)
         Me.Label15.TabIndex = 18
@@ -723,7 +723,7 @@ Partial Class frmEmployeeProfileDW
         Me.cbBusinessUnit.FormattingEnabled = True
         Me.cbBusinessUnit.Location = New System.Drawing.Point(150, 11)
         Me.cbBusinessUnit.Name = "cbBusinessUnit"
-        Me.cbBusinessUnit.Size = New System.Drawing.Size(175, 24)
+        Me.cbBusinessUnit.Size = New System.Drawing.Size(261, 24)
         Me.cbBusinessUnit.TabIndex = 14
         '
         'Label16
@@ -768,15 +768,14 @@ Partial Class frmEmployeeProfileDW
         Me.stbDetail.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.slStatus})
         Me.stbDetail.Location = New System.Drawing.Point(0, 351)
         Me.stbDetail.Name = "stbDetail"
-        Me.stbDetail.Size = New System.Drawing.Size(959, 22)
+        Me.stbDetail.Size = New System.Drawing.Size(1000, 22)
         Me.stbDetail.TabIndex = 3
         Me.stbDetail.Text = "Hello"
         '
         'slStatus
         '
         Me.slStatus.Name = "slStatus"
-        Me.slStatus.Size = New System.Drawing.Size(119, 17)
-        Me.slStatus.Text = "ToolStripStatusLabel1"
+        Me.slStatus.Size = New System.Drawing.Size(0, 17)
         '
         'btn_Prepare
         '
@@ -848,10 +847,11 @@ Partial Class frmEmployeeProfileDW
         '
         'tlbToolbar
         '
+        Me.tlbToolbar.BackColor = System.Drawing.SystemColors.ButtonHighlight
         Me.tlbToolbar.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.btn_Prepare, Me.btn_Modify, Me.btnSearch, Me.btn_Delete, Me.ToolStripSeparator1, Me.btn_Verify, Me.btn_Approve})
         Me.tlbToolbar.Location = New System.Drawing.Point(0, 0)
         Me.tlbToolbar.Name = "tlbToolbar"
-        Me.tlbToolbar.Size = New System.Drawing.Size(959, 25)
+        Me.tlbToolbar.Size = New System.Drawing.Size(1000, 25)
         Me.tlbToolbar.TabIndex = 1
         Me.tlbToolbar.Text = "tlbTop"
         '
@@ -868,7 +868,7 @@ Partial Class frmEmployeeProfileDW
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(959, 373)
+        Me.ClientSize = New System.Drawing.Size(1000, 373)
         Me.Controls.Add(Me.stbDetail)
         Me.Controls.Add(Me.TabControl1)
         Me.Controls.Add(Me.tlbToolbar)
@@ -954,7 +954,6 @@ Partial Class frmEmployeeProfileDW
     Friend WithEvents cbBusinessUnit As ComboBox
     Friend WithEvents Label16 As Label
     Friend WithEvents tbAudit As TabPage
-    Friend WithEvents grdAudit As C1.Win.C1TrueDBGrid.C1TrueDBGrid
     Friend WithEvents stbDetail As StatusStrip
     Friend WithEvents slStatus As ToolStripStatusLabel
     Friend WithEvents DsHR As dsHR
@@ -967,4 +966,5 @@ Partial Class frmEmployeeProfileDW
     Friend WithEvents btn_Verify As ToolStripButton
     Friend WithEvents btn_Approve As ToolStripButton
     Friend WithEvents tlbToolbar As ToolStrip
+    Private WithEvents grdAudit As C1.Win.C1TrueDBGrid.C1TrueDBGrid
 End Class

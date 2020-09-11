@@ -152,20 +152,20 @@ Public Class frmAppraisals_Discipline
 
 
         'TAB PROMOTIONS
-        'nEmployeeId = Nothing
-        'nPromotionId = Nothing
-        'txtEmployeeName.Text = ""
-        'txtEmployeeName.Tag = ""
-        'cbFromType.SelectedIndex = -1
-        'cbFromType.Tag = cbFromType.SelectedIndex
+        nEmployeeId = Nothing
+        nPromotionId = Nothing
+        txtEmployeeName.Text = ""
+        txtEmployeeName.Tag = ""
+        cbFromType.SelectedIndex = -1
+        cbFromType.Tag = cbFromType.SelectedIndex
         cbToType.SelectedIndex = -1
         cbToType.Tag = cbToType.SelectedIndex
-        'cbFromDesignation.SelectedIndex = -1
-        'cbFromDesignation.Tag = cbFromDesignation.SelectedIndex
+        cbFromDesignation.SelectedIndex = -1
+        cbFromDesignation.Tag = cbFromDesignation.SelectedIndex
         cbToDesignation.SelectedIndex = -1
         cbToDesignation.Tag = cbToDesignation.SelectedIndex
-        'cbFromGrade.SelectedIndex = -1
-        'cbFromGrade.Tag = cbFromGrade.SelectedIndex
+        cbFromGrade.SelectedIndex = -1
+        cbFromGrade.Tag = cbFromGrade.SelectedIndex
         cbToGrade.SelectedIndex = -1
         cbToGrade.Tag = cbToGrade.SelectedIndex
         txtFromIncrement.Text = ""
@@ -179,16 +179,16 @@ Public Class frmAppraisals_Discipline
         txtRemarks.Tag = ""
         txtNewJobDescription.Text = ""
         txtNewJobDescription.Tag = ""
-        'grdPromotions.DataSource = Nothing
-        ' FillGrid()
+        grdPromotions.DataSource = Nothing
+        'FillGrid()
 
 
         'Tab Awards
 
-        'nEmployeeId = Nothing
-        'nAwardId = Nothing
-        'txtEmployeeNameA.Text = ""
-        'txtEmployeeNameA.Tag = ""
+        nEmployeeId = Nothing
+        nAwardId = Nothing
+        txtEmployeeNameA.Text = ""
+        txtEmployeeNameA.Tag = ""
         txtAwardName.Text = ""
         txtAwardName.Tag = ""
         txtAwardingAuthority.Text = ""
@@ -197,13 +197,13 @@ Public Class frmAppraisals_Discipline
         dtpAwardingDate.Tag = dtpAwardingDate.Value
         txtAwardDescription.Text = ""
         txtAwardDescription.Tag = ""
-        'grdAwards.DataSource = Nothing
+        grdAwards.DataSource = Nothing
 
         'Tab Trainings
-        'nEmployeeId = Nothing
-        'nSeminarId = Nothing
-        'txtEmployeeNameT.Text = ""
-        'txtEmployeeNameT.Tag = ""
+        nEmployeeId = Nothing
+        nSeminarId = Nothing
+        txtEmployeeNameT.Text = ""
+        txtEmployeeNameT.Tag = ""
         cbType.SelectedIndex = -1
         cbType.Tag = cbType.SelectedIndex
         txtTitle.Text = ""
@@ -222,15 +222,15 @@ Public Class frmAppraisals_Discipline
         txtCost.Tag = ""
         txtDescription.Text = ""
         txtDescription.Tag = ""
-        'grdSeminars.DataSource = Nothing
+        grdSeminars.DataSource = Nothing
 
 
         'Tab Discipline
 
-        'nEmployeeId = Nothing
-        'nDisciplineId = Nothing
-        'txtEmployeeNameD.Text = ""
-        'txtEmployeeNameD.Tag = ""
+        nEmployeeId = Nothing
+        nDisciplineId = Nothing
+        txtEmployeeNameD.Text = ""
+        txtEmployeeNameD.Tag = ""
         cbType.SelectedIndex = -1
         cbType.Tag = -1
         dtpDate.Value = CDate(Date.Now.ToString("dd MMM yyyy"))
@@ -239,8 +239,9 @@ Public Class frmAppraisals_Discipline
         txtRemarks.Text = ""
         txtRemarks.Tag = ""
         nStatus = 0
-        'grdDiscipline.DataSource = Nothing
-        '   slStatus.Text = "New Record"
+        grdDiscipline.DataSource = Nothing
+        grdAudit.DataSource = Nothing
+        'slStatus.Text = "New Record"
 
 
         '  FillGrid()

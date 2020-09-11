@@ -136,7 +136,7 @@ Partial Class frmAppraisals_Discipline
         Me.TabControl1.Location = New System.Drawing.Point(3, 28)
         Me.TabControl1.Name = "TabControl1"
         Me.TabControl1.SelectedIndex = 0
-        Me.TabControl1.Size = New System.Drawing.Size(677, 392)
+        Me.TabControl1.Size = New System.Drawing.Size(688, 392)
         Me.TabControl1.TabIndex = 0
         '
         'tbPromotions
@@ -173,7 +173,7 @@ Partial Class frmAppraisals_Discipline
         Me.tbPromotions.Location = New System.Drawing.Point(4, 25)
         Me.tbPromotions.Name = "tbPromotions"
         Me.tbPromotions.Padding = New System.Windows.Forms.Padding(3)
-        Me.tbPromotions.Size = New System.Drawing.Size(669, 363)
+        Me.tbPromotions.Size = New System.Drawing.Size(680, 363)
         Me.tbPromotions.TabIndex = 0
         Me.tbPromotions.Text = "Promotions"
         '
@@ -211,7 +211,7 @@ Partial Class frmAppraisals_Discipline
         Me.grdPromotions.PreviewInfo.ZoomFactor = 75.0R
         Me.grdPromotions.PrintInfo.PageSettings = CType(resources.GetObject("grdPromotions.PrintInfo.PageSettings"), System.Drawing.Printing.PageSettings)
         Me.grdPromotions.RowHeight = 15
-        Me.grdPromotions.Size = New System.Drawing.Size(637, 72)
+        Me.grdPromotions.Size = New System.Drawing.Size(658, 72)
         Me.grdPromotions.TabIndex = 71
         Me.grdPromotions.TabStop = False
         Me.grdPromotions.PropBag = resources.GetString("grdPromotions.PropBag")
@@ -220,10 +220,10 @@ Partial Class frmAppraisals_Discipline
         '
         Me.dtpEffectiveDate.CustomFormat = "dd/MM/yy"
         Me.dtpEffectiveDate.Format = System.Windows.Forms.DateTimePickerFormat.[Short]
-        Me.dtpEffectiveDate.Location = New System.Drawing.Point(145, 166)
+        Me.dtpEffectiveDate.Location = New System.Drawing.Point(120, 166)
         Me.dtpEffectiveDate.Name = "dtpEffectiveDate"
         Me.dtpEffectiveDate.ShowCheckBox = True
-        Me.dtpEffectiveDate.Size = New System.Drawing.Size(175, 22)
+        Me.dtpEffectiveDate.Size = New System.Drawing.Size(225, 22)
         Me.dtpEffectiveDate.TabIndex = 59
         Me.dtpEffectiveDate.Value = New Date(2015, 8, 25, 15, 57, 38, 0)
         '
@@ -231,58 +231,58 @@ Partial Class frmAppraisals_Discipline
         '
         Me.cbToGrade.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cbToGrade.FormattingEnabled = True
-        Me.cbToGrade.Location = New System.Drawing.Point(470, 106)
+        Me.cbToGrade.Location = New System.Drawing.Point(447, 106)
         Me.cbToGrade.Name = "cbToGrade"
-        Me.cbToGrade.Size = New System.Drawing.Size(175, 22)
+        Me.cbToGrade.Size = New System.Drawing.Size(225, 22)
         Me.cbToGrade.TabIndex = 56
         '
         'cbToDesignation
         '
         Me.cbToDesignation.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cbToDesignation.FormattingEnabled = True
-        Me.cbToDesignation.Location = New System.Drawing.Point(470, 76)
+        Me.cbToDesignation.Location = New System.Drawing.Point(447, 76)
         Me.cbToDesignation.Name = "cbToDesignation"
-        Me.cbToDesignation.Size = New System.Drawing.Size(175, 22)
+        Me.cbToDesignation.Size = New System.Drawing.Size(225, 22)
         Me.cbToDesignation.TabIndex = 53
         '
         'cbFromDesignation
         '
         Me.cbFromDesignation.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cbFromDesignation.FormattingEnabled = True
-        Me.cbFromDesignation.Location = New System.Drawing.Point(145, 76)
+        Me.cbFromDesignation.Location = New System.Drawing.Point(120, 76)
         Me.cbFromDesignation.Name = "cbFromDesignation"
-        Me.cbFromDesignation.Size = New System.Drawing.Size(175, 22)
+        Me.cbFromDesignation.Size = New System.Drawing.Size(225, 22)
         Me.cbFromDesignation.TabIndex = 51
         '
         'cbToType
         '
         Me.cbToType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cbToType.FormattingEnabled = True
-        Me.cbToType.Location = New System.Drawing.Point(470, 46)
+        Me.cbToType.Location = New System.Drawing.Point(447, 46)
         Me.cbToType.Name = "cbToType"
-        Me.cbToType.Size = New System.Drawing.Size(175, 22)
+        Me.cbToType.Size = New System.Drawing.Size(225, 22)
         Me.cbToType.TabIndex = 50
         '
         'txtToIncrement
         '
-        Me.txtToIncrement.Location = New System.Drawing.Point(470, 136)
+        Me.txtToIncrement.Location = New System.Drawing.Point(447, 136)
         Me.txtToIncrement.Name = "txtToIncrement"
-        Me.txtToIncrement.Size = New System.Drawing.Size(175, 22)
+        Me.txtToIncrement.Size = New System.Drawing.Size(225, 22)
         Me.txtToIncrement.TabIndex = 58
         Me.txtToIncrement.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
         '
         'txtFromIncrement
         '
-        Me.txtFromIncrement.Location = New System.Drawing.Point(145, 136)
+        Me.txtFromIncrement.Location = New System.Drawing.Point(120, 136)
         Me.txtFromIncrement.Name = "txtFromIncrement"
-        Me.txtFromIncrement.Size = New System.Drawing.Size(175, 22)
+        Me.txtFromIncrement.Size = New System.Drawing.Size(225, 22)
         Me.txtFromIncrement.TabIndex = 57
         Me.txtFromIncrement.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
         '
         'Label14
         '
         Me.Label14.AutoSize = True
-        Me.Label14.Location = New System.Drawing.Point(6, 231)
+        Me.Label14.Location = New System.Drawing.Point(1, 231)
         Me.Label14.Name = "Label14"
         Me.Label14.Size = New System.Drawing.Size(98, 14)
         Me.Label14.TabIndex = 70
@@ -291,7 +291,7 @@ Partial Class frmAppraisals_Discipline
         'Label13
         '
         Me.Label13.AutoSize = True
-        Me.Label13.Location = New System.Drawing.Point(6, 201)
+        Me.Label13.Location = New System.Drawing.Point(1, 201)
         Me.Label13.Name = "Label13"
         Me.Label13.Size = New System.Drawing.Size(61, 14)
         Me.Label13.TabIndex = 69
@@ -301,38 +301,38 @@ Partial Class frmAppraisals_Discipline
         '
         Me.cbFromGrade.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cbFromGrade.FormattingEnabled = True
-        Me.cbFromGrade.Location = New System.Drawing.Point(145, 106)
+        Me.cbFromGrade.Location = New System.Drawing.Point(120, 106)
         Me.cbFromGrade.Name = "cbFromGrade"
-        Me.cbFromGrade.Size = New System.Drawing.Size(175, 22)
+        Me.cbFromGrade.Size = New System.Drawing.Size(225, 22)
         Me.cbFromGrade.TabIndex = 55
         '
         'cbFromType
         '
         Me.cbFromType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cbFromType.FormattingEnabled = True
-        Me.cbFromType.Location = New System.Drawing.Point(145, 46)
+        Me.cbFromType.Location = New System.Drawing.Point(120, 46)
         Me.cbFromType.Name = "cbFromType"
-        Me.cbFromType.Size = New System.Drawing.Size(175, 22)
+        Me.cbFromType.Size = New System.Drawing.Size(225, 22)
         Me.cbFromType.TabIndex = 49
         '
         'txtNewJobDescription
         '
-        Me.txtNewJobDescription.Location = New System.Drawing.Point(145, 226)
+        Me.txtNewJobDescription.Location = New System.Drawing.Point(120, 226)
         Me.txtNewJobDescription.Name = "txtNewJobDescription"
-        Me.txtNewJobDescription.Size = New System.Drawing.Size(501, 22)
+        Me.txtNewJobDescription.Size = New System.Drawing.Size(551, 22)
         Me.txtNewJobDescription.TabIndex = 62
         '
         'txtRemarks
         '
-        Me.txtRemarks.Location = New System.Drawing.Point(145, 196)
+        Me.txtRemarks.Location = New System.Drawing.Point(120, 196)
         Me.txtRemarks.Name = "txtRemarks"
-        Me.txtRemarks.Size = New System.Drawing.Size(500, 22)
+        Me.txtRemarks.Size = New System.Drawing.Size(550, 22)
         Me.txtRemarks.TabIndex = 60
         '
         'Label7
         '
         Me.Label7.AutoSize = True
-        Me.Label7.Location = New System.Drawing.Point(6, 171)
+        Me.Label7.Location = New System.Drawing.Point(1, 171)
         Me.Label7.Name = "Label7"
         Me.Label7.Size = New System.Drawing.Size(94, 14)
         Me.Label7.TabIndex = 68
@@ -341,7 +341,7 @@ Partial Class frmAppraisals_Discipline
         'Label2
         '
         Me.Label2.AutoSize = True
-        Me.Label2.Location = New System.Drawing.Point(357, 141)
+        Me.Label2.Location = New System.Drawing.Point(347, 141)
         Me.Label2.Name = "Label2"
         Me.Label2.Size = New System.Drawing.Size(88, 14)
         Me.Label2.TabIndex = 67
@@ -350,7 +350,7 @@ Partial Class frmAppraisals_Discipline
         'Label5
         '
         Me.Label5.AutoSize = True
-        Me.Label5.Location = New System.Drawing.Point(6, 141)
+        Me.Label5.Location = New System.Drawing.Point(1, 141)
         Me.Label5.Name = "Label5"
         Me.Label5.Size = New System.Drawing.Size(105, 14)
         Me.Label5.TabIndex = 66
@@ -359,7 +359,7 @@ Partial Class frmAppraisals_Discipline
         'Label11
         '
         Me.Label11.AutoSize = True
-        Me.Label11.Location = New System.Drawing.Point(357, 111)
+        Me.Label11.Location = New System.Drawing.Point(347, 111)
         Me.Label11.Name = "Label11"
         Me.Label11.Size = New System.Drawing.Size(63, 14)
         Me.Label11.TabIndex = 65
@@ -368,7 +368,7 @@ Partial Class frmAppraisals_Discipline
         'Label10
         '
         Me.Label10.AutoSize = True
-        Me.Label10.Location = New System.Drawing.Point(6, 111)
+        Me.Label10.Location = New System.Drawing.Point(1, 111)
         Me.Label10.Name = "Label10"
         Me.Label10.Size = New System.Drawing.Size(80, 14)
         Me.Label10.TabIndex = 64
@@ -377,7 +377,7 @@ Partial Class frmAppraisals_Discipline
         'Label9
         '
         Me.Label9.AutoSize = True
-        Me.Label9.Location = New System.Drawing.Point(357, 81)
+        Me.Label9.Location = New System.Drawing.Point(347, 81)
         Me.Label9.Name = "Label9"
         Me.Label9.Size = New System.Drawing.Size(100, 14)
         Me.Label9.TabIndex = 63
@@ -386,7 +386,7 @@ Partial Class frmAppraisals_Discipline
         'Label6
         '
         Me.Label6.AutoSize = True
-        Me.Label6.Location = New System.Drawing.Point(6, 81)
+        Me.Label6.Location = New System.Drawing.Point(1, 81)
         Me.Label6.Name = "Label6"
         Me.Label6.Size = New System.Drawing.Size(117, 14)
         Me.Label6.TabIndex = 61
@@ -395,7 +395,7 @@ Partial Class frmAppraisals_Discipline
         'Label4
         '
         Me.Label4.AutoSize = True
-        Me.Label4.Location = New System.Drawing.Point(357, 51)
+        Me.Label4.Location = New System.Drawing.Point(347, 51)
         Me.Label4.Name = "Label4"
         Me.Label4.Size = New System.Drawing.Size(85, 14)
         Me.Label4.TabIndex = 54
@@ -404,7 +404,7 @@ Partial Class frmAppraisals_Discipline
         'Label3
         '
         Me.Label3.AutoSize = True
-        Me.Label3.Location = New System.Drawing.Point(6, 51)
+        Me.Label3.Location = New System.Drawing.Point(1, 51)
         Me.Label3.Name = "Label3"
         Me.Label3.Size = New System.Drawing.Size(102, 14)
         Me.Label3.TabIndex = 52
@@ -413,15 +413,15 @@ Partial Class frmAppraisals_Discipline
         'txtEmployeeName
         '
         Me.txtEmployeeName.Enabled = False
-        Me.txtEmployeeName.Location = New System.Drawing.Point(145, 16)
+        Me.txtEmployeeName.Location = New System.Drawing.Point(120, 16)
         Me.txtEmployeeName.Name = "txtEmployeeName"
-        Me.txtEmployeeName.Size = New System.Drawing.Size(175, 22)
+        Me.txtEmployeeName.Size = New System.Drawing.Size(225, 22)
         Me.txtEmployeeName.TabIndex = 48
         '
         'Label1
         '
         Me.Label1.AutoSize = True
-        Me.Label1.Location = New System.Drawing.Point(6, 21)
+        Me.Label1.Location = New System.Drawing.Point(1, 21)
         Me.Label1.Name = "Label1"
         Me.Label1.Size = New System.Drawing.Size(108, 14)
         Me.Label1.TabIndex = 47
@@ -445,7 +445,7 @@ Partial Class frmAppraisals_Discipline
         Me.tbAwards.Location = New System.Drawing.Point(4, 25)
         Me.tbAwards.Name = "tbAwards"
         Me.tbAwards.Padding = New System.Windows.Forms.Padding(3)
-        Me.tbAwards.Size = New System.Drawing.Size(669, 363)
+        Me.tbAwards.Size = New System.Drawing.Size(680, 363)
         Me.tbAwards.TabIndex = 1
         Me.tbAwards.Text = "Awards"
         '
@@ -586,7 +586,7 @@ Partial Class frmAppraisals_Discipline
         Me.tbTrainings.Controls.Add(Me.Label25)
         Me.tbTrainings.Location = New System.Drawing.Point(4, 25)
         Me.tbTrainings.Name = "tbTrainings"
-        Me.tbTrainings.Size = New System.Drawing.Size(669, 363)
+        Me.tbTrainings.Size = New System.Drawing.Size(680, 363)
         Me.tbTrainings.TabIndex = 2
         Me.tbTrainings.Text = "Trainings"
         '
@@ -794,7 +794,7 @@ Partial Class frmAppraisals_Discipline
         Me.tbDiscipline.Controls.Add(Me.Label29)
         Me.tbDiscipline.Location = New System.Drawing.Point(4, 25)
         Me.tbDiscipline.Name = "tbDiscipline"
-        Me.tbDiscipline.Size = New System.Drawing.Size(669, 363)
+        Me.tbDiscipline.Size = New System.Drawing.Size(680, 363)
         Me.tbDiscipline.TabIndex = 3
         Me.tbDiscipline.Text = "Discipline"
         '
@@ -904,7 +904,7 @@ Partial Class frmAppraisals_Discipline
         Me.tbAudit.Controls.Add(Me.grdAudit)
         Me.tbAudit.Location = New System.Drawing.Point(4, 25)
         Me.tbAudit.Name = "tbAudit"
-        Me.tbAudit.Size = New System.Drawing.Size(669, 363)
+        Me.tbAudit.Size = New System.Drawing.Size(680, 363)
         Me.tbAudit.TabIndex = 4
         Me.tbAudit.Text = "Audit"
         '
@@ -928,10 +928,11 @@ Partial Class frmAppraisals_Discipline
         '
         'tlbToolbar
         '
+        Me.tlbToolbar.BackColor = System.Drawing.SystemColors.ButtonHighlight
         Me.tlbToolbar.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.btn_Prepare, Me.btn_Modify, Me.btnSearch, Me.btn_Delete})
         Me.tlbToolbar.Location = New System.Drawing.Point(0, 0)
         Me.tlbToolbar.Name = "tlbToolbar"
-        Me.tlbToolbar.Size = New System.Drawing.Size(692, 25)
+        Me.tlbToolbar.Size = New System.Drawing.Size(698, 25)
         Me.tlbToolbar.TabIndex = 7
         Me.tlbToolbar.Text = "tlbTop"
         '
@@ -964,7 +965,6 @@ Partial Class frmAppraisals_Discipline
         Me.btnSearch.Name = "btnSearch"
         Me.btnSearch.Size = New System.Drawing.Size(23, 22)
         Me.btnSearch.Text = "Search"
-        Me.btnSearch.Visible = False
         '
         'btn_Delete
         '
@@ -981,12 +981,13 @@ Partial Class frmAppraisals_Discipline
         '
         Me.PictureBox1.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.PictureBox1.Image = CType(resources.GetObject("PictureBox1.Image"), System.Drawing.Image)
-        Me.PictureBox1.Location = New System.Drawing.Point(670, -3)
+        Me.PictureBox1.Location = New System.Drawing.Point(676, -3)
         Me.PictureBox1.Name = "PictureBox1"
         Me.PictureBox1.Size = New System.Drawing.Size(22, 25)
         Me.PictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom
         Me.PictureBox1.TabIndex = 8
         Me.PictureBox1.TabStop = False
+        Me.PictureBox1.Visible = False
         '
         'DsHR
         '
@@ -1002,8 +1003,7 @@ Partial Class frmAppraisals_Discipline
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(692, 425)
-        Me.ControlBox = False
+        Me.ClientSize = New System.Drawing.Size(698, 425)
         Me.Controls.Add(Me.PictureBox1)
         Me.Controls.Add(Me.tlbToolbar)
         Me.Controls.Add(Me.TabControl1)

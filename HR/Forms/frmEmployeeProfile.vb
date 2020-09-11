@@ -65,6 +65,12 @@ Public Class frmEmployeeProfile
         Me.Visible = True
         Me.Refresh()
 
+        ''''''''''''''''''''''''''''''''''''''''
+        TabControl1.TabPages(1).Text = IIf(g_nCompanyId = 1, "FCCL Info", "ACL Info")
+        chkOtherCompEmp.Text = IIf(g_nCompanyId = 1, "Is ACL Employee", "Is FCCL Employee")
+        g_sIsOtherCmpany = chkOtherCompEmp.Text
+        '''''''''''''''''''''''''''''''''''''''
+
         For Each ctrl In Me.Controls
             ctrl.refresh()
         Next
@@ -355,6 +361,7 @@ Public Class frmEmployeeProfile
         chkConfNo.Checked = False
         ChkLFAYes.Checked = False
         chkLFANo.Checked = False
+        chkOtherCompEmp.Checked = False
 
         'Contacts Tab
         txtPresentAddress.Text = ""
@@ -403,6 +410,7 @@ Public Class frmEmployeeProfile
         nBankAccountId = Nothing
         txtEmployeeName.Text = ""
         txtEmployeeName.Tag = ""
+        txtAccountTitle.Text = ""
         cbBank.SelectedIndex = -1
         cbBank.Tag = cbBank.SelectedIndex
         txtAccountNo.Text = ""
@@ -652,6 +660,18 @@ Public Class frmEmployeeProfile
                     chkLFANo.Checked = CInt(rsMain("nLFA").Value)
                     chkLFANo.Tag = chkLFANo.Checked
                     chkLFANo.Checked = True
+                End If
+            End If
+
+            If Not IsDBNull(rsMain("nOtherCompanyEmp").Value) Then
+                If (rsMain("nOtherCompanyEmp").Value = 1) Then
+                    chkOtherCompEmp.Checked = CInt(rsMain("nOtherCompanyEmp").Value)
+                    chkOtherCompEmp.Tag = chkOtherCompEmp.Checked
+                    chkOtherCompEmp.Checked = True
+                Else
+                    chkOtherCompEmp.Checked = CInt(rsMain("nOtherCompanyEmp").Value)
+                    chkOtherCompEmp.Tag = chkOtherCompEmp.Checked
+                    chkOtherCompEmp.Checked = False
                 End If
             End If
 
@@ -930,6 +950,8 @@ Public Class frmEmployeeProfile
                 rsMain!JoiningDate = DBNull.Value
             End If
 
+
+
             If cbContractType.SelectedIndex = 0 Then
                 rsMain!ContractTypeId = 4
             ElseIf cbContractType.SelectedIndex = 1 Then
@@ -1022,6 +1044,14 @@ Public Class frmEmployeeProfile
                 rsMain!nLFA = 0
             End If
 
+
+            If chkOtherCompEmp.Checked = True Then
+                rsMain!nOtherCompanyEmp = 1
+            Else
+                rsMain!nOtherCompanyEmp = 0
+            End If
+
+
             'Contacts Tab
             rsMain!ContactPresentAddress = txtPresentAddress.Text
             rsMain!ContactPresentCountryId = CInt(cbPresentCountry.SelectedValue)
@@ -1081,7 +1111,14 @@ Public Class frmEmployeeProfile
         'rsMain.Close()
         'rsMain.Open(sSql, conn, ADODB.CursorTypeEnum.adOpenKeyset, ADODB.LockTypeEnum.adLockOptimistic)
         'End If
-        GenerateMails()
+
+        'GenerateMails()
+        If g_nCompanyId = 1 Then
+            GenerateMails()
+        ElseIf g_nCompanyId = 2 Then
+            GenerateMailsAcl()
+        End If
+
         Display()
         'conn.Close()
 
@@ -1139,6 +1176,24 @@ Public Class frmEmployeeProfile
             MsgBox("Please enter employee no.", vbCritical)
             txtEmployeeNo.Focus()
             Exit Function
+        End If
+
+        If g_nCompanyId = 1 Then
+            If Regex.IsMatch(txtEmployeeNo.Text, "^[0-9 ]+$") And chkOtherCompEmp.Checked = False Then
+
+            Else
+                MsgBox("Please Check " + g_sIsOtherCmpany + "?", vbCritical)
+                TabControl1.SelectedIndex = 1
+                chkOtherCompEmp.Focus()
+                Exit Function
+            End If
+        Else
+            If Regex.IsMatch(txtEmployeeNo.Text, "^[0-9 ]+$") And chkOtherCompEmp.Checked = False Then
+                MsgBox("Please Check " + g_sIsOtherCmpany + "?", vbCritical)
+                TabControl1.SelectedIndex = 1
+                chkOtherCompEmp.Focus()
+                Exit Function
+            End If
         End If
 
         If txtFirstName.Text = "" Then
@@ -1365,9 +1420,10 @@ Public Class frmEmployeeProfile
             e_mail = New MailMessage()
             e_mail.From = New MailAddress("ems@fccl.com.pk")
             e_mail.To.Add("raza@fccl.com.pk")
+            'e_mail.To.Add("arslan.ahmed@fccl.com.pk")
             e_mail.Subject = "HR Profiles Update"
             e_mail.IsBodyHtml = False
-            e_mail.Body = "HR Profiles of Employee ( " & txtEmployeeNo.Text & " - " & txtEmployeeName.Text & " ) has been updated With following details." + vbNewLine + vbNewLine
+            e_mail.Body = "HR Profiles Of Employee ( " & txtEmployeeNo.Text & " - " & txtEmployeeName.Text & " ) has been updated With following details." + vbNewLine + vbNewLine
             If sBranch <> "" Then
                 e_mail.Body = e_mail.Body & "From Branch :" & fromsBranch + vbNewLine
                 e_mail.Body = e_mail.Body & "To Branch : * " & cbBranch.Text + vbNewLine
@@ -1394,7 +1450,8 @@ Public Class frmEmployeeProfile
             End If
 
             If txtOfficialEmail.Text <> "" Then
-                e_mail.Body = e_mail.Body & "Email : " & txtOfficialEmail.Text + vbNewLine
+                e_mail.Body = e_mail.Body & "Email : " & txtOfficialEmail.Text + vbNewLine + vbNewLine
+                e_mail.Body = e_mail.Body & "Changes Made by: " & g_sLoggedInUser + vbNewLine
 
             End If
 
@@ -1406,6 +1463,80 @@ Public Class frmEmployeeProfile
             ServicePointManager.ServerCertificateValidationCallback =
             New System.Net.Security.RemoteCertificateValidationCallback(AddressOf customCertValidation)
             Smtp_Server.EnableSsl = True
+            Smtp_Server.Send(e_mail)
+            '  MsgBox("Mail Sent")
+            bEmail = False
+        Catch error_t As Exception
+            MsgBox(error_t.ToString)
+        End Try
+
+        Return bEmail
+
+    End Function
+
+    Private Function GenerateMailsAcl() As Boolean
+        If bEmail <> True Then Exit Function
+
+        Try
+            Dim Smtp_Server As New SmtpClient
+            Dim e_mail As New MailMessage()
+            Smtp_Server.UseDefaultCredentials = False
+            'Smtp_Server.Credentials = New Net.NetworkCredential("ems", "Ems753")
+            Smtp_Server.Credentials = New Net.NetworkCredential("ems@askaricement.com.pk", "Ems753")
+            Smtp_Server.Port = 25
+            'Smtp_Server.EnableSsl = True
+            'Smtp_Server.Host = "192.168.2.3"
+            Smtp_Server.Host = "mail.askaricement.com.pk"
+
+            e_mail = New MailMessage()
+            'e_mail.From = New MailAddress("ems@fccl.com.pk")
+            e_mail.From = New MailAddress("ems@askaricement.com.pk")
+            'e_mail.To.Add("raza@fccl.com.pk")
+            e_mail.To.Add("rashid@askaricement.com.pk")
+            'e_mail.To.Add("sabir@askaricement.com.pk")
+            e_mail.Subject = "HR Profiles Update"
+            e_mail.IsBodyHtml = False
+            e_mail.Body = "HR Profiles Of Employee ( " & txtEmployeeNo.Text & " - " & txtEmployeeName.Text & " ) has been updated With following details." + vbNewLine + vbNewLine
+            If sBranch <> "" Then
+                e_mail.Body = e_mail.Body & "From Branch :" & fromsBranch + vbNewLine
+                e_mail.Body = e_mail.Body & "To Branch : * " & cbBranch.Text + vbNewLine
+
+            End If
+            If sDepartment <> "" Then
+                e_mail.Body = e_mail.Body & "From Department :" & fromsDepartment + vbNewLine
+                e_mail.Body = e_mail.Body & "To Department : * " & cbDepartment.Text + vbNewLine
+
+            End If
+            If sDesignation <> "" Then
+                e_mail.Body = e_mail.Body & "From Designation :" & fromsDesignation + vbNewLine
+                e_mail.Body = e_mail.Body & "To Designation : * " & cbDesignation.Text + vbNewLine
+            End If
+
+            If sBranch = "" Then
+                e_mail.Body = e_mail.Body & "Branch :" & cbBranch.Text + vbNewLine
+            End If
+            If sDepartment = "" Then
+                e_mail.Body = e_mail.Body & "Department :" & cbDepartment.Text + vbNewLine
+            End If
+            If sDesignation = "" Then
+                e_mail.Body = e_mail.Body & "Designation :" & cbDesignation.Text + vbNewLine
+            End If
+
+            If txtOfficialEmail.Text <> "" Then
+                e_mail.Body = e_mail.Body & "Email : " & txtOfficialEmail.Text + vbNewLine + vbNewLine
+                e_mail.Body = e_mail.Body & "Changes Made by: " & g_sLoggedInUser + vbNewLine
+
+            End If
+
+            e_mail.Body = e_mail.Body + vbNewLine + vbNewLine
+            e_mail.Body = e_mail.Body & "Regards" + vbNewLine
+            e_mail.Body = e_mail.Body & "HR Department" + vbNewLine
+            'e_mail.Body = e_mail.Body & "Fauji Cement Company Limited." + vbNewLine
+            e_mail.Body = e_mail.Body & "Askari Cement Ltd." + vbNewLine
+
+            ServicePointManager.ServerCertificateValidationCallback =
+            New System.Net.Security.RemoteCertificateValidationCallback(AddressOf customCertValidation)
+            'Smtp_Server.EnableSsl = True
             Smtp_Server.Send(e_mail)
             '  MsgBox("Mail Sent")
             bEmail = False
@@ -1452,7 +1583,7 @@ Public Class frmEmployeeProfile
 
     Private Sub btnNew_Click(sender As Object, e As EventArgs) Handles btn_Prepare.Click
         Call Clear()
-        frmAppraisals_Discipline.Clear()
+        ''frmAppraisals_Discipline.Clear()
     End Sub
 
     Private Sub btnSave_Click(sender As Object, e As EventArgs) Handles btn_Modify.Click
@@ -3290,12 +3421,12 @@ Public Class frmEmployeeProfile
 
     Private Sub frmEmployeeProfile_FormClosed(sender As Object, e As FormClosedEventArgs) Handles MyBase.FormClosed
 
-        Dim f3 As frmAppraisals_Discipline = CType(Application.OpenForms("frmAppraisals_Discipline"), frmAppraisals_Discipline)
-        Dim Main As frmMdiMain = CType(Application.OpenForms("frmMdiMain"), frmMdiMain)
+        ''Dim f3 As frmAppraisals_Discipline = CType(Application.OpenForms("frmAppraisals_Discipline"), frmAppraisals_Discipline)
+        ''Dim Main As frmMdiMain = CType(Application.OpenForms("frmMdiMain"), frmMdiMain)
 
-        Main.cmdApp.Visible = False
-        Main.AppraisalsDisciiplineToolStripMenuItem.Visible = False
-        Main.cmdStatus.Location = New Point(161, 3)
+        ''Main.cmdApp.Visible = False
+        ''Main.AppraisalsDisciiplineToolStripMenuItem.Visible = False
+        ''Main.cmdStatus.Location = New Point(161, 3)
 
     End Sub
 
@@ -3378,17 +3509,22 @@ Public Class frmEmployeeProfile
 
     Private Sub frmEmployeeProfile_FormClosing(sender As Object, e As FormClosingEventArgs) Handles MyBase.FormClosing
 
-        frmAppraisals_Discipline.Close()
+        ''frmAppraisals_Discipline.Close()
 
 
     End Sub
 
     Private Sub cmdApp_Click(sender As Object, e As EventArgs) Handles cmdApp.Click
-        Dim f3 As frmAppraisals_Discipline = CType(Application.OpenForms("frmAppraisals_Discipline"), frmAppraisals_Discipline)
-        Dim f2 As frmEmployeeProfile = CType(Application.OpenForms("frmEmployeeProfile"), frmEmployeeProfile)
+        'Dim f3 As frmAppraisals_Discipline = CType(Application.OpenForms("frmAppraisals_Discipline"), frmAppraisals_Discipline)
+        'Dim f2 As frmEmployeeProfile = CType(Application.OpenForms("frmEmployeeProfile"), frmEmployeeProfile)
 
-        f3.Focus()
-        f3.WindowState = FormWindowState.Normal
+        'f3.Focus()
+        'f3.WindowState = FormWindowState.Normal
+
+        'frmAppraisals_Discipline.Show()
+        'f3.txtEmployeeName = f2.txtEmployeeName
+
+
     End Sub
 
     Private Sub tbBankAccount_Click(sender As Object, e As EventArgs) Handles tbBankAccount.Click
@@ -3664,4 +3800,7 @@ Public Class frmEmployeeProfile
 
     End Sub
 
+    Private Sub GroupBox8_Enter(sender As Object, e As EventArgs) Handles GroupBox8.Enter
+
+    End Sub
 End Class

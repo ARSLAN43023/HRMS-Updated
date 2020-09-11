@@ -1,10 +1,23 @@
 ﻿Module mdFunctions
     Public conn As New ADODB.Connection
+    'Public sConnectionString As String = "Dsn=ERP;uid=sa"
     Public sConnectionString As String = "Dsn=ERP;uid=sa"
+    'Public sConnectionString As String = "Dsn=ERPACL;uid=sa;pwd=Delt@13l;pwd=Delt@13l"
 
     Public sUserId As String
     Public sCompanyId As String
     Public sVersion = "1822"
+    Public g_nCompanyId As Integer
+    Public g_sIsOtherCmpany As String
+    Public g_sLoggedInUser As String
+    Public Const AIS_SUCCESS = 0
+    Public Const AIS_FAILURE = 1
+    Public g_sConnectionLoginId As String
+    Public g_sDSN As String
+    Public g_sPassword As String
+    Public g_sConnectionPassword As String
+    Public nlResult As Integer
+    Public connectionString As String
 
     Public Function GetRecordSet(ByRef rsRecordset As ADODB.Recordset, ByVal sSql As String) As Long
         Dim rsQuery As New ADODB.Recordset
@@ -25,9 +38,10 @@
         Dim adapter As New Odbc.OdbcDataAdapter()
         Dim ds As New DataSet()
         Dim i As Integer = 0
+        Dim nlResult As Long
         Dim sSql As String = a_sSql
-        connetionString = sConnectionString 'Dsn=ERP;uid=sa
-        conn = New Odbc.OdbcConnection(connetionString)
+
+        conn = New Odbc.OdbcConnection(connectionString)
         Try
             conn.Open()
             command = New Odbc.OdbcCommand(sSql, conn)
@@ -43,7 +57,7 @@
                 cbComboBox.DataSource = ds.Tables(0)
             End If
         Catch ex As Exception
-            MessageBox.Show("Could not connect to database.")
+            MessageBox.Show("Could Not connect To database.")
         End Try
     End Sub
 
